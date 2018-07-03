@@ -1,1 +1,56 @@
-/home/ntc/.i3/scripts/polybar_modules/volume
+#!/bin/bash
+
+# Script for polybar to control volume
+
+VOL=$(amixer sget Master | grep '[0-9]*%' -o | tr -d '%')
+
+polybar-signal() {
+    polybar-msg hook volume 1
+}
+
+if [ $# -ge 1 ]; then
+    case "$1" in 
+        increase)
+            VOL=$(( $VOL + 5 ))
+            if [ $VOL -ge 100 ]; then
+                VOL=100
+            fi
+            amixer sset Master $VOL% > /dev/null
+            polybar-signal
+            ;;
+        decrease)
+            VOL=$(( $VOL - 5 ))
+            if [ $VOL -le 0 ]; then
+                VOL=0
+            fi
+            amixer sset Master $VOL% > /dev/null
+            polybar-signal
+            ;;
+        mute)
+            amixer sset Master toggle > /dev/null
+            polybar-signal
+            ;;
+        *)
+            echo "Unknown option $1"
+            echo "Usage: volume [increase|decrease|mute]"
+            exit
+            ;;
+    esac
+fi
+
+# Set appropriate volume symbol
+if [ $VOL -gt 30 ]; then
+    SYMBOL=""
+elif [ $VOL -gt 0 ]; then
+    SYMBOL=" "
+else
+    SYMBOL=" "
+fi
+
+# Set the color to be greyed out when muted
+if [ -z $(amixer sget Master | grep off) ]; then
+    COLOR="#657B83"
+else
+    COLOR="#93A1A1"
+fi
+echo "%{F$COLOR}$SYMBOL $VOL%${F-}"

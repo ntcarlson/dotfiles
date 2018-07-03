@@ -1,1 +1,176 @@
-/home/ntc/.vim/UltiSnips/tex.snippets
+priority -50
+
+# Replicate Vim-latex-suite macros
+
+snippet ENV "generic environment" A
+\begin{$1}
+	${2:${VISUAL}}	
+\end{$1}
+$0
+endsnippet
+
+snippet EAL "align" A
+\begin{align}
+	${1:${VISUAL}}
+\end{align}
+$0
+endsnippet
+
+snippet EEQ "equation" A
+\begin{equation}
+	${1:${VISUAL}}
+\end{equation}
+$0
+endsnippet
+
+snippet EAG "align*" A
+\begin{align*}
+	${1:${VISUAL}}
+\end{align*}
+$0
+endsnippet
+
+snippet EQQ "equation*" A
+\begin{equation*}
+	${1:${VISUAL}}
+\end{equation*}
+$0
+endsnippet
+
+snippet EML "multline*" A
+\begin{multline*}
+	${1:${VISUAL}}
+\end{multline*}
+$0
+endsnippet
+
+snippet EPR "proof" A
+\begin{proof}
+	${1:${VISUAL}}
+\end{proof}
+$0
+endsnippet
+
+snippet ECE "center" A
+\begin{center}
+	${1:${VISUAL}}
+\end{center}
+$0
+endsnippet
+
+snippet EEN "enumerate" A
+\begin{enumerate}
+	\item ${1:${VISUAL}}
+\end{enumerate}
+$0
+endsnippet
+
+snippet EIT "itemize" A
+\begin{itemize}
+	\item ${1:${VISUAL}}
+\end{itemize}
+$0
+endsnippet
+
+snippet EMC "multicols" A
+\begin{multicols}{${1:2}}
+	${2:% Left}
+	\par
+	${3:% Right}
+\end{multicols}
+$0
+endsnippet
+
+snippet EGR "includegraphics" A
+\includegraphics[width=${1:}\textwidth]{$2}$0
+endsnippet
+
+snippet EBT "booktabs" A
+\begin{table*}[h]\centering
+    \begin{tabular}{@{}${1:cc}@{}}
+		\toprule
+		${2:% Header}
+        \midrule
+		${3:% Body}
+        \bottomrule
+    \end{tabular}
+    \caption{${4:Caption}}
+\end{table*}
+$0
+endsnippet
+
+global !p
+def table_body(columns, rows):
+	body = ""
+	index = 2
+	for i in range(0, int(rows)):
+		body += "test "
+		for j in range (1, int(columns)):
+			body += "& test "
+		body += "\\\\ \\hline\n"
+	return body
+endglobal
+
+snippet ETB "table" A
+\begin{center}
+	% ${1:2} x ${2:2}
+	\begin{tabular}{$1}
+		`!p
+snip.rv = table_body(t[1], t[2])`
+	\end{tabular}
+\end{center}
+endsnippet
+
+
+snippet PRO "problem" A
+\prob{${1:Number}}
+{
+	${2:% Problem statement}
+}
+{
+	${3:% Answer}
+}
+$0
+endsnippet
+
+snippet MPR "multiproblem" A
+\multprob{${1:Number}}
+{
+	${2:% Problem statement}
+}
+{
+	\subprob{${3:Part}}
+	{
+		${4:% Problem statement}
+	}
+	{
+		${5:% Answer}
+	}$6
+}
+$0
+endsnippet
+
+snippet SPR "subproblem" A
+\subprob{${1:Part}}
+{
+	${2:% Problem statement}
+}
+{
+	${3:% Answer}
+}$0
+endsnippet
+
+snippet PREAMB "preamble" A
+\documentclass{homework}
+\auth{Nils Carlson}
+\classname{${1:Class}}
+\hwnum{${2:1}}
+
+\begin{document}
+$3
+\end{document}
+endsnippet
+
+snippet wrt "with respect to" A
+with respect to
+endsnippet

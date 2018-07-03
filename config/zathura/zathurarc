@@ -1,1 +1,28 @@
-/home/ntc/.config/zathura/zathurarc
+set recolor
+set recolor-darkcolor "#002B36"
+set recolor-lightcolor "#EEE8D5"
+
+set default-bg "#EEE8D5"
+set font "DejaVu Sans Book 16"
+
+set inputbar-bg "#073642"
+set inputbar-fg "#93A1A1"
+
+set tabbar-bg "#073642"
+set tabbar-fg "#93A1A1"
+
+set statusbar-bg "#EEE8D5"
+set statusbar-fg "#002B36"
+
+set completion-bg "#073642"
+set completion-fg "#93A1A1"
+
+set completion-group-bg "#DC322F"
+set completion-group-fg "#DC322F"
+
+set highlight-color "#B58900"
+set highlight-active-color "#859900"
+
+
+set adjust-open "width"
+

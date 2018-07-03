@@ -1,1 +1,312 @@
-/home/ntc/.i3/config
+#============================= Launch settings ===============================#
+# Applications to be launched when i3 starts
+
+exec --no-startup-id dropbox start  # Dropbox daemon
+#exec --no-startup-id nm-applet      # Network manager applet
+
+# Swap esc and caps
+# Normal keyboard
+#exec --no-startup-id setxkbmap -option "caps:swapescape"
+# Chromebook
+exec --no-startup-id xmodmap -e 'keycode 133 = Escape'
+
+# Compositor to fix screen tearing and allow transparent windows
+exec --no-startup-id compton --no-fading-openclose
+
+# Set a random background every time i3 is launched or reset
+exec_always --no-startup-id feh --randomize --bg-fill ~/.i3/wallpapers/
+#=============================================================================#
+
+
+#================================= Appearance ================================#
+#----------------------------------- Colors ----------------------------------#
+set $backgr     #002B36
+set $foregr     #93A1A1
+set $bg_alt     #073642
+set $primar     #268BD2
+set $urgent     #DC322F
+set $transp     #002B36B0
+#-----------------------------------------------------------------------------#
+
+#----------------------------- Window appearance -----------------------------#
+# Window colors
+client.background $backgr   # default background color
+
+# bar border    - Border color around title bar (used in tabbed windows)
+# window border - Border color around window
+# text          - Text color for the title bar
+# indicator     - Color of border edge where new window will be created
+
+# class                 bar border  win border  text        indicator
+client.focused          $bg_alt     $primar     $bg_alt     $primar
+client.focused_inactive $bg_alt     $bg_alt     $foregr     $bg_alt
+client.unfocused        $bg_alt     $bg_alt     $foregr     $bg_alt
+client.urgent           $bg_alt     $urgent     $bg_alt     $urgent
+
+# Windows have a border of 4 pixels; replace pixel with normal to show titlebar
+new_window pixel 4
+
+# Don't show window borders if there is only one window open
+hide_edge_borders smart
+
+# Font used by i3; controls size of title bar
+font pango:DejaVu Sans 10
+
+# Show gaps between open windows; requires i3-gaps fork
+gaps inner 6
+gaps outer 2
+#-----------------------------------------------------------------------------#
+
+#--------------------------- Status bar appearance ---------------------------#
+exec_always --no-startup-id ~/.i3/scripts/polybar_wrapper launch
+bar {
+    # The -t option for transparency is provided by i3-gaps fork
+    i3bar_command echo # i3bar disabled in favor of polybar
+    position top
+
+    # Use i3blocks instead of default i3status to fill the bar
+    status_command i3blocks -c $HOME/.i3/i3blocks
+
+    # Tray for program applets appears on the right side
+    tray_output primary
+    tray_padding 0
+
+    # Show workspaces on the left of the bar
+    workspace_buttons yes
+    strip_workspace_numbers yes
+
+    # Show special mode (e.g. resize)
+    binding_mode_indicator yes
+
+    # FontAwesome is used for the icons from i3blocks
+    font pango:DejaVu Sans, FontAwesome Bold 12
+
+    # Add extra height for the block borders (i3-gaps feature)
+    height 45
+
+    # Separator appears between the sections of the bar
+    separator_symbol " "
+
+    # Always show the status bar; change mode to hide to only show the bar
+    # when the mod key is held
+    mode dock
+    hidden_state hide
+    modifier Mod1
+
+    colors {
+        # Color of the bar
+        background  $transp
+        # Base color of the text from i3blocks
+        statusline  $foregr
+        # Color of the separator
+	    separator   $bg_alt
+        #                   Border      Background  Text
+        focused_workspace   $primar     $primar     $bg_alt
+        active_workspace    $transp     $transp     $primar
+        inactive_workspace  $transp     $transp     $foregr
+        urgent_workspace    $urgent     $urgent     $foregr
+    }
+}
+#-----------------------------------------------------------------------------#
+#=============================================================================#
+
+
+#================================= Controls ==================================#
+# Controls are mostly default i3 bindings except the directional navigation
+# keys j,k,l,; are changed to the Vim style h,j,k,l instead
+# Mod4 = windows key, Mod1 = Alt
+set $mod Mod1
+
+#------------------------------- Applications --------------------------------#
+# Launch a terminal
+bindsym $mod+Return exec --no-startup-id sakura
+
+# Bring up launcher
+bindsym $mod+d exec --no-startup-id ~/.i3/scripts/polybar_wrapper rofi
+
+# Search Wikipedia from dmenu script
+bindsym $mod+t exec wiki
+
+# Window search
+bindsym $mod+grave exec --no-startup-id ~/.i3/scripts/polybar_wrapper search
+
+# Options menu
+bindsym $mod+BackSpace exec --no-startup-id ~/.i3/scripts/polybar_wrapper options
+
+# Lock screen
+bindsym $mod+Pause exec --no-startup-id ~/bin/i3_lock
+
+# Calculator
+bindsym $mod+g exec --no-startup-id gnome-calculator
+
+# Screenshot of entire desktop
+bindsym $mod+F4 exec scrot -e 'feh $f -x' -d 2
+# Screenshot of focused window
+bindsym $mod+Shift+F4 exec scrot -u -e 'feh $f -x'   
+
+# Pixelbook controls
+bindsym F5  exec ~/.i3/scripts/polybar_modules/backlight decrease
+bindsym F6  exec ~/.i3/scripts/polybar_modules/backlight increase
+bindsym F8  exec ~/.i3/scripts/polybar_modules/volume mute
+bindsym F9  exec ~/.i3/scripts/polybar_modules/volume decrease
+bindsym F10 exec ~/.i3/scripts/polybar_modules/volume increase
+
+#-----------------------------------------------------------------------------#
+
+#---------------------------- Workspace navigation ---------------------------#
+# Controls to navigate inside a workspace
+
+# Change focus; both Vim style h,j,k,l and arrow keys work
+bindsym $mod+h      focus left
+bindsym $mod+Left   focus left
+bindsym $mod+j      focus down
+bindsym $mod+Down   focus down
+bindsym $mod+k      focus up
+bindsym $mod+Up     focus up
+bindsym $mod+l      focus right
+bindsym $mod+Right  focus right
+
+# Move focused container; both Vim style h,j,k,l and arrow keys work
+bindsym $mod+Shift+h      move left
+bindsym $mod+Shift+Left   move left
+bindsym $mod+Shift+j      move down
+bindsym $mod+Shift+Down   move down
+bindsym $mod+Shift+k      move up
+bindsym $mod+Shift+Up     move up
+bindsym $mod+Shift+l      move right
+bindsym $mod+Shift+Right  move right
+#-----------------------------------------------------------------------------#
+
+#--------------------------- Container manipulation --------------------------#
+# Controls to manipulate layout, location, and appearance for window containers
+
+# Split focused container horizontally or vertically
+bindsym $mod+b split h  
+bindsym $mod+v split v 
+
+# Toggle fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change container layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Focus the parent container which allows manipulating an entire container
+# and all the children at once
+bindsym $mod+a focus parent
+# Return focus to the child container
+bindsym $mod+z focus child
+
+# Toggle tiling/floating for a container
+bindsym $mod+Shift+space floating toggle
+# Change focus between tiling/floating containers
+bindsym $mod+space focus mode_toggle
+# Hold the mod key to drag and resize floating container
+floating_modifier $mod
+
+# Move the currently focused container to the scratchpad which contains
+# floating containers available on all workspaces
+bindsym $mod+shift+minus move scratchpad
+# Show/hide the scratchpad
+bindsym $mod+minus scratchpad show
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Special mode to resize window (mouse drag also works)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        # Grow/shrink the window size using typical vim navigation or arrows
+        bindsym h     resize shrink width  10 px or 10 ppt
+        bindsym Left  resize shrink width  10 px or 10 ppt
+        bindsym j     resize grow   height 10 px or 10 ppt
+        bindsym Down  resize grow   height 10 px or 10 ppt
+        bindsym k     resize shrink height 10 px or 10 ppt
+        bindsym Up    resize shrink height 10 px or 10 ppt
+        bindsym l     resize grow   width  10 px or 10 ppt
+        bindsym Right resize grow   width  10 px or 10 ppt
+
+        # Return to normal mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+#-----------------------------------------------------------------------------#
+
+#-------------------------------- Workspaces ---------------------------------#
+# Controls to navigate between workspaces
+
+# Special workspaces
+set $steam 11:
+set $music 12:
+
+# Switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+bindsym $mod+p workspace $steam
+bindsym $mod+m workspace $music
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+p move container to workspace $steam
+
+
+# Move focus/window to open workspace on secondary monitor    
+bindsym $mod+Tab focus output left
+bindsym $mod+Shift+Tab move container to output left
+
+# The hotkey to move to the current workspace will instead move to the previous
+workspace_auto_back_and_forth yes
+#-----------------------------------------------------------------------------#
+
+#------------------------------ Miscellaneous --------------------------------#
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Exit i3?' \
+                                           -b 'Exit' 'i3-msg exit'"
+#-----------------------------------------------------------------------------#
+#=============================================================================#
+
+
+#============================ Window properties ==============================#
+# Define special properties for certain classes of windows
+
+# Floating mode for dialog windows
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+for_window [class="feh"] floating enable
+for_window [class="Steam"] floating enable
+assign [class="Steam"] $steam
+for_window [class="chrome" instance="calendar.google.com"] floating enable
+for_window [class="chrome" instance="keep.google.com"] floating enable
+for_window [class="chrome" instance="play.google.com"] floating disable
+assign [class="chrome" instance="play.google.com"] $music
+#=============================================================================#
