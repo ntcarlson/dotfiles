@@ -35,9 +35,11 @@ decrease() {
 
 if [ $# -ge 1 ]; then
     case "$1" in
-        increase)
+        increase) ;&
+        inc)
             increase;;
-        decrease)
+        decrease) ;&
+        dec)
             decrease;;
         *)
             echo "Unknown option $1"

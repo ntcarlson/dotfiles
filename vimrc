@@ -19,14 +19,12 @@ call vundle#begin()
     Plugin 'moll/vim-bbye'                      " Better buffer close behavior
     Plugin 'lervag/vimtex'                      " Modern LaTeX plugin
     Plugin 'tommcdo/vim-lion'                   " Align text with gl and gL
+    Plugin 'wellle/targets.vim'                 " Extends text objects like i}
+    Plugin 'tpope/vim-commentary'               " Comment out code with gc
+    Plugin 'tpope/vim-repeat'                   " Improves repeat support
     Plugin 'the-lambda-church/coquille'         " Coq plugin
     Plugin 'let-def/vimbufsync'                 " Required for Coquille
-    Plugin 'jceb/vim-orgmode'                   " Orgmode for vim
-        " Recommended plugins for vim-orgmode
-        Plugin 'vim-scripts/utl.vim'
-        Plugin 'vim-scripts/SyntaxRange'
-        Plugin 'tpope/vim-speeddating'
-        Plugin 'mattn/calendar-vim'
+    Plugin 'vimwiki/vimwiki'                    " Orgmode-esque plugin
 call vundle#end()
 
 " ============================= Appearance ====================================

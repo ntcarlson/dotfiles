@@ -25,7 +25,6 @@ set $foregr     #93A1A1
 set $bg_alt     #073642
 set $primar     #268BD2
 set $urgent     #DC322F
-set $transp     #002B36B0
 #-----------------------------------------------------------------------------#
 
 #----------------------------- Window appearance -----------------------------#
@@ -53,59 +52,15 @@ hide_edge_borders smart
 font pango:DejaVu Sans 10
 
 # Show gaps between open windows; requires i3-gaps fork
-gaps inner 6
-gaps outer 2
+gaps inner 16
+gaps outer 0
 #-----------------------------------------------------------------------------#
 
 #--------------------------- Status bar appearance ---------------------------#
+# Polybar is used instead of i3bar. See config/polybar/config instead.
 exec_always --no-startup-id ~/.i3/scripts/polybar_wrapper launch
 bar {
-    # The -t option for transparency is provided by i3-gaps fork
-    i3bar_command echo # i3bar disabled in favor of polybar
-    position top
-
-    # Use i3blocks instead of default i3status to fill the bar
-    status_command i3blocks -c $HOME/.i3/i3blocks
-
-    # Tray for program applets appears on the right side
-    tray_output primary
-    tray_padding 0
-
-    # Show workspaces on the left of the bar
-    workspace_buttons yes
-    strip_workspace_numbers yes
-
-    # Show special mode (e.g. resize)
-    binding_mode_indicator yes
-
-    # FontAwesome is used for the icons from i3blocks
-    font pango:DejaVu Sans, FontAwesome Bold 12
-
-    # Add extra height for the block borders (i3-gaps feature)
-    height 45
-
-    # Separator appears between the sections of the bar
-    separator_symbol " "
-
-    # Always show the status bar; change mode to hide to only show the bar
-    # when the mod key is held
-    mode dock
-    hidden_state hide
-    modifier Mod1
-
-    colors {
-        # Color of the bar
-        background  $transp
-        # Base color of the text from i3blocks
-        statusline  $foregr
-        # Color of the separator
-	    separator   $bg_alt
-        #                   Border      Background  Text
-        focused_workspace   $primar     $primar     $bg_alt
-        active_workspace    $transp     $transp     $primar
-        inactive_workspace  $transp     $transp     $foregr
-        urgent_workspace    $urgent     $urgent     $foregr
-    }
+    i3bar_command echo
 }
 #-----------------------------------------------------------------------------#
 #=============================================================================#
@@ -124,17 +79,14 @@ bindsym $mod+Return exec --no-startup-id sakura
 # Bring up launcher
 bindsym $mod+d exec --no-startup-id ~/.i3/scripts/polybar_wrapper rofi
 
-# Search Wikipedia from dmenu script
-bindsym $mod+t exec wiki
-
-# Window search
+# Search open windows
 bindsym $mod+grave exec --no-startup-id ~/.i3/scripts/polybar_wrapper search
 
-# Options menu
+# Open options menu
 bindsym $mod+BackSpace exec --no-startup-id ~/.i3/scripts/polybar_wrapper options
 
 # Lock screen
-bindsym $mod+Pause exec --no-startup-id ~/bin/i3_lock
+bindsym $mod+Pause exec --no-startup-id ~/.i3/scripts/betterlockscreen -l blur
 
 # Calculator
 bindsym $mod+g exec --no-startup-id gnome-calculator
@@ -144,12 +96,12 @@ bindsym $mod+F4 exec scrot -e 'feh $f -x' -d 2
 # Screenshot of focused window
 bindsym $mod+Shift+F4 exec scrot -u -e 'feh $f -x'   
 
-# Pixelbook controls
-bindsym F5  exec ~/.i3/scripts/polybar_modules/backlight decrease
-bindsym F6  exec ~/.i3/scripts/polybar_modules/backlight increase
-bindsym F8  exec ~/.i3/scripts/polybar_modules/volume mute
-bindsym F9  exec ~/.i3/scripts/polybar_modules/volume decrease
-bindsym F10 exec ~/.i3/scripts/polybar_modules/volume increase
+# Map the Pixelbook function keys
+bindsym F5  exec --no-startup-id ~/.i3/scripts/polybar_modules/backlight dec
+bindsym F6  exec --no-startup-id ~/.i3/scripts/polybar_modules/backlight inc
+bindsym F8  exec --no-startup-id ~/.i3/scripts/polybar_modules/volume mute
+bindsym F9  exec --no-startup-id ~/.i3/scripts/polybar_modules/volume dec
+bindsym F10 exec --no-startup-id ~/.i3/scripts/polybar_modules/volume inc
 
 #-----------------------------------------------------------------------------#
 
