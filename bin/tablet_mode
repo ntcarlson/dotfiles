@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Switch into tablet mode (portrait orientation designed for touchscreen use)
+
+rotate_display tablet
+onscreen_keyboard launch
+~/.i3/scripts/polybar_tablet launch
+unclutter -idle 0.01 -root &    # Hide the cursor
+feh --randomize --bg-fill ~/.i3/wallpapers/portrait

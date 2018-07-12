@@ -1,0 +1,66 @@
+#!/bin/bash
+
+TMP_FILE=/tmp/option_menu
+
+open() {
+    ~/.i3/scripts/polybar_modules/tablet_launcher close
+    for i in 1 2 3; do
+        polybar-msg -p $(cat /tmp/tablet_options_pid_$i) cmd show
+    done
+    echo open > $TMP_FILE
+    polybar-msg -p $(cat /tmp/tablet_pid) hook option_menu 1
+}
+
+close() {
+    for i in 1 2 3; do
+        polybar-msg -p $(cat /tmp/tablet_options_pid_$i) cmd hide
+    done
+    echo closed > $TMP_FILE
+    polybar-msg -p $(cat /tmp/tablet_pid) hook option_menu 1
+}
+
+is_open() {
+    if [ "$(cat $TMP_FILE)" == "open" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+toggle() {
+    if is_open; then
+        close
+    else
+        open
+    fi
+}
+
+icon() {
+    COLOR_BASE="%{F#93A1A1}"
+    COLOR_ACTIVE="%{F#268BD2}"
+    COLOR_END="%{F-}"
+
+    if is_open; then
+        echo "$COLOR_ACTIVE  $COLOR_END"
+    else
+        echo "$COLOR_BASE  $COLOR_END"
+    fi
+}
+
+case "$1" in
+    open)
+        open;;
+    close)
+        close;;
+    toggle)
+        toggle;;
+    icon)
+        icon;;
+    is_open)
+        is_open;;
+    *)
+        echo "Unknown option $1"
+        echo "option_menu [button|open|close|toggle|is_open]"
+esac
+
+

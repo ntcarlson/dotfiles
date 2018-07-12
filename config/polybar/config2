@@ -1,0 +1,304 @@
+#-----------------------------------------------------------------------------#
+#----------------------------- Global settings -------------------------------#
+#-----------------------------------------------------------------------------#
+
+#---------------------------------- Colors -----------------------------------#
+[colors]
+base03  = #002b36
+base02  = #073642
+base01  = #586e75
+base00  = #657b83
+base0   = #839496
+base1   = #93a1a1
+base2   = #eee8d5
+base3   = #fdf6e3
+yellow  = #b58900
+orange  = #cb4b16
+red     = #dc322f
+magenta = #d33682
+violet  = #6c71c4
+blue    = #268bd2
+cyan    = #2aa198
+green   = #859900
+none    = #00000000
+background = ${colors.base03}
+border = ${colors.base02}
+background_transparent = #c4002b36
+blue_transparent = #c4268bd2
+background-alt = ${colors.base02}
+foreground = ${colors.base1}
+foreground-alt = ${colors.base0}
+primary = ${colors.blue}
+secondary = ${colors.green}
+alert = ${colors.red}
+
+#---------------------------- Base configuration -----------------------------#
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[section/base]
+monitor = ${env:MONITOR:eDP1}
+enable-ipc = true
+override-redirect = false
+bottom = false
+
+height = 80
+width = 100%
+offset-y = 0
+offset-x = 0
+fixed-center = true
+spacing = 1
+module-margin-left = 1
+module-margin-right = 1
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+font-0 = "DejaVu Sans:style=Bold:pixelsize=24;2"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=32;6"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=32;6"
+font-3 = "Font Awesome 5 Brands:pixelsize=32;6"
+
+#-----------------------------------------------------------------------------#
+#------------------------------- Primary bar ---------------------------------#
+#-----------------------------------------------------------------------------#
+[bar/top]
+inherit = section/base
+modules-left = i3 add_workspace
+modules-center = applauncher
+modules-right = battery date keyboard option_menu
+
+#----------------------------- Primary modules -------------------------------#
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+strip-wsnumbers = true
+label-focused = %name%
+label-focused-background = ${colors.primary}
+label-focused-foreground = ${colors.base03}
+label-focused-underline  = ${colors.background-alt}
+label-focused-overline  = ${colors.background}
+label-focused-padding = 2
+label-unfocused = %name%
+label-unfocused-padding = 2
+label-occupied = %name%
+label-occupied-padding = 1
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-overline  = ${colors.background}
+label-urgent-padding = 2
+label-empty = %name%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 2
+index-sort = true
+wrapping-scroll = false
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+label-visible = %name%
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+
+
+[module/add_workspace]
+type = custom/text
+content = " "
+click-left = ~/bin/next_workspace
+
+
+
+[module/applauncher]
+type = custom/ipc
+hook-0 = ~/.i3/scripts/polybar_modules/tablet_launcher icon
+initial = 1
+format = <output>
+click-left = ~/.i3/scripts/polybar_modules/tablet_launcher toggle
+
+
+
+[module/date]
+type = internal/date
+interval = 5
+time = %H:%M
+format-prefix ="  "
+format-prefix-foreground = ${colors.foreground}
+label = "%time% "
+
+
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+format-charging = "<animation-charging> <label-charging> "
+format-discharging = "<ramp-capacity> <label-discharging> "
+format-full-prefix = "  "
+format-full-prefix-foreground = ${colors.foreground-alt}
+ramp-capacity-0 = " "
+ramp-capacity-1 = " "
+ramp-capacity-2 = " "
+ramp-capacity-foreground = ${colors.foreground}
+animation-charging-0 = "  "
+animation-charging-1 = "  "
+animation-charging-2 = "  "
+animation-charging-3 = "  "
+animation-charging-4 = "  "
+animation-charging-foreground = ${colors.foreground}
+animation-charging-framerate = 750
+
+
+
+[module/keyboard]
+type = custom/ipc
+hook-0 = ~/bin/onscreen_keyboard icon
+initial = 1
+click-left = ~/bin/onscreen_keyboard toggle 
+
+
+
+[module/option_menu]
+type = custom/ipc
+hook-0 = ~/.i3/scripts/polybar_modules/tablet_options icon
+initial = 1
+click-left = ~/.i3/scripts/polybar_modules/tablet_options toggle
+
+
+#-----------------------------------------------------------------------------#
+#------------------------------- App launcher --------------------------------#
+#-----------------------------------------------------------------------------#
+[bar/applauncher]
+inherit = section/base
+override-redirect = true
+radius-bottom = 32
+width = 40%
+offset-x = 30%
+offset-y = 80
+
+modules-center = chrome web notes pdf terminal music calculator
+
+
+#--------------------------- Application modules -----------------------------#
+[module/chrome]
+type = custom/text
+content = "  "
+click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch chrome
+
+[module/web]
+type = custom/text
+content = "  "
+click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch web
+
+[module/notes]
+type = custom/text
+content = "  "
+click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch notes
+
+[module/pdf]
+type = custom/text
+content = "  "
+click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch pdf
+
+[module/terminal]
+type = custom/text
+content = "  "
+click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch terminal
+
+[module/music]
+type = custom/text
+content = "  "
+click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch music
+
+[module/calculator]
+type = custom/text
+content = "  "
+click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch calculator
+
+
+#-----------------------------------------------------------------------------#
+#------------------------------ Options menu ---------------------------------#
+#-----------------------------------------------------------------------------#
+
+[bar/option_menu]
+inherit = section/base
+override-redirect = true
+width = 400
+offset-x = 1200
+offset-y = 80
+
+# Small font for the slider bars
+font-4 = "DejaVu Sans Mono:pixelsize=9;2"
+
+[bar/option_menu1]
+inherit = bar/option_menu
+modules-center = backlight_down backlight backlight_up
+
+[bar/option_menu2]
+inherit = bar/option_menu
+offset-y = 160
+modules-center = vol_down volume vol_up
+
+[bar/option_menu3]
+inherit = bar/option_menu
+offset-y = 240
+radius-bottom = 32
+modules-center = window_close rofi lock exit
+
+
+#------------------------------ Option modules -------------------------------#
+[module/exit]
+type = custom/text
+content = "  "
+click-left = ~/bin/normal_mode
+
+[module/lock]
+type = custom/text
+content = "  "
+click-left = ~/.i3/scripts/betterlockscreen -l blur
+
+[module/rofi]
+type = custom/text
+content = "  "
+click-left = ~/.i3/scripts/polybar_tablet rofi
+
+[module/window_close]
+type = custom/text
+content = "  "
+click-left = i3-msg kill
+
+[module/vol_up]
+type = custom/text
+content = " "
+click-left = ~/.i3/scripts/polybar_modules/volume increase
+
+[module/vol_down]
+type = custom/text
+content = " "
+click-left = ~/.i3/scripts/polybar_modules/volume decrease
+
+[module/volume]
+type = custom/ipc
+hook-0 = ~/.i3/scripts/polybar_modules/volume slider
+format = %{T5}<output>%{T-}
+initial = 1
+click-left = ~/.i3/scripts/polybar_modules/volume mute
+
+[module/backlight_up]
+type = custom/text
+#content-foreground = ${colors.yellow}
+content = " "
+click-left = ~/.i3/scripts/polybar_modules/backlight increase
+
+[module/backlight_down]
+type = custom/text
+content = " "
+click-left = ~/.i3/scripts/polybar_modules/backlight decrease
+
+[module/backlight]
+type = custom/ipc
+hook-0 = ~/.i3/scripts/polybar_modules/backlight slider
+format = %{T5}<output>%{T-}
+initial = 1
+

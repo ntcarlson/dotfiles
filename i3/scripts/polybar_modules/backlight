@@ -33,22 +33,36 @@ decrease() {
     polybar-signal
 }
 
-if [ $# -ge 1 ]; then
-    case "$1" in
-        increase) ;&
-        inc)
-            increase;;
-        decrease) ;&
-        dec)
-            decrease;;
-        *)
-            echo "Unknown option $1"
-            echo "backlight  [increase|decrease]"
-    esac
-fi
+get() {
+    level=$(echo "l($current + 1)/l(2)" | bc -l | awk -F. '{print $1}')
+    percent=$(( $(( $level - 6 )) * 10 ))
+    echo $percent%
+}
 
-level=$(echo "l($current + 1)/l(2)" | bc -l | awk -F. '{print $1}')
-percent=$(( $(( $level - 6 )) * 10 ))
-echo $percent%
+slider() {
+    COLOR_ACTIVE="%{F#268BD2}"
+    COLOR_END="%{F-}"
+     
+    level=$(echo "l($current + 1)/l(2) - 6" | bc -l | awk -F. '{print $1}')
+    echo -n "$COLOR_ACTIVE"
+    for i in $(seq 1 $level); do
+        echo -n "━━"
+    done
+    echo -n "█$COLOR_END"
+    for i in $(seq $level 9); do
+        echo -n "━━"
+    done
+    echo
+}
 
-
+case "$1" in
+    increase)   increase;;
+    inc)        increase;;
+    decrease)   decrease;;
+    dec)        decrease;;
+    get)        get;;
+    slider)     slider;;
+    *)
+        echo "Unknown option $1"
+        echo "backlight <inc[rease]|dec[rease]|get|slider>"
+esac

@@ -3,56 +3,95 @@
 # Script for polybar to control volume
 
 VOL=$(amixer sget Master | grep '[0-9]*%' -o | tr -d '%')
+STEP_SIZE=5
 
 polybar-signal() {
     polybar-msg hook volume 1
 }
 
-if [ $# -ge 1 ]; then
-    case "$1" in 
-        increase) ;&
-        inc)
-            VOL=$(( $VOL + 5 ))
-            if [ $VOL -ge 100 ]; then
-                VOL=100
-            fi
-            amixer sset Master $VOL% > /dev/null
-            polybar-signal
-            ;;
-        decrease) ;&
-        dec)
-            VOL=$(( $VOL - 5 ))
-            if [ $VOL -le 0 ]; then
-                VOL=0
-            fi
-            amixer sset Master $VOL% > /dev/null
-            polybar-signal
-            ;;
-        mute)
-            amixer sset Master toggle > /dev/null
-            polybar-signal
-            ;;
-        *)
-            echo "Unknown option $1"
-            echo "Usage: volume [increase|decrease|mute]"
-            exit
-            ;;
-    esac
-fi
+ding() {
+    paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga &
+}
 
-# Set appropriate volume symbol
-if [ $VOL -gt 30 ]; then
-    SYMBOL=""
-elif [ $VOL -gt 0 ]; then
-    SYMBOL=" "
-else
-    SYMBOL=" "
-fi
+increase() {
+    VOL=$(( $VOL + $STEP_SIZE ))
+    if [ $VOL -ge 100 ]; then
+        VOL=100
+    fi
+    amixer sset Master $VOL% > /dev/null
+    ding
+    polybar-signal
+}
 
-# Set the color to be greyed out when muted
-if [ -z $(amixer sget Master | grep off) ]; then
-    COLOR="#93A1A1"
-else
-    COLOR="#586E75"
-fi
-echo "%{F$COLOR}$SYMBOL $VOL%${F-}"
+decrease() {
+    VOL=$(( $VOL - $STEP_SIZE ))
+    if [ $VOL -le 0 ]; then
+        VOL=0
+    fi
+    amixer sset Master $VOL% > /dev/null
+    ding
+    polybar-signal
+}
+
+icon() {
+    # Set appropriate volume symbol
+    if [ $VOL -gt 30 ]; then
+        SYMBOL=""
+    elif [ $VOL -gt 0 ]; then
+        SYMBOL=" "
+    else
+        SYMBOL=" "
+    fi
+
+    # Set the color to be greyed out when muted
+    if [ -z $(amixer sget Master | grep off) ]; then
+        COLOR="#93A1A1"
+    else
+        COLOR="#586E75"
+    fi
+    echo "%{F$COLOR}$SYMBOL $VOL%{F-}"
+}
+
+slider() {
+    if [ -z $(amixer sget Master | grep off) ]; then
+        COLOR="#268BD2"
+        SYMBOL="█"
+    else
+        COLOR="#93A1A1"
+        SYMBOL="╳"
+    fi
+
+    cur_step=$(( ($VOL / $STEP_SIZE)))
+    num_steps=$(( (100 / $STEP_SIZE) - 1 ))
+    echo -n "%{F$COLOR}"
+    for i in $(seq 1 $cur_step); do
+        echo -n "━"
+    done
+    echo -n "$SYMBOL%{F-}"
+    for i in $(seq $cur_step $num_steps); do
+        echo -n "━"
+    done
+    echo
+}
+
+mute() {
+    amixer sset Master toggle > /dev/null
+    ding
+    polybar-signal
+}
+
+
+case "$1" in 
+    increase)   increase;;
+    inc)        increase;;
+    decrease)   decrease;;
+    dec)        decrease;;
+    mute)       mute;;
+    icon)       icon;;
+    slider)     slider;;
+    *)
+        echo "Unknown option $1"
+        echo "Usage: volume <inc[rease]|dec[rease]|mute|icon|slider>"
+        exit
+        ;;
+esac

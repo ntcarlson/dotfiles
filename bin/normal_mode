@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Switch from tablet mode into normal desktop mode
+
+killall onboard
+killall unclutter
+rotate_display normal
+./.i3/scripts/polybar_tablet close

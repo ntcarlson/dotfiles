@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Script to control an onscreen keyboard for tablet mode
+
+TMP_FILE=/tmp/onscreen_keyboard
+
+polybar-signal() {
+    polybar-msg hook keyboard 1
+}
+
+launch() {
+    gsettings set org.onboard.window docking-enabled true
+    gsettings set org.onboard.window.landscape dock-height 300
+    onboard &
+    xdotool search --sync --onlyvisible --class "onboard" windowunmap
+    echo inactive > $TMP_FILE
+}
+
+show() {
+    xdotool search --class "onboard" windowmap %@
+    echo active > $TMP_FILE
+    polybar-signal
+}
+
+hide() {
+    xdotool search --class "onboard" windowunmap %@
+    echo inactive > $TMP_FILE
+    polybar-signal
+}
+
+toggle() {
+    if [ "$(cat $TMP_FILE)" = "active" ]; then
+        hide
+    else
+        show
+    fi
+}
+
+icon() {
+    COLOR_BASE="%{F#93A1A1}"
+    COLOR_ACTIVE="%{F#268BD2}"
+    COLOR_END="%{F-}"
+    if [ "$(cat $TMP_FILE)" = "active" ]; then
+        echo "$COLOR_ACTIVE  $COLOR_END"
+    else
+        echo "$COLOR_BASE  $COLOR_END"
+    fi
+}
+
+case "$1" in
+    launch)
+        launch;;
+    show)
+        show;;
+    hide)
+        hide;;
+    toggle)
+        toggle;;
+    icon)
+        icon;;
+    *)
+        echo "Unknown option $1"
+        echo "onscreen_keyboard [launch|show|hide|toggle]"
+esac
+
+
