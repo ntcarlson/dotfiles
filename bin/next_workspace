@@ -1,0 +1,9 @@
+#!/bin/bash
+
+WORKSPACES=$(i3-msg -t get_workspaces)
+for i in {1..10}; do
+    if ! echo $WORKSPACES | grep -q "\"$i\""; then
+        i3-msg workspace $i
+        break
+    fi
+done

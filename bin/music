@@ -1,0 +1,50 @@
+#!/bin/bash
+
+get_window() {
+    # Music player is assumed to be in the last workspace
+    n_workspaces=$(xdotool get_num_desktops)
+    last_workspace=$(( $n_workspaces - 1 ))
+
+    xdotool search --desktop $last_workspace --class "google-chrome*"
+}
+
+open_player() {
+    google-chrome --force-device-scale-factor=1.2 --app="https://play.google.com/music/listen?u=0#/home"
+}
+
+# Hacky method of getting the song title from Chrome's window title
+get_title() {
+    window_id=$(get_window)
+    window_title=$(xdotool getwindowname $window_id)
+
+    num_fields=$(awk -F " - " '{print NF}' <<< $window_title)
+    last_field=$(awk -F " - " '{print $NF}' <<< $window_title)
+
+    if [[ $num_fields -ge 3 && "$last_field" = "Google Play Music" ]]; then
+        awk -F " - " '{print $1 " - " $2}' <<< $window_title
+    else
+        echo ""
+    fi
+}
+
+play_pause() {
+    window_id=$(get_window)
+    current_id=$(xdotool getactivewindow)
+    xdotool windowfocus $window_id key space 
+    xdotool windowfocus $current_id
+}
+
+if [ $# -ge 1 ]; then
+    case "$1" in
+        open_player)
+            open_player;;
+        play) 
+            play_pause;;
+        pause)
+            play_pause;;
+        get_title)
+            get_title 2> /dev/null;;
+    esac
+else
+    open_player
+fi

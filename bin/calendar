@@ -1,0 +1,3 @@
+#!/bin/bash
+
+google-chrome --force-device-scale-factor=1.2 --app="https://calendar.google.com/calendar/r"

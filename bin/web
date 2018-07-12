@@ -1,0 +1,3 @@
+#!/bin/sh
+
+google-chrome --force-device-scale-factor=1.2 --incognito --new-window "https://www.google.com"

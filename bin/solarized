@@ -1,0 +1,87 @@
+#!/bin/bash
+
+BASE03="1;37"
+BASE02="0;37"
+BASE01="1;36"
+BASE00="1;34"
+BASE0="1;33"
+BASE1="1;32"
+BASE2="0;30"
+BASE3="1;30"
+YELLOW="0;33"
+ORANGE="1;31"
+RED="0;31"
+MAGENTA="0;35"
+VIOLET="1;35"
+BLUE="0;34"
+CYAN="0;36"
+GREEN="0;32"
+
+color () {
+    echo -e -n "\033[$2m$1\033[0m"
+}
+
+print_color () {
+    color "██████\n" $1
+    color "██████" $1
+    echo -e "\t$2\t$3"
+    color "██████\n\n" $1
+}
+
+print_color_2 () {
+    color "██████" $1
+    echo -n -e "\t\t\t\t"
+    color "██████\n" $4
+
+    color "██████" $1
+    echo -n -e " $2\t$3\t\t"
+    color "██████" $4
+    echo -n -e " $5\t$6\n"
+
+    color "██████" $1
+    echo -n -e "\t\t\t\t"
+    color "██████\n\n" $4
+}
+
+print_color_3 () {
+    color "██████" $1
+    echo -n -e "\t\t\t\t"
+    color "██████" $4
+    echo -n -e "\t\t\t\t"
+    color "██████\n" $7
+
+    color "██████" $1
+    echo -n -e " $2\t$3\t\t"
+    color "██████" $4
+    echo -n -e " $5\t$6\t\t"
+    color "██████" $7
+    echo -n -e " $8\t$9\n"
+
+    color "██████" $1
+    echo -n -e "\t\t\t\t"
+    color "██████" $4
+    echo -n -e "\t\t\t\t"
+    color "██████\n\n" $7
+    #color "██████" $1
+    #echo -e "\t$2\t$3"
+    #color "██████\n\n" $1
+}
+
+
+#for COLOR in $BASE03 $BASE02 $BASE01 $BASE00 $BASE1 $BASE2 $YELLOW $ORANGE $RED $MAGENTA $VIOLET $BLUE $CYAN $GREEN
+#do
+#    color "███" $COLOR
+#done
+#echo
+
+COLORS=($BASE03  $BASE02  $BASE01  $BASE00  $BASE0   $BASE1   $BASE2   $BASE3   $YELLOW  $ORANGE  $RED     $MAGENTA  $VIOLET  $BLUE    $CYAN    $GREEN)
+ NAMES=("Base03" "Base02" "Base01" "Base00" "Base0"  "Base1"  "Base2"  "Base3"  "Yellow" "Orange" "Red"    "Magenta" "Violet" "Blue"   "Cyan"   "Green")
+VALUES=("002B36" "073642" "586E75" "657B83" "839496" "93A1A1" "EEE8D5" "FDF6E3" "B58900" "CB4B16" "DC322F" "D33682"  "6C71C4" "268BD2" "2AA198" "859900")
+
+echo
+
+for i in {0..7}
+do
+    print_color_2 ${COLORS[$i]} ${NAMES[$i]} ${VALUES[$i]} \
+                  ${COLORS[$(($i + 8))]} ${NAMES[$(($i + 8))]} ${VALUES[$(($i + 8))]}
+done

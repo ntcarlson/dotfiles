@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Rotates the display and touch inputs between tablet and normal modes
+
+TOUCHSCREEN="WCOM50C1:00 2D1F:5143"
+PEN="WCOM50C1:00 2D1F:5143 Pen"
+TOUCHPAD="ACPI0C50:00 18D1:5028 Touchpad"
+
+STATE=/tmp/desktop_orientation
+
+rotate() {
+    case "$1" in
+        normal)
+            xrandr -o normal
+            ROTATION_MAT="1 0 0 \
+                          0 1 0 \
+                          0 0 1"
+            ;;
+        tablet)
+            xrandr -o left
+            ROTATION_MAT="0 -1  1 \
+                          1  0  0 \
+                          0  0  1"
+            ;;
+        *)
+            echo "Unrecognized option $1"
+            exit 1
+    esac
+
+    for INPUT in "$TOUCHSCREEN" "$PEN" "$TOUCHPAD"; do
+	    xinput set-prop "$INPUT" "Coordinate Transformation Matrix" $ROTATION_MAT
+    done
+    echo $1 > $STATE
+}
+
+# If no parameter is given, toggle the rotation
+if [ $# -eq 0 ]; then
+    if [[ -e $STATE && "$(cat $STATE)" = "tablet" ]]; then
+        rotate normal
+    else
+        # No file recording the state; assume current state is landscape
+        rotate tablet
+    fi
+elif [ $# -eq 1 ]; then
+    rotate $1
+else
+	echo "Usage: $0 [normal|tablet]"
+	exit 1
+fi
+
+
