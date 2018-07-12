@@ -2,7 +2,7 @@
 
 # Wrapper to control polybar for tablet mode
 
-CONF=~/.config/polybar/config2
+CONF=~/.config/polybar/config-tablet
 ID_TOP=/tmp/tablet_pid
 ID_OPTIONS=/tmp/tablet_options_pid
 ID_LAUNCHER=/tmp/tablet_launcher_pid

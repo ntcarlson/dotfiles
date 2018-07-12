@@ -1,3 +1,8 @@
+#-----------------------------------------------------------------------------#
+#----------------------------- Global settings -------------------------------#
+#-----------------------------------------------------------------------------#
+
+#---------------------------------- Colors -----------------------------------#
 [colors]
 base03  = #002b36
 base02  = #073642
@@ -27,13 +32,12 @@ primary = ${colors.blue}
 secondary = ${colors.green}
 alert = ${colors.red}
 
+#--------------------------------- Geometry ----------------------------------#
 [global/wm]
 margin-top = 0
 margin-bottom = 0
 
-#-----------------------------------------------------------------------------#
-#----------------------------- Global defaults -------------------------------#
-#-----------------------------------------------------------------------------#
+
 [section/base]
 monitor = ${env:MONITOR:eDP1}
 enable-ipc = true
@@ -43,7 +47,7 @@ bottom = false
 height = 460
 offset-y = -400
 fixed-center = true
-radius = 30
+radius-bottom = 30
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -237,7 +241,7 @@ animation-charging-framerate = 750
 
 [module/volume]
 type = custom/ipc
-hook-0 = $HOME/.i3/scripts/polybar_modules/volume
+hook-0 = $HOME/.i3/scripts/polybar_modules/volume icon
 scroll-up = $HOME/.i3/scripts/polybar_modules/volume increase
 scroll-down = $HOME/.i3/scripts/polybar_modules/volume decrease
 click-left = $HOME/.i3/scripts/polybar_modules/volume mute
@@ -246,7 +250,7 @@ initial = 1
 [module/backlight]
 type = custom/ipc
 format-prefix = " "
-hook-0 = $HOME/.i3/scripts/polybar_modules/backlight
+hook-0 = $HOME/.i3/scripts/polybar_modules/backlight get
 scroll-up = $HOME/.i3/scripts/polybar_modules/backlight increase
 scroll-down = $HOME/.i3/scripts/polybar_modules/backlight decrease
 initial = 1

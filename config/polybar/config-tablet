@@ -52,7 +52,7 @@ spacing = 1
 module-margin-left = 1
 module-margin-right = 1
 
-background = ${colors.background}
+background = ${colors.background_transparent}
 foreground = ${colors.foreground}
 
 font-0 = "DejaVu Sans:style=Bold:pixelsize=24;2"

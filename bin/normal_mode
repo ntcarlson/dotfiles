@@ -6,3 +6,5 @@ killall onboard
 killall unclutter
 rotate_display normal
 ./.i3/scripts/polybar_tablet close
+feh --randomize --bg-fill ~/.i3/wallpapers
+
