@@ -1,0 +1,96 @@
+#!/bin/bash
+
+button=$1
+
+state1="/tmp/xournal_state1"
+state2="/tmp/xournal_state2"
+
+
+COLOR_BASE="%{F#93A1A1}"
+COLOR_ACTIVE="%{F#859900}"
+COLOR_ALT="%{F#268BD2}"
+COLOR_END="%{F-}"
+
+
+get_color() {
+    color=$COLOR_BASE
+    options=""
+    if [ -e $state1 ]; then
+        for option in $(cat $state1); do
+            if [ "$button" = "$option" ]; then
+                color=$COLOR_ACTIVE
+            fi
+        done
+    fi
+    if [ -e $state2 ]; then
+        for option in $(cat $state2); do
+            if [ "$button" = "$option" ]; then
+                color=$COLOR_ALT
+            fi
+        done
+    fi
+    echo $color
+}
+
+
+case "$1" in
+    undo)
+        symbol=""
+        ;;
+    redo)
+        symbol=""
+        ;;
+    pen)
+        symbol=""
+        ;;
+    eraser)
+        symbol=""
+        ;;
+    highlighter)
+        symbol=""
+        ;;
+    shape)
+        symbol=""
+        ;;
+    ruler)
+        symbol=""
+        ;;
+    select)
+        symbol=""
+        ;;
+    space)
+        symbol=""
+        ;;
+    pgdown)
+        symbol=""
+        ;;
+    pgup)
+        symbol=""
+        ;;
+    save)
+        symbol=""
+        ;;
+    open)
+        symbol=""
+        ;;
+    cut)
+        symbol=""
+        ;;
+    quit)
+        symbol=""
+        ;;
+esac
+
+color=$(get_color)
+if [ $# -ge 2 ]; then
+    case "$2" in
+        pressed)
+            color=$COLOR_ACTIVE;;
+        default)
+            color=$COLOR_BASE;;
+    esac
+else
+    color=$(get_color)
+fi
+
+echo $color $symbol $COLOR_END

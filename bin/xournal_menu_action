@@ -1,0 +1,131 @@
+#!/bin/bash
+
+state1="/tmp/xournal_state1"
+state2="/tmp/xournal_state2"
+
+button=$1
+polybar-signal() {
+    echo hook:module/${button}${1} >> /tmp/polybar_xournal
+}
+
+audio-feedback() {
+    paplay /usr/share/sounds/freedesktop/stereo/message.oga &
+}
+
+
+normal-button() {
+    audio-feedback
+    polybar-signal 2
+    sleep 0.3
+    polybar-signal 1
+}
+
+radio-button() {
+    echo "hook:module/$(cat $state1)1" >> /tmp/polybar_xournal
+    echo "$button" > $state1
+    audio-feedback
+    polybar-signal 1
+}
+
+toggle-button() {
+    audio-feedback
+    if [ "$(cat $state2)" = "$button" ]; then
+        rm $state2
+        polybar-signal 1
+    else
+    echo "hook:module/$(cat $state2)1" >> /tmp/polybar_xournal
+        polybar-signal 1
+        echo "$button" > $state2
+    fi
+}
+
+case "$button" in
+    undo)
+        keypress="Ctrl+z"
+        symbol=""
+        action="press"
+        ;;
+    redo)
+        keypress="Ctrl+y"
+        symbol=""
+        action="press"
+        ;;
+    pen)
+        keypress="Shift+Ctrl+p"
+        symbol=""
+        action="radio"
+        ;;
+    eraser)
+        keypress="Shift+Ctrl+e"
+        symbol=""
+        action="radio"
+        ;;
+    highlighter)
+        keypress="Shift+Ctrl+h"
+        symbol=""
+        action="radio"
+        ;;
+    shape)
+        keypress="Shift+Ctrl+s"
+        symbol=""
+        action="toggle"
+        ;;
+    ruler)
+        keypress="Shift+Ctrl+l"
+        symbol=""
+        action="toggle"
+        ;;
+    select)
+        keypress="Shift+Ctrl+r"
+        symbol=""
+        action="radio"
+        ;;
+    space)
+        keypress="Shift+Ctrl+v"
+        symbol=""
+        action="radio"
+        ;;
+    pgdown)
+        keypress="Ctrl+Right"
+        symbol=""
+        action="press"
+        ;;
+    pgup)
+        keypress="Ctrl+Left"
+        symbol=""
+        action="press"
+        ;;
+    save)
+        keypress="Ctrl+s"
+        symbol=""
+        action="press"
+        ;;
+    open)
+        keypress="Ctrl+o"
+        symbol=""
+        action="press"
+        ;;
+    cut)
+        keypress="Ctrl+x"
+        symbol=""
+        action="press"
+        ;;
+    quit)
+        keypress="Ctrl+q"
+        symbol=""
+        action="press"
+        ;;
+esac
+
+
+case "$action" in
+    press)
+        normal-button;;
+    toggle)
+        toggle-button;;
+    radio)
+        radio-button;;
+esac
+ID=$(xdotool search --onlyvisible --class "xournal")
+xdotool windowactivate $ID > /dev/null 2> /dev/null
+xdotool key $keypress > /dev/null 2> /dev/null

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Start note taking program Xournal in tablet mode
+
+state1="/tmp/xournal_state1"
+state2="/tmp/xournal_state2"
+
+STATE=/tmp/desktop_orientation
+
+if [[ -e $STATE && "$(cat $STATE)" = "tablet" ]]; then
+    TABLET=1
+else
+    TABLET=0
+fi
+
+window_resize() {
+    # Focus xournal window
+    ID=$(xdotool search --sync --onlyvisible --class "xournal")
+    xdotool windowactivate $ID
+
+    xdotool key F11
+    xdotool key Alt+f
+}
+
+initialize() {
+    echo "pen" > $state1
+    rm -f $state2
+    if [ "$TABLET" = "0" ]; then
+        tablet_mode
+    fi
+    # Start touch-friendly Polybar menu for Xournal
+    polybar -c ~/.config/polybar/config-xournal xournal &
+    BAR_ID=$!
+
+    rm /tmp/polybar_xournal
+    ln -s /tmp/polybar_mqueue.$BAR_ID /tmp/polybar_xournal 
+    window_resize &
+}
+
+cleanup() {
+    rm -f $state1 $state2
+    kill $BAR_ID
+    if [ "$TABLET" = "0" ]; then
+        normal_mode
+    fi
+}
+
+
+initialize
+xournal
+cleanup
