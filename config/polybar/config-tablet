@@ -2,37 +2,9 @@
 #----------------------------- Global settings -------------------------------#
 #-----------------------------------------------------------------------------#
 
-#---------------------------------- Colors -----------------------------------#
 [colors]
-base03  = #002b36
-base02  = #073642
-base01  = #586e75
-base00  = #657b83
-base0   = #839496
-base1   = #93a1a1
-base2   = #eee8d5
-base3   = #fdf6e3
-yellow  = #b58900
-orange  = #cb4b16
-red     = #dc322f
-magenta = #d33682
-violet  = #6c71c4
-blue    = #268bd2
-cyan    = #2aa198
-green   = #859900
-none    = #00000000
-background = ${colors.base03}
-border = ${colors.base02}
-background_transparent = #c4002b36
-blue_transparent = #c4268bd2
-background-alt = ${colors.base02}
-foreground = ${colors.base1}
-foreground-alt = ${colors.base0}
-primary = ${colors.blue}
-secondary = ${colors.green}
-alert = ${colors.red}
+include-file = ~/.config/polybar/colors
 
-#---------------------------- Base configuration -----------------------------#
 [global/wm]
 margin-top = 0
 margin-bottom = 0
@@ -52,7 +24,7 @@ spacing = 1
 module-margin-left = 1
 module-margin-right = 1
 
-background = ${colors.background_transparent}
+background = ${colors.background}
 foreground = ${colors.foreground}
 
 font-0 = "DejaVu Sans:style=Bold:pixelsize=24;2"
@@ -76,7 +48,7 @@ format = <label-state> <label-mode>
 strip-wsnumbers = true
 label-focused = %name%
 label-focused-background = ${colors.primary}
-label-focused-foreground = ${colors.base03}
+label-focused-foreground = ${colors.background}
 label-focused-underline  = ${colors.background-alt}
 label-focused-overline  = ${colors.background}
 label-focused-padding = 2
@@ -85,11 +57,11 @@ label-unfocused-padding = 2
 label-occupied = %name%
 label-occupied-padding = 1
 label-urgent = %name%
-label-urgent-background = ${colors.alert}
+label-urgent-background = ${colors.urgent}
 label-urgent-overline  = ${colors.background}
 label-urgent-padding = 2
 label-empty = %name%
-label-empty-foreground = ${colors.foreground-alt}
+label-empty-foreground = ${colors.foreground}
 label-empty-padding = 2
 index-sort = true
 wrapping-scroll = false
@@ -136,7 +108,7 @@ full-at = 98
 format-charging = "<animation-charging> <label-charging> "
 format-discharging = "<ramp-capacity> <label-discharging> "
 format-full-prefix = "  "
-format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-prefix-foreground = ${colors.foreground}
 ramp-capacity-0 = " "
 ramp-capacity-1 = " "
 ramp-capacity-2 = " "
@@ -287,7 +259,6 @@ click-left = ~/.i3/scripts/polybar_modules/volume mute
 
 [module/backlight_up]
 type = custom/text
-#content-foreground = ${colors.yellow}
 content = " "
 click-left = ~/.i3/scripts/polybar_modules/backlight increase
 

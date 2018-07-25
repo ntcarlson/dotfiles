@@ -2,43 +2,14 @@
 #----------------------------- Global settings -------------------------------#
 #-----------------------------------------------------------------------------#
 
-#---------------------------------- Colors -----------------------------------#
 [colors]
-base03  = #002b36
-base02  = #073642
-base01  = #586e75
-base00  = #657b83
-base0   = #839496
-base1   = #93a1a1
-base2   = #eee8d5
-base3   = #fdf6e3
-yellow  = #b58900
-orange  = #cb4b16
-red     = #dc322f
-magenta = #d33682
-violet  = #6c71c4
-blue    = #268bd2
-cyan    = #2aa198
-green   = #859900
-none    = #00000000
-background = ${colors.base03}
-border = ${colors.base02}
-background_transparent = #c4002b36
-blue_transparent = #c4268bd2
-background-alt = ${colors.base02}
-foreground = ${colors.base1}
-foreground-alt = ${colors.base0}
-primary = ${colors.blue}
-secondary = ${colors.green}
-alert = ${colors.red}
+include-file = ~/.config/polybar/colors
 
-#--------------------------------- Geometry ----------------------------------#
 [global/wm]
 margin-top = 0
 margin-bottom = 0
 
-
-[section/base]
+[section/base_panel]
 monitor = ${env:MONITOR:eDP1}
 enable-ipc = true
 override-redirect = true
@@ -51,13 +22,6 @@ radius-bottom = 30
 
 background = ${colors.background}
 foreground = ${colors.foreground}
-
-border-bottom-color = ${colors.border}
-border-left-color   = ${colors.border}
-border-right-color  = ${colors.border}
-border-bottom-size = 0
-border-left-size = 0
-border-right-size = 0
 
 overline-size = 400
 overline-color = ${colors.background}
@@ -107,11 +71,11 @@ padding-right = 2
 
 
 #-----------------------------------------------------------------------------#
-#--------------------------------- Left bar ----------------------------------#
+#-------------------------------- Left panel ---------------------------------#
 #-----------------------------------------------------------------------------#
 
 [bar/left]
-inherit = section/base
+inherit = section/base_panel
 width = 32%
 offset-x = -32
 padding-left = 4
@@ -127,7 +91,7 @@ strip-wsnumbers = true
 
 label-focused = %name%
 label-focused-background = ${colors.primary}
-label-focused-foreground = ${colors.base03}
+label-focused-foreground = ${colors.background}
 label-focused-underline  = ${colors.background-alt}
 label-focused-overline  = ${colors.background}
 label-focused-padding = 2
@@ -139,12 +103,12 @@ label-occupied = %name%
 label-occupied-padding = 1
 
 label-urgent = %name%
-label-urgent-background = ${colors.alert}
+label-urgent-background = ${colors.urgent}
 label-urgent-overline  = ${colors.background}
 label-urgent-padding = 2
 
 label-empty = %name%
-label-empty-foreground = ${colors.foreground-alt}
+label-empty-foreground = ${colors.foreground}
 label-empty-padding = 2
 
 index-sort = true
@@ -160,11 +124,11 @@ label-visible-padding = ${self.label-focused-padding}
 
 
 #-----------------------------------------------------------------------------#
-#-------------------------------- Center bar ---------------------------------#
+#------------------------------- Center panel --------------------------------#
 #-----------------------------------------------------------------------------#
 
 [bar/center]
-inherit = section/base
+inherit = section/base_panel
 width = 20%
 offset-x = 40%
 modules-center = xwindow
@@ -176,11 +140,11 @@ type = internal/xwindow
 label = %{T2}%title:0:30:...%%{T-}
 
 #-----------------------------------------------------------------------------#
-#-------------------------------- Right bar ----------------------------------#
+#------------------------------- Right panel ---------------------------------#
 #-----------------------------------------------------------------------------#
 
 [bar/right]
-inherit = section/base
+inherit = section/base_panel
 padding-right = 7
 width = 32%
 offset-x = 1672
@@ -224,7 +188,7 @@ full-at = 98
 format-charging = "<animation-charging> <label-charging> "
 format-discharging = "<ramp-capacity> <label-discharging> "
 format-full-prefix = "  "
-format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-prefix-foreground = ${colors.foreground}
 
 ramp-capacity-0 = " "
 ramp-capacity-1 = " "
