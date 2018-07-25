@@ -16,5 +16,5 @@ rofi.color-window: #002B36, argb:00000000, argb:00000000
 
 !                  bg       text     bg alt   hl bg    hl text      
 rofi.color-normal: #002B36, #93A1A1, #002B36, #268BD2, #073642
-rofi.color-active: #859900, #93A1A1, #859900, #268BD2, #073642
+rofi.color-active: #859900, #073642, #859900, #268BD2, #073642
 rofi.color-urgent: #DC322F, #93A1A1, #DC322F, #268BD2, #073642

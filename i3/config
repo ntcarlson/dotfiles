@@ -1,13 +1,9 @@
 #============================= Launch settings ===============================#
 # Applications to be launched when i3 starts
 
-exec --no-startup-id dropbox start  # Dropbox daemon
-#exec --no-startup-id nm-applet      # Network manager applet
+exec --no-startup-id dropbox start
 
-# Swap esc and caps
-# Normal keyboard
-#exec --no-startup-id setxkbmap -option "caps:swapescape"
-# Chromebook
+# Swap Esc and capslock
 exec --no-startup-id xmodmap -e 'keycode 133 = Escape'
 
 # Compositor to fix screen tearing and allow transparent windows
@@ -15,16 +11,20 @@ exec --no-startup-id compton --no-fading-openclose
 
 # Set a random background every time i3 is launched or reset
 exec_always --no-startup-id feh --randomize --bg-fill ~/.i3/wallpapers/
+
+# Polybar is used instead of i3bar
+exec_always --no-startup-id ~/.i3/scripts/polybar_wrapper launch
 #=============================================================================#
 
 
 #================================= Appearance ================================#
 #----------------------------------- Colors ----------------------------------#
-set $backgr     #002B36
-set $foregr     #93A1A1
-set $bg_alt     #073642
-set $primar     #268BD2
-set $urgent     #DC322F
+# Colors are set from .Xresources. Fallback is Solarized color scheme
+set_from_resource $backgr background        #002B36
+set_from_resource $bg_alt background_alt    #93A1A1
+set_from_resource $foregr foreground        #586E75
+set_from_resource $primar primary           #268BD2
+set_from_resource $urgent urgent            #DC322F
 #-----------------------------------------------------------------------------#
 
 #----------------------------- Window appearance -----------------------------#
@@ -37,13 +37,14 @@ client.background $backgr   # default background color
 # indicator     - Color of border edge where new window will be created
 
 # class                 bar border  win border  text        indicator
-client.focused          $bg_alt     $primar     $bg_alt     $primar
-client.focused_inactive $bg_alt     $bg_alt     $foregr     $bg_alt
-client.unfocused        $bg_alt     $bg_alt     $foregr     $bg_alt
-client.urgent           $bg_alt     $urgent     $bg_alt     $urgent
+client.focused          $primar     $primar     $backgr     $primar
+client.focused_inactive $bg_alt     $bg_alt     $backgr     $bg_alt
+client.unfocused        $backgr     $backgr     $foregr     $backgr
+client.urgent           $backgr     $urgent     $backgr     $urgent
 
-# Windows have a border of 4 pixels; replace pixel with normal to show titlebar
-new_window pixel 4
+# Tiled and floating findows have a border of 4 pixels
+default_border pixel 4
+default_floating_border pixel 4
 
 # Don't show window borders if there is only one window open
 hide_edge_borders smart
@@ -54,14 +55,6 @@ font pango:DejaVu Sans 10
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 16
 gaps outer 0
-#-----------------------------------------------------------------------------#
-
-#--------------------------- Status bar appearance ---------------------------#
-# Polybar is used instead of i3bar. See config/polybar/config instead.
-exec_always --no-startup-id ~/.i3/scripts/polybar_wrapper launch
-bar {
-    i3bar_command echo
-}
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
@@ -102,6 +95,8 @@ bindsym F6  exec --no-startup-id ~/.i3/scripts/polybar_modules/backlight inc
 bindsym F8  exec --no-startup-id ~/.i3/scripts/polybar_modules/volume mute
 bindsym F9  exec --no-startup-id ~/.i3/scripts/polybar_modules/volume dec
 bindsym F10 exec --no-startup-id ~/.i3/scripts/polybar_modules/volume inc
+exec --no-startup-id xmodmap -e 'keycode 69 = F11'  # Fullscreen
+
 
 #-----------------------------------------------------------------------------#
 
@@ -183,6 +178,7 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+
 bindsym $mod+r mode "resize"
 #-----------------------------------------------------------------------------#
 
@@ -207,6 +203,10 @@ bindsym $mod+0 workspace 10
 bindsym $mod+p workspace $steam
 bindsym $mod+m workspace $music
 
+# Relative workspace motion
+bindsym $mod+Ctrl+l workspace next
+bindsym $mod+Ctrl+h workspace prev
+
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -220,6 +220,8 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+p move container to workspace $steam
 
+# Move to next free workspace
+bindsym $mod+equal exec --no-startup-id ~/bin/next_workspace
 
 # Move focus/window to open workspace on secondary monitor    
 bindsym $mod+Tab focus output left
