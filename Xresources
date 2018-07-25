@@ -1,0 +1,57 @@
+#define solarized_base03  #002b36
+#define solarized_base02  #073642
+#define solarized_base01  #586e75
+#define solarized_base00  #657b83
+#define solarized_base0   #839496
+#define solarized_base1   #93a1a1
+#define solarized_base2   #eee8d5
+#define solarized_base3   #fdf6e3
+#define solarized_yellow  #b58900
+#define solarized_orange  #cb4b16
+#define solarized_red     #dc322f
+#define solarized_magenta #d33682
+#define solarized_violet  #6c71c4
+#define solarized_blue    #268bd2
+#define solarized_cyan    #2aa198
+#define solarized_green   #859900
+
+#define BG_DARK   solarized_base03
+#define BG_ALT    solarized_base01
+#define BG_LIGHT  solarized_base2
+#define TXT_DARK  solarized_base03
+#define TXT_LIGHT solarized_base1
+#define PRIMARY   solarized_blue
+#define SECONDARY solarized_green
+#define URGENT    solarized_red
+
+#define TRANSPARENT argb:00000000
+
+
+*background    : BG_DARK
+*background_alt: BG_ALT
+*foreground    : TXT_LIGHT
+*primary       : PRIMARY
+*secondary     : SECONDARY
+*urgent        : URGENT
+
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+rofi.show-icons    : true
+rofi.hide-scrollbar: true
+rofi.color-enabled : true
+rofi.dpi           : 0              ! Autodetect DPI from X11
+rofi.bw            : 0              ! No border
+rofi.width         : 18             ! Width as a percentage of total width
+rofi.lines         : 11             ! Show 11 lines without scrolling
+rofi.padding       : 8              ! 8 pixel padding
+rofi.font          : DejaVu Sans 18
+rofi.window-format : {c} {t}
+rofi.color-window  : BG_DARK, TRANSPARENT, TRANSPARENT
+
+!                  bg         text       bg alt     hl bg    hl text      
+rofi.color-normal: BG_DARK,   TXT_LIGHT, BG_DARK,   PRIMARY, TXT_DARK
+rofi.color-active: SECONDARY, TXT_DARK,  SECONDARY, PRIMARY, TXT_DARK
+rofi.color-urgent: URGENT,    TXT_DARK,  URGENT,    PRIMARY, TXT_DARK
+
+

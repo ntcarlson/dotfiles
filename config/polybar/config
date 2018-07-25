@@ -166,7 +166,7 @@ click-left = ~/.i3/scripts/polybar_wrapper options
 
 [module/options_close]
 type = custom/text
-content-foreground = ${colors.blue}
+content-foreground = ${colors.primary}
 content = ""
 click-left = ~/.i3/scripts/polybar_wrapper options
 
