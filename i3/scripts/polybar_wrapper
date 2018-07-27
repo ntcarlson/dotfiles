@@ -24,15 +24,16 @@ animation_open() {
     for BAR_ID in $@; do
         xdotool windowmap $BAR_ID
     done
-    for y in `seq -400 10 0`; do
+    for y in `seq -300 10 0`; do
         for BAR_ID in $@; do
             xdotool windowmove $BAR_ID x $y
         done
+        sleep 0.001
     done
 }
 
 animation_close() {
-    for y in `seq 0 -10 -400`; do
+    for y in `seq 0 -10 -300`; do
         for BAR_ID in $@; do
             xdotool windowmove $BAR_ID x $y
         done
@@ -74,25 +75,24 @@ launch() {
 
 rofi_open() {
     BAR_ID=$(cat $WINDOW_ID_ROFI)
-    animation_open $BAR_ID &
+    animation_open $BAR_ID
     rofi -show run -location 2
     animation_close $BAR_ID
 }
 
 search_open() {
     BAR_ID=$(cat $WINDOW_ID_SEARCH)
-    animation_open $BAR_ID &
-    rofi -show window -location 1 -width 29 -fixed-num-lines 11
+    animation_open $BAR_ID
+    rofi -show window -location 1 -width 28
     animation_close $BAR_ID
 }
 
 menu_options() {
-	echo -e " \tBack"
-	echo -e " \tLock"
-	echo -e " \tLogout"
-	echo -e " \tShutdown"
-    echo -e " \tRotate"
-    echo -e " \tScreenshot"
+	echo -e "\tBack"
+	echo -e "\tLock"
+	echo -e "\tLogout"
+	echo -e "\tShutdown"
+    echo -e "\tScreenshot"
 }
 
 menu_selection() {
@@ -103,13 +103,6 @@ menu_selection() {
 		Logout)
 			i3-msg exit
 			;;
-		ChromeOS)
-			# Hotkey to switch to ChromeOS
-			xdotool key control+alt+shift+F1
-			;;
-        Rotate)
-            $HOME/bin/tablet_mode
-            ;;
         Shutdown)
             # TODO
             ;;
@@ -125,7 +118,7 @@ options_open() {
 
     xdotool windowraise $ID_CONKY
     animation_open $ID_BAR $ID_CONKY
-    selection=$(menu_options | rofi -dmenu -i -p "" -location 3 -width 10 -line-margin 10)
+    selection=$(menu_options | rofi -dmenu -i -p "" -location 3 -width 10 -line-margin 10 -lines 6)
     menu_selection $selection
     animation_close $ID_BAR $ID_CONKY
 }

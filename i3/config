@@ -5,10 +5,7 @@ exec --no-startup-id dropbox start  # Dropbox daemon
 #exec --no-startup-id nm-applet      # Network manager applet
 
 # Swap esc and caps
-# Normal keyboard
-#exec --no-startup-id setxkbmap -option "caps:swapescape"
-# Chromebook
-exec --no-startup-id xmodmap -e 'keycode 133 = Escape'
+exec --no-startup-id setxkbmap -option "caps:swapescape"
 
 # Compositor to fix screen tearing and allow transparent windows
 exec --no-startup-id compton --no-fading-openclose
@@ -70,7 +67,7 @@ bar {
 # Controls are mostly default i3 bindings except the directional navigation
 # keys j,k,l,; are changed to the Vim style h,j,k,l instead
 # Mod4 = windows key, Mod1 = Alt
-set $mod Mod1
+set $mod Mod4
 
 #------------------------------- Applications --------------------------------#
 # Launch a terminal
@@ -95,14 +92,6 @@ bindsym $mod+g exec --no-startup-id gnome-calculator
 bindsym $mod+F4 exec scrot -e 'feh $f -x' -d 2
 # Screenshot of focused window
 bindsym $mod+Shift+F4 exec scrot -u -e 'feh $f -x'   
-
-# Map the Pixelbook function keys
-bindsym F5  exec --no-startup-id ~/.i3/scripts/polybar_modules/backlight dec
-bindsym F6  exec --no-startup-id ~/.i3/scripts/polybar_modules/backlight inc
-bindsym F8  exec --no-startup-id ~/.i3/scripts/polybar_modules/volume mute
-bindsym F9  exec --no-startup-id ~/.i3/scripts/polybar_modules/volume dec
-bindsym F10 exec --no-startup-id ~/.i3/scripts/polybar_modules/volume inc
-
 #-----------------------------------------------------------------------------#
 
 #---------------------------- Workspace navigation ---------------------------#

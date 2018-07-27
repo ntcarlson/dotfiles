@@ -44,7 +44,7 @@ enable-ipc = true
 override-redirect = true
 bottom = false
 
-height = 460
+height = 340
 offset-y = -400
 fixed-center = true
 radius-bottom = 30
@@ -59,7 +59,7 @@ border-bottom-size = 0
 border-left-size = 0
 border-right-size = 0
 
-overline-size = 400
+overline-size = 300
 overline-color = ${colors.background}
 
 spacing = 1
@@ -70,11 +70,11 @@ module-margin-right = 2
 
 # Fonts
 # Very large offset to move the text to the bottom of the bar
-font-0 = "DejaVu Sans:style=Bold:pixelsize=18;204"
-font-1 = "DejaVu Sans:pixelsize=18;204"
-font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=24;204"
-font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=24;204"
-font-4 = "Font Awesome 5 Brands:pixelsize=24;204"
+font-0 = "DejaVu Sans:style=Bold:pixelsize=13;153"
+font-1 = "DejaVu Sans:pixelsize=13;153"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=18;153"
+font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=18;153"
+font-4 = "Font Awesome 5 Brands:pixelsize=18;153"
 
 
 [bar/full]
@@ -83,7 +83,7 @@ enable-ipc = true
 override-redirect = false
 bottom = false
 
-height = 60
+height = 40
 width = 100%
 offset-y = 0
 fixed-center = true
@@ -94,15 +94,15 @@ module-margin-right = 2
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = "DejaVu Sans:style=Bold:pixelsize=18;4"
-font-1 = "DejaVu Sans:pixelsize=18;4"
-font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=24;4"
-font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=24;4"
-font-4 = "Font Awesome 5 Brands:pixelsize=24;4"
+font-0 = "DejaVu Sans:style=Bold:pixelsize=13;3"
+font-1 = "DejaVu Sans:pixelsize=13;3"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=18;3"
+font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=18;3"
+font-4 = "Font Awesome 5 Brands:pixelsize=18;3"
 
 modules-left = i3
 modules-center = xwindow
-modules-right = backlight volume battery date options_open
+modules-right = backlight volume date options_open
 padding-right = 2
 
 
@@ -112,9 +112,9 @@ padding-right = 2
 
 [bar/left]
 inherit = section/base
-width = 32%
-offset-x = -32
-padding-left = 4
+width = 30%
+offset-x = -30
+padding-left = 5
 modules-left = i3
 
 #------------------------------- Left modules --------------------------------#
@@ -182,9 +182,9 @@ label = %{T2}%title:0:30:...%%{T-}
 [bar/right]
 inherit = section/base
 padding-right = 7
-width = 32%
-offset-x = 1672
-modules-right = backlight volume battery date options_close
+width = 30%
+offset-x = 1374
+modules-right = backlight volume date options_close
 
 #-----------------------------=- Right modules -------------------------------#
 
@@ -215,43 +215,22 @@ format-prefix ="  "
 format-prefix-foreground = ${colors.foreground}
 label = "%time% "
 
-[module/battery]
-type = internal/battery
-battery = BAT0
-adapter = AC
-full-at = 98
-
-format-charging = "<animation-charging> <label-charging> "
-format-discharging = "<ramp-capacity> <label-discharging> "
-format-full-prefix = "  "
-format-full-prefix-foreground = ${colors.foreground-alt}
-
-ramp-capacity-0 = " "
-ramp-capacity-1 = " "
-ramp-capacity-2 = " "
-ramp-capacity-foreground = ${colors.foreground}
-
-animation-charging-0 = "  "
-animation-charging-1 = "  "
-animation-charging-2 = "  "
-animation-charging-3 = "  "
-animation-charging-4 = "  "
-animation-charging-foreground = ${colors.foreground}
-animation-charging-framerate = 750
-
 [module/volume]
-type = custom/ipc
-hook-0 = $HOME/.i3/scripts/polybar_modules/volume icon
-scroll-up = $HOME/.i3/scripts/polybar_modules/volume increase
-scroll-down = $HOME/.i3/scripts/polybar_modules/volume decrease
-click-left = $HOME/.i3/scripts/polybar_modules/volume mute
-initial = 1
+type = internal/pulseaudio
+format-volume =   <bar-volume>
+sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+label-muted = "  muted"
+bar-volume-width = 10
+bar-volume-indicator = |
+bar-volume-fill = ─
+bar-volume-empty = ─
+
 
 [module/backlight]
-type = custom/ipc
-format-prefix = " "
-hook-0 = $HOME/.i3/scripts/polybar_modules/backlight get
-scroll-up = $HOME/.i3/scripts/polybar_modules/backlight increase
-scroll-down = $HOME/.i3/scripts/polybar_modules/backlight decrease
-initial = 1
-
+type = internal/xbacklight
+format-prefix = "  "
+format = <bar>
+bar-width = 10
+bar-indicator = |
+bar-fill = ─
+bar-empty = ─

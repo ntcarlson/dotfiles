@@ -278,7 +278,7 @@ case "$1" in
 			SRA=(${RES//[x+]/ })
 			CX=$((${SRA[2]} + 25))
 			CY=$((${SRA[1]} - 30))
-			rectangles+="rectangle $CX,$CY $((CX+480)),$((CY-160)) "
+			rectangles+="rectangle $CX,$CY $((CX+300)),$((CY-85)) "
 		done
 
 		# User supplied Image
