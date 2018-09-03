@@ -9,40 +9,8 @@ include-file = ~/.config/polybar/colors
 margin-top = 0
 margin-bottom = 0
 
-[section/base_panel]
-monitor = ${env:MONITOR:eDP1}
-enable-ipc = true
-override-redirect = true
-bottom = false
-
-height = 460
-offset-y = -400
-fixed-center = true
-radius-bottom = 30
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-overline-size = 400
-overline-color = ${colors.background}
-
-spacing = 1
-padding-left = 0
-padding-right = 0
-module-margin-left = 2
-module-margin-right = 2
-
-# Fonts
-# Very large offset to move the text to the bottom of the bar
-font-0 = "DejaVu Sans:style=Bold:pixelsize=18;204"
-font-1 = "DejaVu Sans:pixelsize=18;204"
-font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=24;204"
-font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=24;204"
-font-4 = "Font Awesome 5 Brands:pixelsize=24;204"
-
-
-[bar/full]
-monitor = ${env:MONITOR:eDP1}
+[bar/top]
+monitor = ${env:MONITOR:eDP-1}
 enable-ipc = true
 override-redirect = false
 bottom = false
@@ -69,17 +37,6 @@ modules-center = xwindow
 modules-right = backlight volume battery date options_open
 padding-right = 2
 
-
-#-----------------------------------------------------------------------------#
-#-------------------------------- Left panel ---------------------------------#
-#-----------------------------------------------------------------------------#
-
-[bar/left]
-inherit = section/base_panel
-width = 32%
-offset-x = -32
-padding-left = 4
-modules-left = i3
 
 #------------------------------- Left modules --------------------------------#
 
@@ -123,32 +80,11 @@ label-visible-underline = ${self.label-focused-underline}
 label-visible-padding = ${self.label-focused-padding}
 
 
-#-----------------------------------------------------------------------------#
-#------------------------------- Center panel --------------------------------#
-#-----------------------------------------------------------------------------#
-
-[bar/center]
-inherit = section/base_panel
-width = 20%
-offset-x = 40%
-modules-center = xwindow
-
 #------------------------------ Center modules -------------------------------#
 
 [module/xwindow]
 type = internal/xwindow
 label = %{T2}%title:0:30:...%%{T-}
-
-#-----------------------------------------------------------------------------#
-#------------------------------- Right panel ---------------------------------#
-#-----------------------------------------------------------------------------#
-
-[bar/right]
-inherit = section/base_panel
-padding-right = 7
-width = 32%
-offset-x = 1672
-modules-right = backlight volume battery date options_close
 
 #-----------------------------=- Right modules -------------------------------#
 
@@ -162,13 +98,13 @@ interval = 3
 type = custom/text
 content-foreground = ${colors.foreground}
 content = ""
-click-left = ~/.i3/scripts/polybar_wrapper options
+click-left = ~/.config/i3/scripts/polybar_wrapper options
 
 [module/options_close]
 type = custom/text
 content-foreground = ${colors.primary}
 content = ""
-click-left = ~/.i3/scripts/polybar_wrapper options
+click-left = ~/.config/i3/scripts/polybar_wrapper options
 
 
 [module/date]
@@ -205,17 +141,72 @@ animation-charging-framerate = 750
 
 [module/volume]
 type = custom/ipc
-hook-0 = $HOME/.i3/scripts/polybar_modules/volume icon
-scroll-up = $HOME/.i3/scripts/polybar_modules/volume increase
-scroll-down = $HOME/.i3/scripts/polybar_modules/volume decrease
-click-left = $HOME/.i3/scripts/polybar_modules/volume mute
+hook-0 = $HOME/.config/i3/scripts/polybar_modules/volume icon
+scroll-up = $HOME/.config/i3/scripts/polybar_modules/volume increase
+scroll-down = $HOME/.config/i3/scripts/polybar_modules/volume decrease
+click-left = $HOME/.config/i3/scripts/polybar_modules/volume mute
 initial = 1
 
 [module/backlight]
 type = custom/ipc
 format-prefix = " "
-hook-0 = $HOME/.i3/scripts/polybar_modules/backlight get
-scroll-up = $HOME/.i3/scripts/polybar_modules/backlight increase
-scroll-down = $HOME/.i3/scripts/polybar_modules/backlight decrease
+hook-0 = $HOME/.config/i3/scripts/polybar_modules/backlight get
+scroll-up = $HOME/.config/i3/scripts/polybar_modules/backlight increase
+scroll-down = $HOME/.config/i3/scripts/polybar_modules/backlight decrease
 initial = 1
+
+#-----------------------------------------------------------------------------#
+#---------------------------- Side panel config- -----------------------------#
+#-----------------------------------------------------------------------------#
+[bar/panel]
+monitor = ${env:MONITOR:eDP-1}
+enable-ipc = true
+override-redirect = true
+bottom = false
+
+height = 1540
+width = 25%
+offset-y = 60
+offset-x = 75%
+fixed-center = true
+spacing = 1
+module-margin-left = 2
+module-margin-right = 2
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=24;-740"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=24;-740"
+font-2 = "Font Awesome 5 Brands:pixelsize=24;-740"
+
+modules-center = screenshot rotate exit chromeos lock
+
+#------------------------------ Option modules -------------------------------#
+[module/chromeos]
+type = custom/text
+content = "  "
+click-left = xdotool key control+alt+shift+F1 
+
+
+[module/exit]
+type = custom/text
+content = "  "
+click-left = i3-msg exit
+
+[module/lock]
+type = custom/text
+content = "  "
+click-left = ~/.config/i3/scripts/betterlockscreen -l blur
+
+[module/rotate]
+type = custom/text
+content = "  "
+click-left = ~/bin/tablet_mode
+
+[module/screenshot]
+type = custom/text
+content = "  "
+click-left = scrot -e 'feh $f -x' --delay 1
+
 

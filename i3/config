@@ -10,10 +10,10 @@ exec --no-startup-id xmodmap -e 'keycode 133 = Escape'
 exec --no-startup-id compton --no-fading-openclose
 
 # Set a random background every time i3 is launched or reset
-exec_always --no-startup-id feh --randomize --bg-fill ~/.i3/wallpapers/
+exec_always --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpapers/
 
 # Polybar is used instead of i3bar
-exec_always --no-startup-id ~/.i3/scripts/polybar_wrapper launch
+exec_always --no-startup-id ~/.config/i3/scripts/polybar_wrapper launch
 #=============================================================================#
 
 
@@ -70,16 +70,16 @@ set $mod Mod1
 bindsym $mod+Return exec --no-startup-id sakura
 
 # Bring up launcher
-bindsym $mod+d exec --no-startup-id ~/.i3/scripts/polybar_wrapper rofi
+bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper rofi
 
 # Search open windows
-bindsym $mod+grave exec --no-startup-id ~/.i3/scripts/polybar_wrapper search
+bindsym $mod+grave exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper search
 
 # Open options menu
-bindsym $mod+BackSpace exec --no-startup-id ~/.i3/scripts/polybar_wrapper options
+bindsym $mod+BackSpace exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper options
 
 # Lock screen
-bindsym $mod+Pause exec --no-startup-id ~/.i3/scripts/betterlockscreen -l blur
+bindsym $mod+Pause exec --no-startup-id ~/.config/i3/scripts/betterlockscreen -l blur
 
 # Calculator
 bindsym $mod+g exec --no-startup-id gnome-calculator
@@ -90,11 +90,11 @@ bindsym $mod+F4 exec scrot -e 'feh $f -x' -d 2
 bindsym $mod+Shift+F4 exec scrot -u -e 'feh $f -x'   
 
 # Map the Pixelbook function keys
-bindsym F5  exec --no-startup-id ~/.i3/scripts/polybar_modules/backlight dec
-bindsym F6  exec --no-startup-id ~/.i3/scripts/polybar_modules/backlight inc
-bindsym F8  exec --no-startup-id ~/.i3/scripts/polybar_modules/volume mute
-bindsym F9  exec --no-startup-id ~/.i3/scripts/polybar_modules/volume dec
-bindsym F10 exec --no-startup-id ~/.i3/scripts/polybar_modules/volume inc
+bindsym F5  exec --no-startup-id ~/.config/i3/scripts/polybar_modules/backlight dec
+bindsym F6  exec --no-startup-id ~/.config/i3/scripts/polybar_modules/backlight inc
+bindsym F8  exec --no-startup-id ~/.config/i3/scripts/polybar_modules/volume mute
+bindsym F9  exec --no-startup-id ~/.config/i3/scripts/polybar_modules/volume dec
+bindsym F10 exec --no-startup-id ~/.config/i3/scripts/polybar_modules/volume inc
 exec --no-startup-id xmodmap -e 'keycode 69 = F11'  # Fullscreen
 
 
