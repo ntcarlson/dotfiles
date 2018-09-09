@@ -67,7 +67,7 @@ set $mod Mod1
 
 #------------------------------- Applications --------------------------------#
 # Launch a terminal
-bindsym $mod+Return exec --no-startup-id sakura
+bindsym $mod+Return exec --no-startup-id xterm
 
 # Bring up launcher
 bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper rofi

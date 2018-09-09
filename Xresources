@@ -39,31 +39,42 @@
 *secondary       : #SECONDARY
 *urgent          : #URGENT
 
-*color0	         : #solarized_base02
+*color0	         : #solarized_base2
 *color1	         : #solarized_red
 *color2	         : #solarized_green
 *color3	         : #solarized_yellow
 *color4	         : #solarized_blue
 *color5	         : #solarized_magenta
 *color6	         : #solarized_cyan
-*color7	         : #solarized_base2
-*color8	         : #solarized_base03
+*color7	         : #solarized_base02
+*color8	         : #solarized_base3
 *color9	         : #solarized_orange
-*color10         : #solarized_base01
-*color11         : #solarized_base00
-*color12         : #solarized_base0
+*color10         : #solarized_base1
+*color11         : #solarized_base0
+*color12         : #solarized_base00
 *color13         : #solarized_violet
-*color14         : #solarized_base1
-*color15         : #solarized_base3
+*color14         : #solarized_base01
+*color15         : #solarized_base03
 
-XTerm*faceName: DejaVu Sans Mono for Powerline:size=10
-XTerm*locale: true
-XTerm*utf8: 1
+!-----------------------------------------------------------------------------!
+!---------------------------- Xterm configuration ----------------------------!
+!-----------------------------------------------------------------------------!
+XTerm*faceName              : DejaVu Sans Mono for Powerline:size=10
+XTerm*locale                : true
+XTerm*utf8                  : 1
+XTerm*background            : #solarized_base2
+XTerm*foreground            : #TXT_ALT
+XTerm*fadeColor             : #solarized_base2
+XTerm*cursorColor           : #BG_ALT
+XTerm*pointerColorBackground: #TXT
+XTerm*pointerColorForeground: #BG_ALT
+XTerm.vt100.translations    : #override \n\
+    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
 
-
-! ------------------------------------------------------------------------------
-! ROFI Color theme
-! ------------------------------------------------------------------------------
+!-----------------------------------------------------------------------------!
+!----------------------------- Rofi configuration ----------------------------!
+!-----------------------------------------------------------------------------!
 rofi.show-icons     : true
 rofi.hide-scrollbar : true
 rofi.color-enabled  : true
