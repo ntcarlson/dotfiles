@@ -21,6 +21,7 @@ call vundle#begin()
     Plugin 'wellle/targets.vim'                 " Extends text objects like i}
     Plugin 'tpope/vim-commentary'               " Comment out code with gc
     Plugin 'tpope/vim-repeat'                   " Improves repeat support
+    Plugin 'Konfekt/FastFold'                   " To fix slow folding
 call vundle#end()
 
 " ============================= Appearance ====================================
@@ -129,6 +130,7 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_forward_search_on_start = 0
 let g:vimtex_view_automatic = 0
 let g:vimtex_toc_show_preamble = 1
+let g:vimtex_fold_enabled = 1
 
 " =========================== Custom commands ==================================
 
