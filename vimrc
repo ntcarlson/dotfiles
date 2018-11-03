@@ -152,7 +152,6 @@ nnoremap <leader>Q :Bdelete!<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 map <C-b> :TagbarToggle<CR>
-map <C-g> :YcmCompleter GoTo<CR>
 
 "Go back to previous cursor position
 nnoremap <Tab> <C-O> 
