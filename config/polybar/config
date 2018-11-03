@@ -34,7 +34,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=18;3"
 
 modules-left = i3
 modules-center = xwindow
-modules-right = volume date options_open
+modules-right = volume date option_menu
 padding-right = 2
 
 
@@ -84,26 +84,13 @@ label-visible-padding = ${self.label-focused-padding}
 
 [module/xwindow]
 type = internal/xwindow
-label = %{T2}%title:0:30:...%%{T-}
+label = %{T2}%title:0:40:...%%{T-}
 
 #-----------------------------=- Right modules -------------------------------#
-
-[module/song]
-type = custom/script
-exec = ~/bin/music get_title
-format = "%{T2}<label>%{T-}"
-interval = 3
-
-[module/options_open]
-type = custom/text
-content-foreground = ${colors.foreground}
-content = ""
-click-left = ~/.config/i3/scripts/polybar_wrapper options
-
-[module/options_close]
-type = custom/text
-content-foreground = ${colors.primary}
-content = ""
+[module/option_menu]
+type = custom/ipc
+hook-0 = ~/.config/i3/scripts/polybar_wrapper options_icon
+initial = 1
 click-left = ~/.config/i3/scripts/polybar_wrapper options
 
 [module/date]

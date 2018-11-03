@@ -40,6 +40,7 @@ search_open() {
 }
 
 options_open() {
+    echo "hook:module/option_menu1" >> /tmp/polybar_mqueue_top
     echo "cmd:show" >> /tmp/polybar_mqueue_panel
     echo "open" > /tmp/polybar_side_panel_state
     ID_CONKY=$(cat $WINDOW_ID_CONKY)
@@ -52,6 +53,7 @@ options_close() {
     ID_CONKY=$(cat $WINDOW_ID_CONKY)
     xdotool windowunmap $ID_CONKY
     ~/.config/i3/scripts/music_player hide_applet
+    echo "hook:module/option_menu1" >> /tmp/polybar_mqueue_top
     echo "cmd:hide" >> /tmp/polybar_mqueue_panel
     echo "close" > /tmp/polybar_side_panel_state
 }
@@ -64,6 +66,18 @@ options_toggle() {
     fi
 }
 
+options_icon() {
+    COLOR_NORMAL="%{F$(xrdb -query | awk '/^*foreground/ {print $2}')}"
+    COLOR_ACTIVE="%{F$(xrdb -query | awk '/^*primary/ {print $2}')}"
+    COLOR_END="%{F-}"
+
+    if [ "$(cat /tmp/polybar_side_panel_state)" == "open" ]; then
+        echo "$COLOR_ACTIVE$COLOR_END"
+    else
+        echo "$COLOR_NORMAL$COLOR_END"
+    fi
+}
+
 case "$1" in
     rofi)
         rofi_open;;
@@ -71,6 +85,8 @@ case "$1" in
         search_open;;
     options)
         options_toggle;;
+    options_icon)
+        options_icon;;
     launch)
         launch;;
     hide)
