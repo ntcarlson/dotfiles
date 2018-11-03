@@ -28,7 +28,6 @@ animation_open() {
         for BAR_ID in $@; do
             xdotool windowmove $BAR_ID x $y
         done
-        sleep 0.001
     done
 }
 

@@ -39,7 +39,7 @@ margin-bottom = 0
 
 
 [section/base]
-monitor = ${env:MONITOR:eDP1}
+monitor = ${env:MONITOR:DVI-I-1}
 enable-ipc = true
 override-redirect = true
 bottom = false
@@ -47,7 +47,6 @@ bottom = false
 height = 340
 offset-y = -400
 fixed-center = true
-radius-bottom = 30
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -78,7 +77,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=18;153"
 
 
 [bar/full]
-monitor = ${env:MONITOR:eDP1}
+monitor = ${env:MONITOR:DVI-I-1}
 enable-ipc = true
 override-redirect = false
 bottom = false
@@ -112,9 +111,8 @@ padding-right = 2
 
 [bar/left]
 inherit = section/base
-width = 30%
-offset-x = -30
-padding-left = 5
+width = 28%
+offset-x = 0
 modules-left = i3
 
 #------------------------------- Left modules --------------------------------#
@@ -181,9 +179,9 @@ label = %{T2}%title:0:30:...%%{T-}
 
 [bar/right]
 inherit = section/base
-padding-right = 7
-width = 30%
-offset-x = 1374
+width = 29%
+offset-x = 71%
+padding-right = 2
 modules-right = backlight volume date options_close
 
 #-----------------------------=- Right modules -------------------------------#

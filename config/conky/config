@@ -1,65 +1,66 @@
 conky.config = {
-	use_xft                = true,
-	xftalpha               = 1,
-	update_interval        = 1,
-	total_run_times        = 0,
+    use_xft                = true,
+    xftalpha               = 1,
+    update_interval        = 1,
+    total_run_times        = 0,
 
-	background             = true, 
+    background             = true, 
     out_to_console         = false,
     out_to_stderr          = false,
 
-	own_window             = true,
+    xinerama_head          = 1, 
+    own_window             = true,
     own_window_class       = 'Conky',
-	own_window_type        = 'override',
-	own_window_argb_visual = true,
+    own_window_type        = 'override',
+    own_window_argb_visual = true,
     own_window_transparent = true,
 
-	double_buffer          = true,
+    double_buffer          = true,
 
-	minimum_width          = 330,
-	maximum_width          = 330,
+    minimum_width          = 360,
+    maximum_width          = 360,
 
-	minimum_height         = 10,
+    minimum_height         = 10,
 
-	draw_shades            = false,
-	draw_outline           = false,
-	draw_borders           = false,
-	draw_graph_borders     = true,
-	
-	default_color          = '93A1A1',
-	default_shade_color    = '333333',
-	default_outline_color  = 'black',
-	color1                 = '586E75',
-	color3                 = '586E75',
+    draw_shades            = false,
+    draw_outline           = false,
+    draw_borders           = false,
+    draw_graph_borders     = true,
 
-	alignment              = 'top_right',
-	gap_x                  = 200,
-	gap_y                  = -40,
-	no_buffers             = true,
-	text_buffer_size       = 2048,
-	uppercase              = false,
-	cpu_avg_samples        = 4,
-	net_avg_samples        = 2,
-	override_utf8_locale   = true,
+    default_color          = '93A1A1',
+    default_shade_color    = '333333',
+    default_outline_color  = 'black',
+    color1                 = '586E75',
+    color3                 = '586E75',
 
-	font                   = 'DejaVu Sans:style=medium:size=10'
+    alignment              = 'top_right',
+    gap_x                  = 200,
+    gap_y                  = -40,
+    no_buffers             = true,
+    text_buffer_size       = 2048,
+    uppercase              = false,
+    cpu_avg_samples        = 4,
+    net_avg_samples        = 2,
+    override_utf8_locale   = true,
+
+    font                   = 'DejaVu Sans:style=medium:size=10'
 }
 
 conky.text = [[
 
-${voffset -40}
-${hr}
-${font DejaVu Sans:style=bold:size=13}${goto 28}${time %a, %B %d}${alignr}${uid_name 1000}@${nodename}${font}
-${voffset -40}
-${font Font Awesome 5 Free:style=Regular:size=16} ${goto 190} ${font}
-${hr}
-${font Font Awesome 5 Free:style=Solid}${font} ${downspeed wlan0} ${goto 165} ${font Font Awesome 5 Free:style=Solid}${font} ${upspeed wlan0}
-${downspeedgraph wlan0 36,160 6C71C4 6C71C4} ${goto 170} ${upspeedgraph wlan0 36,160 2AA198 2AA198}
-${font Font Awesome 5 Free:style=Solid}${font} ${memperc}% ${goto 170} ${font Font Awesome 5 Free:style=Solid}${font} ${cpu 0}%
-${memgraph 36,160 268BD2 268BD2} ${goto 170} ${cpugraph 0 36,160 859900 859900}
-${hr}
-${font Deja Vu:style=bold:size=16} / ${font}     ${goto 36} ${fs_bar 15,180 /}${alignr}${fs_free /} free
-${font Font Awesome 5 Free:style=Solid} ${font} ${goto 36} ${fs_bar 15,180 /home}${alignr}${fs_free /home} free
-${font Font Awesome 5 Free:style=Solid} ${font} ${goto 36} ${fs_bar 15,180 /mnt/extra_drive}${alignr}${fs_free /mnt/extra_drive} free
-${hr}
+    ${voffset -40}
+    ${hr}
+    ${font DejaVu Sans:style=bold:size=13}${goto 44}${time %a, %B %d}${alignr}${uid_name 1000}@${nodename}${font}
+    ${voffset -40}
+    ${font Font Awesome 5 Free:style=Regular:size=16} ${goto 262} ${font}
+    ${hr}
+    ${font Font Awesome 5 Free:style=Solid}${font} ${downspeed eno1} ${goto 195} ${font Font Awesome 5 Free:style=Solid}${font} ${upspeed eno1}
+    ${downspeedgraph eno1 36,165 6C71C4 6C71C4} ${goto 195} ${upspeedgraph eno1 36,165 2AA198 2AA198}
+    ${font Font Awesome 5 Free:style=Solid}${font} ${memperc}% ${goto 195} ${font Font Awesome 5 Free:style=Solid}${font} ${cpu 0}%
+    ${memgraph 36,165 268BD2 268BD2} ${goto 195} ${cpugraph 0 36,165 859900 859900}
+    ${hr}
+    ${font Deja Vu:style=bold:size=16} / ${font}     ${goto 48} ${fs_bar 15,180 /}${alignr}${fs_free /} free
+    ${font Font Awesome 5 Free:style=Solid} ${font} ${goto 48} ${fs_bar 15,180 /media/WDBlack1}${alignr}${fs_free /media/WDBlack1} free
+    ${font Font Awesome 5 Free:style=Solid} ${font} ${goto 48} ${fs_bar 15,180 /media/WDBlack2}${alignr}${fs_free /media/WDBlack2} free
+    ${hr}
 ]]
