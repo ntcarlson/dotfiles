@@ -26,7 +26,12 @@ conky.config = {
 	draw_borders           = false,
 	draw_graph_borders     = true,
 	
-	default_color          = '93A1A1',
+    default_color          = 'D8DEE9',
+    color0                 = 'BF616A',
+    color1                 = 'D08770',
+    color2                 = 'EBCB8B',
+    color3                 = 'A3BE8C',
+    color4                 = 'B48EAD',
 
 	alignment              = 'top_right',
 	gap_x                  = 20,
@@ -42,27 +47,27 @@ conky.config = {
 }
 
 conky.text = [[
-${hr}
-${font Font Awesome 5 Free:style=Regular:size=16} ${font}${font DejaVu Sans:style=bold:size=16}${time %A, %B %d}${font}
-${font Font Awesome 5 Free:style=Regular:size=16} ${font}${font DejaVu Sans:style=bold:size=16}${uid_name 1000}@${nodename}${font}
-${hr}
+${color0}${hr}$color
+${font Font Awesome 5 Free:style=Regular:size=16}${font}${goto 36}${voffset -6}${font DejaVu Sans:style=bold:size=16}${time %A, %B %d}${font}
+${voffset 4}${font Font Awesome 5 Free:style=Regular:size=16} ${font}${goto 36}${voffset -7}${font DejaVu Sans:style=bold:size=16}${uid_name 1000}@${nodename}${font}
+${color0}${hr}$color
 ${font Font Awesome 5 Free:style=Solid}${font} ${memperc}% ${goto 230} ${font Font Awesome 5 Free:style=Solid}${font} ${cpu 0}%
-${memgraph 60,210 268BD2 268BD2} ${goto 230} ${cpugraph 0 60,210 859900 859900}
+${memgraph 60,210 BF616A BF616A} ${goto 230} ${cpugraph 0 60,210 D08770 D08770}
 Top Processes: ${alignr} (${processes} total processes)
 Name          ${goto 120} PID          ${goto 210} CPU%         ${goto 300} MEM%         ${alignr} TIME
-${hr}
+${color0}${hr}$color
 ${top name 1} ${goto 120} ${top pid 1} ${goto 210} ${top cpu 1} ${goto 300} ${top mem 1} ${alignr} ${top time 1}
 ${top name 2} ${goto 120} ${top pid 2} ${goto 210} ${top cpu 2} ${goto 300} ${top mem 2} ${alignr} ${top time 2}
 ${top name 3} ${goto 120} ${top pid 3} ${goto 210} ${top cpu 3} ${goto 300} ${top mem 3} ${alignr} ${top time 3}
 ${top name 4} ${goto 120} ${top pid 4} ${goto 210} ${top cpu 4} ${goto 300} ${top mem 4} ${alignr} ${top time 4}
 ${top name 5} ${goto 120} ${top pid 5} ${goto 210} ${top cpu 5} ${goto 300} ${top mem 5} ${alignr} ${top time 5}
-${hr}
+${color0}${hr}$color
 ${font Font Awesome 5 Free:style=Solid}${font} ${downspeed eno1} ${goto 230} ${font Font Awesome 5 Free:style=Solid}${font} ${upspeed eno1}
-${downspeedgraph eno1 60,200 6C71C4 6C71C4} ${goto 230} ${upspeedgraph eno1 60,210 2AA198 2AA198}
-${hr}
+${downspeedgraph eno1 60,200 EBCB8B EBCB8B} ${goto 230} ${upspeedgraph eno1 60,210 A3BE8C A3BE8C}
+${color0}${hr}$color
 ${font Deja Vu:style=bold:size=16} / ${font}     ${goto 48} ${fs_bar 15,180 /}${alignr}${fs_free /} free
 ${font Font Awesome 5 Free:style=Solid} ${font} ${goto 48} ${fs_bar 15,180 /media/WDBlack1}${alignr}${fs_free /media/WDBlack1} free
 ${font Font Awesome 5 Free:style=Solid} ${font} ${goto 48} ${fs_bar 15,180 /media/WDBlack2}${alignr}${fs_free /media/WDBlack2} free
-${hr}
+${color0}${hr}$color
 
 ]]
