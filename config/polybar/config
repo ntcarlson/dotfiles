@@ -34,7 +34,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=18;3"
 
 modules-left = i3
 modules-center = xwindow
-modules-right = date options_open
+modules-right = volume date options_open
 padding-right = 2
 
 
@@ -106,7 +106,6 @@ content-foreground = ${colors.primary}
 content = ""
 click-left = ~/.config/i3/scripts/polybar_wrapper options
 
-
 [module/date]
 type = internal/date
 interval = 5
@@ -115,37 +114,30 @@ format-prefix ="  "
 format-prefix-foreground = ${colors.foreground}
 label = "%time% "
 
-[module/battery]
-type = internal/battery
-battery = BAT0
-adapter = AC
-full-at = 98
-
-format-charging = "<animation-charging> <label-charging> "
-format-discharging = "<ramp-capacity> <label-discharging> "
-format-full-prefix = "  "
-format-full-prefix-foreground = ${colors.foreground}
-
-ramp-capacity-0 = " "
-ramp-capacity-1 = " "
-ramp-capacity-2 = " "
-ramp-capacity-foreground = ${colors.foreground}
-
-animation-charging-0 = "  "
-animation-charging-1 = "  "
-animation-charging-2 = "  "
-animation-charging-3 = "  "
-animation-charging-4 = "  "
-animation-charging-foreground = ${colors.foreground}
-animation-charging-framerate = 750
-
 [module/volume]
-type = custom/ipc
-hook-0 = $HOME/.config/i3/scripts/polybar_modules/volume icon
-scroll-up = $HOME/.config/i3/scripts/polybar_modules/volume increase
-scroll-down = $HOME/.config/i3/scripts/polybar_modules/volume decrease
-click-left = $HOME/.config/i3/scripts/polybar_modules/volume mute
-initial = 1
+type = internal/pulseaudio
+
+format-volume =   <bar-volume>
+
+label-muted = "muted"
+label-muted-foreground = ${colors.background-alt}
+
+bar-volume-width = 10
+bar-volume-foreground-0 = ${colors.primary}
+bar-volume-foreground-1 = ${colors.primary}
+bar-volume-foreground-2 = ${colors.primary}
+bar-volume-foreground-3 = ${colors.primary}
+bar-volume-foreground-4 = ${colors.primary}
+bar-volume-foreground-5 = ${colors.urgent}
+bar-volume-foreground-6 = ${colors.urgent}
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground}
 
 #-----------------------------------------------------------------------------#
 #---------------------------- Side panel config- -----------------------------#
@@ -172,13 +164,23 @@ font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=18;-500"
 font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=18;-500"
 font-2 = "Font Awesome 5 Brands:pixelsize=18;-500"
 
-modules-center = screenshot exit lock
+modules-center = lock exit reboot shutdown screenshot 
 
 #------------------------------ Option modules -------------------------------#
 [module/exit]
 type = custom/text
 content = "  "
 click-left = i3-msg exit
+
+[module/shutdown]
+type = custom/text
+content = "  "
+click-left = shutdown now
+
+[module/reboot]
+type = custom/text
+content = "  "
+click-left = reboot
 
 [module/lock]
 type = custom/text
