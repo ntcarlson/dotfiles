@@ -1,73 +1,64 @@
-#define solarized_base03  002b36
-#define solarized_base02  073642
-#define solarized_base01  586e75
-#define solarized_base00  657b83
-#define solarized_base0   839496
-#define solarized_base1   93a1a1
-#define solarized_base2   eee8d5
-#define solarized_base3   fdf6e3
-#define solarized_yellow  b58900
-#define solarized_orange  cb4b16
-#define solarized_red     dc322f
-#define solarized_magenta d33682
-#define solarized_violet  6c71c4
-#define solarized_blue    268bd2
-#define solarized_cyan    2aa198
-#define solarized_green   859900
+#define nord0 #2E3440
+#define nord1 #3B4252
+#define nord2 #434C5E
+#define nord3 #4C566A
+#define nord4 #D8DEE9
+#define nord5 #E5E9F0
+#define nord6 #ECEFF4
+#define nord7 #8FBCBB
+#define nord8 #88C0D0
+#define nord9 #81A1C1
+#define nord10 #5E81AC
+#define nord11 #BF616A
+#define nord12 #D08770
+#define nord13 #EBCB8B
+#define nord14 #A3BE8C
+#define nord15 #B48EAD
 
-#define TRANSPARENT_(color) D9##color
-#define TRANSPARENT(color) TRANSPARENT_(color)
-#define ARGB_(color) argb:D9##color
-#define ARGB(color) ARGB_(color)
 #define CLEAR argb:00000000
 
-#define BG        solarized_base03
-#define BG_TRANS  TRANSPARENT(BG)
-#define BG_ALT    solarized_base01
-#define TXT       solarized_base1
-#define TXT_ALT   solarized_base03
-#define PRIMARY   solarized_blue
-#define SECONDARY solarized_green
-#define URGENT    solarized_red
+#define BG        nord0
+#define BG_TRANS  #D92E3440
+#define BG_ARGB   argb:D92E3440
+#define BG_ALT    nord3
+#define TXT       nord4
+#define TXT_ALT   nord6
+#define PRIMARY   nord11
+#define SECONDARY nord14
+#define URGENT    nord15
 
 
-*background      : #BG
-*background_trans: #BG_TRANS
-*background_alt  : #BG_ALT
-*foreground      : #TXT
-*primary         : #PRIMARY
-*secondary       : #SECONDARY
-*urgent          : #URGENT
+*background      : BG
+*background_trans: BG_TRANS
+*background_alt  : BG_ALT
+*foreground      : TXT
+*primary         : PRIMARY
+*secondary       : SECONDARY
+*urgent          : URGENT
 
-*color0	         : #solarized_base2
-*color1	         : #solarized_red
-*color2	         : #solarized_green
-*color3	         : #solarized_yellow
-*color4	         : #solarized_blue
-*color5	         : #solarized_magenta
-*color6	         : #solarized_cyan
-*color7	         : #solarized_base02
-*color8	         : #solarized_base3
-*color9	         : #solarized_orange
-*color10         : #solarized_base1
-*color11         : #solarized_base0
-*color12         : #solarized_base00
-*color13         : #solarized_violet
-*color14         : #solarized_base01
-*color15         : #solarized_base03
+*.color0: nord1
+*.color1: nord11
+*.color2: nord14
+*.color3: nord13
+*.color4: nord9
+*.color5: nord15
+*.color6: nord8
+*.color7: nord5
+*.color8: nord3
+*.color9: nord11
+*.color10: nord14
+*.color11: nord13
+*.color12: nord9
+*.color13: nord15
+*.color14: nord7
+*.color15: nord6
 
 !-----------------------------------------------------------------------------!
 !---------------------------- Xterm configuration ----------------------------!
 !-----------------------------------------------------------------------------!
-XTerm*faceName              : DejaVu Sans Mono for Powerline:size=10
+XTerm*faceName              : DejaVu Sans Mono for Powerline:size=11
 XTerm*locale                : true
 XTerm*utf8                  : 1
-XTerm*background            : #solarized_base2
-XTerm*foreground            : #TXT_ALT
-XTerm*fadeColor             : #solarized_base2
-XTerm*cursorColor           : #BG_ALT
-XTerm*pointerColorBackground: #TXT
-XTerm*pointerColorForeground: #BG_ALT
 XTerm.vt100.translations    : #override \n\
     Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
     Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
@@ -87,11 +78,11 @@ rofi.yoffset        : 40
 rofi.padding        : 8
 rofi.font           : DejaVu Sans 12
 rofi.window-format  : {c} {t}
-rofi.color-window   : ARGB(BG), CLEAR, CLEAR
+rofi.color-window   : BG_ARGB, CLEAR, CLEAR
 
-!                  bg          text       bg alt      hl bg      hl text      
-rofi.color-normal: CLEAR,      #TXT,      CLEAR,      #PRIMARY,  #TXT_ALT
-rofi.color-active: #SECONDARY, #TXT_ALT,  #SECONDARY, #PRIMARY,  #TXT_ALT
-rofi.color-urgent: #URGENT,    #TXT_ALT,  #URGENT,    #PRIMARY,  #TXT_ALT
+!                  bg          text      bg alt     hl bg     hl text
+rofi.color-normal: CLEAR,      TXT,      CLEAR,     PRIMARY,  TXT_ALT
+rofi.color-active: SECONDARY,  TXT_ALT,  SECONDARY, PRIMARY,  TXT_ALT
+rofi.color-urgent: URGENT,     TXT_ALT,  URGENT,    PRIMARY,  TXT_ALT
 
 
