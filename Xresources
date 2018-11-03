@@ -1,0 +1,97 @@
+#define solarized_base03  002b36
+#define solarized_base02  073642
+#define solarized_base01  586e75
+#define solarized_base00  657b83
+#define solarized_base0   839496
+#define solarized_base1   93a1a1
+#define solarized_base2   eee8d5
+#define solarized_base3   fdf6e3
+#define solarized_yellow  b58900
+#define solarized_orange  cb4b16
+#define solarized_red     dc322f
+#define solarized_magenta d33682
+#define solarized_violet  6c71c4
+#define solarized_blue    268bd2
+#define solarized_cyan    2aa198
+#define solarized_green   859900
+
+#define TRANSPARENT_(color) D9##color
+#define TRANSPARENT(color) TRANSPARENT_(color)
+#define ARGB_(color) argb:D9##color
+#define ARGB(color) ARGB_(color)
+#define CLEAR argb:00000000
+
+#define BG        solarized_base03
+#define BG_TRANS  TRANSPARENT(BG)
+#define BG_ALT    solarized_base01
+#define TXT       solarized_base1
+#define TXT_ALT   solarized_base03
+#define PRIMARY   solarized_blue
+#define SECONDARY solarized_green
+#define URGENT    solarized_red
+
+
+*background      : #BG
+*background_trans: #BG_TRANS
+*background_alt  : #BG_ALT
+*foreground      : #TXT
+*primary         : #PRIMARY
+*secondary       : #SECONDARY
+*urgent          : #URGENT
+
+*color0	         : #solarized_base2
+*color1	         : #solarized_red
+*color2	         : #solarized_green
+*color3	         : #solarized_yellow
+*color4	         : #solarized_blue
+*color5	         : #solarized_magenta
+*color6	         : #solarized_cyan
+*color7	         : #solarized_base02
+*color8	         : #solarized_base3
+*color9	         : #solarized_orange
+*color10         : #solarized_base1
+*color11         : #solarized_base0
+*color12         : #solarized_base00
+*color13         : #solarized_violet
+*color14         : #solarized_base01
+*color15         : #solarized_base03
+
+!-----------------------------------------------------------------------------!
+!---------------------------- Xterm configuration ----------------------------!
+!-----------------------------------------------------------------------------!
+XTerm*faceName              : DejaVu Sans Mono for Powerline:size=10
+XTerm*locale                : true
+XTerm*utf8                  : 1
+XTerm*background            : #solarized_base2
+XTerm*foreground            : #TXT_ALT
+XTerm*fadeColor             : #solarized_base2
+XTerm*cursorColor           : #BG_ALT
+XTerm*pointerColorBackground: #TXT
+XTerm*pointerColorForeground: #BG_ALT
+XTerm.vt100.translations    : #override \n\
+    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+
+!-----------------------------------------------------------------------------!
+!----------------------------- Rofi configuration ----------------------------!
+!-----------------------------------------------------------------------------!
+rofi.show-icons     : true
+rofi.hide-scrollbar : true
+rofi.color-enabled  : true
+rofi.dpi            : 0
+rofi.bw             : 0
+rofi.width          : 25
+rofi.lines          : 50
+rofi.fixed-num-lines: true
+rofi.yoffset        : 40
+rofi.padding        : 8
+rofi.font           : DejaVu Sans 12
+rofi.window-format  : {c} {t}
+rofi.color-window   : ARGB(BG), CLEAR, CLEAR
+
+!                  bg          text       bg alt      hl bg      hl text      
+rofi.color-normal: CLEAR,      #TXT,      CLEAR,      #PRIMARY,  #TXT_ALT
+rofi.color-active: #SECONDARY, #TXT_ALT,  #SECONDARY, #PRIMARY,  #TXT_ALT
+rofi.color-urgent: #URGENT,    #TXT_ALT,  #URGENT,    #PRIMARY,  #TXT_ALT
+
+

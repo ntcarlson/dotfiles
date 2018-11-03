@@ -14,7 +14,6 @@ call vundle#begin()
     Plugin 'airblade/vim-gitgutter'             " Show lines changed or added
     Plugin 'majutsushi/tagbar'                  " File outline viewer
     Plugin 'tpope/vim-fugitive'                 " Git utilities inside Vim
-    Plugin 'Valloric/YouCompleteMe'             " Autocompleter and linter
     Plugin 'SirVer/ultisnips'                   " Insert code snippets
     Plugin 'moll/vim-bbye'                      " Better buffer close behavior
     Plugin 'lervag/vimtex'                      " Modern LaTeX plugin
@@ -22,9 +21,6 @@ call vundle#begin()
     Plugin 'wellle/targets.vim'                 " Extends text objects like i}
     Plugin 'tpope/vim-commentary'               " Comment out code with gc
     Plugin 'tpope/vim-repeat'                   " Improves repeat support
-    Plugin 'the-lambda-church/coquille'         " Coq plugin
-    Plugin 'let-def/vimbufsync'                 " Required for Coquille
-    Plugin 'vimwiki/vimwiki'                    " Orgmode-esque plugin
 call vundle#end()
 
 " ============================= Appearance ====================================
@@ -40,14 +36,6 @@ set visualbell                  " No bell sound
 set t_vb=                       " No horrible visual flash on bell
 set showcmd                     " Show incomplete commands
 set encoding=utf-8              " Special characters for plugins
-" Enable transparent background
-hi Normal ctermbg=NONE
-hi LineNr ctermbg=NONE   
-hi texMathZoneX ctermbg=NONE
-hi texMathMatcher ctermbg=NONE
-hi texStatement ctermbg=NONE
-hi texRefLabel ctermbg=NONE
-hi SignColumn ctermbg=NONE
 " Disable tilde on blank line
 hi EndOfBuffer ctermfg=black
 " Underline current line
@@ -157,14 +145,6 @@ let g:vimtex_view_forward_search_on_start = 0
 let g:vimtex_view_automatic = 0
 let g:vimtex_toc_show_preamble = 1
 
-" =============================== Coquille =====================================
-au FileType coq call coquille#FNMapping()
-
-" =============================== Orgmode ======================================
-:let g:org_agenda_files=['~/Documents/agenda.org']
-
-" =========================== Custom commands ==================================
-
 " Tab navigation; uses Airline's tab navigation commands which handle windows
 " from Tagbar and NERDTree better
 nmap <S-H>  <Plug>AirlineSelectPrevTab
@@ -175,9 +155,6 @@ nnoremap <C-H> <C-W>h
 nnoremap <C-L> <C-W>l
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
-
-" Invoke Make
-nnoremap <leader>m :w<CR>:make<CR>
 
 " Close buffer; uses Bbye plugin instead of default bdelete command for more
 " desirable behavior when closing buffers when Tagbar or NERDTree are open
@@ -198,5 +175,3 @@ nnoremap <Space> zA
 
 "Save without exiting insert mode"
 imap <Leader>ww <ESC>:w<CR>
-
-

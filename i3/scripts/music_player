@@ -1,0 +1,56 @@
+#!/bin/bash
+
+APP_WIN_ID=/tmp/google_play_applet_win_id
+APP_PID=/tmp/google_play_applet_pid
+CHROME=google-chrome-stable
+
+launch_applet() {
+    # App id for the Google Music miniplayer
+    $CHROME --app-id=fahmaaghhglfmonjliepjlchgpgfmobi &
+    echo $! > $APP_PID
+    APP_WIN=$(xdotool search --sync --onlyvisible --name "Google Play Music")
+    xdotool set_window --overrideredirect 1 $APP_WIN
+    xdotool windowunmap $APP_WIN
+    echo $APP_WIN > $APP_WIN_ID
+}
+
+show_applet() {
+    APP_WIN=$(cat $APP_WIN_ID)
+    xdotool windowmap $APP_WIN
+    xdotool windowmove $APP_WIN 1480 640
+    xdotool windowsize $APP_WIN 400 400
+    xdotool windowraise $APP_WIN
+}
+
+hide_applet() {
+    APP_WIN=$(cat $APP_WIN_ID)
+    xdotool windowunmap $APP_WIN
+}
+
+kill_applet() {
+    local pid=$(cat $APP_PID)
+    if [ "$(ps -p $pid -o comm=)" == "chrome" ]; then
+        kill $pid
+    fi
+}
+
+launch() {
+    local pid=$(cat $APP_PID)
+    if [ "$(ps -p $pid -o comm=)" != "chrome" ]; then
+       launch_applet
+    fi
+    $CHROME --app="https://play.google.com/music/listen?u=0#/home" &
+}
+
+case "$1" in
+    launch_applet)
+        launch_applet;;
+    show_applet)
+        show_applet;;
+    hide_applet)
+        hide_applet;;
+    kill_applet)
+        kill_applet;;
+    launch)
+        launch;;
+esac
