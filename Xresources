@@ -70,7 +70,7 @@ rofi.show-icons     : true
 rofi.hide-scrollbar : true
 rofi.color-enabled  : true
 rofi.dpi            : 0
-rofi.bw             : 0
+rofi.bw             : 2
 rofi.width          : 25
 rofi.lines          : 50
 rofi.fixed-num-lines: true
@@ -78,7 +78,7 @@ rofi.yoffset        : 40
 rofi.padding        : 8
 rofi.font           : DejaVu Sans 12
 rofi.window-format  : {c} {t}
-rofi.color-window   : BG_ARGB, CLEAR, CLEAR
+rofi.color-window   : BG_ARGB, PRIMARY, CLEAR
 
 !                  bg          text      bg alt     hl bg     hl text
 rofi.color-normal: CLEAR,      TXT,      CLEAR,     PRIMARY,  TXT_ALT

@@ -32,7 +32,7 @@ launch() {
 
 rofi_open() {
     options_close
-    rofi -show run -location 0 -width 1920 -padding 700 -lines 10 -yoffset 0 -font 'DejaVu Sans 16'
+    rofi -show run -location 0 -width 1924 -padding 700 -lines 10 -yoffset 0 -font 'DejaVu Sans 16'
 }
 
 search_open() {

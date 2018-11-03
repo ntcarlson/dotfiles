@@ -23,6 +23,9 @@ spacing = 1
 module-margin-left = 2
 module-margin-right = 2
 
+border-bottom-size = 2
+border-bottom-color = ${colors.primary}
+
 background = ${colors.background}
 foreground = ${colors.foreground}
 
@@ -135,7 +138,7 @@ enable-ipc = true
 override-redirect = true
 bottom = false
 
-height = 1040 # 1080p - bar height
+height = 1036 # 1080p - bar height - 2*border width
 width = 25%
 offset-y = 40
 offset-x = 75%
@@ -144,12 +147,15 @@ spacing = 1
 module-margin-left = 2
 module-margin-right = 2
 
+border-size = 2
+border-color = ${colors.primary}
+
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=18;-500"
-font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=18;-500"
-font-2 = "Font Awesome 5 Brands:pixelsize=18;-500"
+font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=18;-490"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=18;-490"
+font-2 = "Font Awesome 5 Brands:pixelsize=18;-490"
 
 modules-center = lock exit reboot shutdown screenshot 
 
