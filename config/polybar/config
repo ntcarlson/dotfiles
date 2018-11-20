@@ -10,7 +10,7 @@ margin-top = 0
 margin-bottom = 0
 
 [bar/top]
-monitor = ${env:MONITOR:DVI-I-1}
+monitor = ${env:MONITOR:eDP1}
 enable-ipc = true
 override-redirect = false
 bottom = false
@@ -37,7 +37,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=18;3"
 
 modules-left = i3
 modules-center = xwindow
-modules-right = volume date option_menu
+modules-right = xbacklight volume date option_menu
 padding-right = 2
 
 
@@ -129,11 +129,28 @@ bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground}
 
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label> <bar>
+label = 
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-foreground = ${colors.foreground}
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = ${colors.primary}
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground}
+
 #-----------------------------------------------------------------------------#
 #---------------------------- Side panel config- -----------------------------#
 #-----------------------------------------------------------------------------#
 [bar/panel]
-monitor = ${env:MONITOR:DVI-I-1}
+monitor = ${env:MONITOR:eDP1}
 enable-ipc = true
 override-redirect = true
 bottom = false
