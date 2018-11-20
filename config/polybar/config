@@ -174,13 +174,18 @@ font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=18;-490"
 font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=18;-490"
 font-2 = "Font Awesome 5 Brands:pixelsize=18;-490"
 
-modules-center = lock exit reboot shutdown screenshot 
+modules-center = lock exit hibernate reboot shutdown screenshot 
 
 #------------------------------ Option modules -------------------------------#
 [module/exit]
 type = custom/text
 content = "  "
 click-left = i3-msg exit
+
+[module/hibernate]
+type = custom/text
+content = "  "
+click-left = ~/.config/i3/scripts/hibernate
 
 [module/shutdown]
 type = custom/text
