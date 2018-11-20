@@ -78,6 +78,9 @@ bindsym $mod+grave exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper sea
 # Open options menu
 bindsym $mod+BackSpace exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper options
 
+# File browser
+bindsym $mod+t exec --no-startup-id urxvt --depth 24 -e ranger
+
 # Lock screen
 bindsym $mod+Pause exec --no-startup-id ~/.config/i3/scripts/betterlockscreen -l blur
 
