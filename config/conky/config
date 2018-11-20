@@ -19,7 +19,7 @@ conky.config = {
 	minimum_width          = 440,
 	maximum_width          = 440,
 
-	minimum_height         = 10,
+	minimum_height         = 1000,
 
 	draw_shades            = false,
 	draw_outline           = false,
@@ -43,7 +43,11 @@ conky.config = {
 	net_avg_samples        = 2,
 	override_utf8_locale   = true,
 
-	font                   = 'DejaVu Sans:style=medium:size=10'
+	font                   = 'DejaVu Sans:style=medium:size=10',
+
+    lua_load = "~/.config/conky/clock.lua",
+    lua_draw_hook_pre = "clock_rings",
+    lua_draw_hook_post = "main"
 }
 
 conky.text = [[
