@@ -78,6 +78,15 @@ bindsym $mod+grave exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper sea
 # Open options menu
 bindsym $mod+BackSpace exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper options
 
+# Volume control
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5% 
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5%
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle
+
+# Backlight control
+bindsym XF86MonBrightnessUp   exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 
+
 # File browser
 bindsym $mod+t exec --no-startup-id urxvt --depth 24 -e ranger
 
