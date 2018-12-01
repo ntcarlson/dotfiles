@@ -10,7 +10,6 @@ margin-top = 0
 margin-bottom = 0
 
 [bar/top]
-monitor = ${env:MONITOR:DVI-I-1}
 enable-ipc = true
 override-redirect = false
 bottom = false
@@ -133,15 +132,14 @@ bar-volume-empty-foreground = ${colors.foreground}
 #---------------------------- Side panel config- -----------------------------#
 #-----------------------------------------------------------------------------#
 [bar/panel]
-monitor = ${env:MONITOR:DVI-I-1}
 enable-ipc = true
 override-redirect = true
 bottom = false
 
-height = 1036 # 1080p - bar height - 2*border width
-width = 25%
+height = 1396 # 1080p - bar height - 2*border width
+width = 480
 offset-y = 40
-offset-x = 75%
+offset-x = 2960 # 3440p - panel width - 2*border width
 fixed-center = true
 spacing = 1
 module-margin-left = 2
@@ -153,9 +151,9 @@ border-color = ${colors.primary}
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=18;-490"
-font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=18;-490"
-font-2 = "Font Awesome 5 Brands:pixelsize=18;-490"
+font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=18;-670"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=18;-670"
+font-2 = "Font Awesome 5 Brands:pixelsize=18;-670"
 
 modules-center = lock exit reboot shutdown screenshot 
 

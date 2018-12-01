@@ -17,7 +17,7 @@ launch_applet() {
 show_applet() {
     APP_WIN=$(cat $APP_WIN_ID)
     xdotool windowmap $APP_WIN
-    xdotool windowmove $APP_WIN 1480 640
+    xdotool windowmove $APP_WIN 3000 1000
     xdotool windowsize $APP_WIN 400 400
     xdotool windowraise $APP_WIN
 }

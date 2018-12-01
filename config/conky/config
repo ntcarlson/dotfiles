@@ -35,7 +35,7 @@ conky.config = {
 
 	alignment              = 'top_right',
 	gap_x                  = 20,
-	gap_y                  = 80,
+	gap_y                  = 85,
 	no_buffers             = true,
 	text_buffer_size       = 2048,
 	uppercase              = false,
@@ -47,6 +47,7 @@ conky.config = {
 }
 
 conky.text = [[
+${voffset -24}
 ${color0}${hr}$color
 ${font Font Awesome 5 Free:style=Regular:size=16}${font}${goto 36}${voffset -6}${font DejaVu Sans:style=bold:size=16}${time %A, %B %d}${font}
 ${voffset 4}${font Font Awesome 5 Free:style=Regular:size=16} ${font}${goto 36}${voffset -7}${font DejaVu Sans:style=bold:size=16}${uid_name 1000}@${nodename}${font}

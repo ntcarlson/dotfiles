@@ -150,7 +150,6 @@ nnoremap <C-K> <C-W>k
 nnoremap <leader>q :Bdelete<CR>
 nnoremap <leader>Q :Bdelete!<CR>
 
-map <C-n> :NERDTreeToggle<CR>
 map <C-b> :TagbarToggle<CR>
 
 "Go back to previous cursor position

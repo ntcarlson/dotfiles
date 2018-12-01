@@ -2,13 +2,12 @@
 # Applications to be launched when i3 starts
 
 exec --no-startup-id dropbox start  # Dropbox daemon
-#exec --no-startup-id nm-applet      # Network manager applet
 
-# Swap Esc and caps
+# Swap Esc and capslock
 exec --no-startup-id setxkbmap -option "caps:swapescape"
 
 # Compositor to fix screen tearing and allow transparent windows
-exec --no-startup-id compton --no-fading-openclose
+exec --no-startup-id compton
 
 # Set a random background every time i3 is launched or reset
 exec_always --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpapers/
@@ -53,8 +52,8 @@ hide_edge_borders smart
 font pango:DejaVu Sans 10
 
 # Show gaps between open windows; requires i3-gaps fork
-gaps inner 16
-gaps outer 0
+gaps inner 32
+gaps outer 32
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
@@ -85,9 +84,9 @@ bindsym $mod+Pause exec --no-startup-id ~/.config/i3/scripts/betterlockscreen -l
 bindsym $mod+g exec --no-startup-id gnome-calculator
 
 # Screenshot of entire desktop
-bindsym $mod+F4 exec scrot -e 'feh $f -x' -d 2
+bindsym $mod+F4 exec --no-startup-id scrot -e 'feh $f -x' -d 2
 # Screenshot of focused window
-bindsym $mod+Shift+F4 exec scrot -u -e 'feh $f -x'   
+bindsym $mod+Shift+F4 exec --no-startup-id scrot -u -e 'feh $f -x'   
 #-----------------------------------------------------------------------------#
 
 #---------------------------- Workspace navigation ---------------------------#
@@ -247,7 +246,9 @@ for_window [window_type="menu"] floating enable
 
 for_window [class="feh"] floating enable
 for_window [class="Steam"] floating enable
+for_window [class="Steam" title="^Steam$"] floating disable
 assign [class="Steam"] $steam
+for_window [class="Gnome-calculator"] floating enable
 for_window [class="chrome" instance="calendar.google.com"] floating enable
 for_window [class="chrome" instance="keep.google.com"] floating enable
 for_window [class="chrome" instance="play.google.com"] floating disable
