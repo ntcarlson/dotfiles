@@ -54,28 +54,30 @@
 *.color15: nord6
 
 !-----------------------------------------------------------------------------!
-!---------------------------- Xterm configuration ----------------------------!
-!-----------------------------------------------------------------------------!
-XTerm*faceName              : DejaVu Sans Mono for Powerline:size=11
-XTerm*locale                : true
-XTerm*utf8                  : 1
-XTerm.vt100.translations    : #override \n\
-    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
-
-!-----------------------------------------------------------------------------!
 !---------------------------- URxvt configuration ----------------------------!
 !-----------------------------------------------------------------------------!
-URxvt*scrollBar         : off
-URxvt*font              : xft:DejaVu Sans Mono for Powerline:size=11:antialias=true
-URxvt*internalBorder    : 12
-URxvt*selectToClipboard : true
-URxvt*saveLines         : 10000
-URxvt*depth             : 32
-URxvt*background        : [85]BG
-URxvt*letterSpace       : -1
-URxvt*iso14755          : false 
-URxvt*iso14755_52       : false
+URxvt.font          : xft:DejaVu Sans Mono for Powerline:size=12
+URxvt.letterSpace   : 0
+
+! Transparent background
+URxvt.depth         : 32
+URxvt.background    : [94]BG
+
+! Set the icon that appears in Rofi launcher
+URxvt.iconFile      : /usr/share/icons/Arc/apps/symbolic/utilities-terminal-symbolic.svg
+
+! Disable scrollback buffer inside pagers like less
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+
+URxvt.scrollBar: false
+
+! Make Ctrl+Shift+C,V copy and paste like a typical terminal emulator
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
 
 !-----------------------------------------------------------------------------!
 !----------------------------- Rofi configuration ----------------------------!
@@ -85,13 +87,13 @@ rofi.hide-scrollbar : true
 rofi.color-enabled  : true
 rofi.dpi            : 0
 rofi.bw             : 2
-rofi.width          : 480
+rofi.width          : 25
 rofi.lines          : 50
 rofi.fixed-num-lines: true
 rofi.yoffset        : 40
 rofi.padding        : 8
-rofi.font           : DejaVu Sans 12
-rofi.window-format  : {c} {t}
+rofi.font           : DejaVu Sans 13
+rofi.window-format  : {t}
 rofi.color-window   : BG_ARGB, PRIMARY, CLEAR
 
 !                  bg          text      bg alt     hl bg     hl text
