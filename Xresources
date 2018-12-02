@@ -87,7 +87,7 @@ rofi.hide-scrollbar : true
 rofi.color-enabled  : true
 rofi.dpi            : 0
 rofi.bw             : 2
-rofi.width          : 25
+rofi.width          : 480
 rofi.lines          : 50
 rofi.fixed-num-lines: true
 rofi.yoffset        : 40
