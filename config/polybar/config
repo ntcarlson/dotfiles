@@ -136,7 +136,7 @@ enable-ipc = true
 override-redirect = true
 bottom = false
 
-height = 1396 # 1080p - bar height - 2*border width
+height = 1396 # 1440p - bar height - 2*border width
 width = 480
 offset-y = 40
 offset-x = 2960 # 3440p - panel width - 2*border width
