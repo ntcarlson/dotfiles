@@ -23,6 +23,9 @@ spacing = 1
 module-margin-left = 2
 module-margin-right = 2
 
+border-bottom-color = ${colors.primary}
+border-bottom-size = 4
+
 background = ${colors.background}
 foreground = ${colors.foreground}
 
@@ -164,7 +167,7 @@ enable-ipc = true
 override-redirect = true
 bottom = false
 
-height = 1540
+height = 1532 # 1600 - bar height - 2*border width
 width = 25%
 offset-y = 60
 offset-x = 75%
@@ -173,12 +176,15 @@ spacing = 1
 module-margin-left = 2
 module-margin-right = 2
 
+border-color = ${colors.primary}
+border-size = 4
+
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=24;-740"
-font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=24;-740"
-font-2 = "Font Awesome 5 Brands:pixelsize=24;-740"
+font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=24;-730"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=24;-730"
+font-2 = "Font Awesome 5 Brands:pixelsize=24;-730"
 
 modules-center = screenshot rotate exit chromeos lock
 

@@ -6,7 +6,7 @@ filetype off    " Required for Vundle
 set runtimepath+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
     Plugin 'VundleVim/Vundle.vim'               " Plugin manager
-    Plugin 'altercation/vim-colors-solarized'   " Color scheme
+    Plugin 'arcticicestudio/nord-vim'           " Color scheme
     Plugin 'vim-airline/vim-airline'            " Fancy status bar
     Plugin 'vim-airline/vim-airline-themes'     " Themes for the status bar
     Plugin 'scrooloose/nerdtree'                " File tree browser
@@ -21,12 +21,13 @@ call vundle#begin()
     Plugin 'wellle/targets.vim'                 " Extends text objects like i}
     Plugin 'tpope/vim-commentary'               " Comment out code with gc
     Plugin 'tpope/vim-repeat'                   " Improves repeat support
+    Plugin 'Konfekt/FastFold'                   " To fix slow folding
 call vundle#end()
 
 " ============================= Appearance ====================================
 syntax enable		            " Enable syntax highlighting 
 set t_Co=256		            " Terminal colors
-colorscheme solarized	        " Solarized color scheme
+colorscheme nord                " Nord color scheme
 set background=dark             " Use Solarized Dark
 set number 		                " Enable line numbers
 set rnu 		                " Relative line numbers"
@@ -59,6 +60,7 @@ set updatetime=500              " Refresh rate in ms (mainly for plugins)
 set scrolloff=4                 " Scroll up/down 4 lines away from the margins
 set wildmenu                    " Tab completion menu (for :e, etc)
 set wildmode=longest,list,full  " Nicer tab completion behavior
+set incsearch                   " Enable incremental search
 " Behavior of long lines
 set nowrap 		                " Don't visually wrap lines
 set linebreak 		            " Break lines at word boundaries
@@ -86,8 +88,8 @@ endif
 
 
 " ============================= Airline =======================================
-let g:airline_theme = 'solarized'   " Solarized color scheme for the status bar
-let g:airline_solarized_bg = 'dark' " Use Solarized Dark
+let g:airline_theme = 'nord'        " Nord color scheme for the status bar
+let g:airline_solarized_bg = 'dark' " Use Nord Dark
 let g:airline_inactive_collapse = 1 " Collapse status bar for inactive windows
 let g:airline_powerline_fonts = 1   " Use Powerline font for special symbols
 set noshowmode                      " Disable default status bar
@@ -122,28 +124,15 @@ let g:tagbar_map_togglefold = "<SPACE>"
 " Automatically open Tagbar on C/C++ source files
 "autocmd FileType c,cpp,h nested :TagbarOpen
 
-
-" =========================== YouCompleteMe ===================================
-let g:ycm_max_num_candidates = 10   " Show 10 autocompleter entries
-let g:ycm_confirm_extra_conf = 0    " Don't ask to load ycm conf
-let g:ycm_error_symbol = ''        " Marker for lines with errors
-let g:ycm_warning_symbol = ''      " Marker for lines with warnings
-" Use preview menu to show detailed information about completion from semantic
-" engine including documentation from header. Close it when completion is done 
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-" Set default configuration file to use as a backup
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_global_conf.py"
-let g:UltiSnipsExpandTrigger="<C-J>"
-
-
-
 " =============================== Vimtex ======================================
 let g:tex_flavor='latex'
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_forward_search_on_start = 0
 let g:vimtex_view_automatic = 0
 let g:vimtex_toc_show_preamble = 1
+let g:vimtex_fold_enabled = 1
+
+" =========================== Custom commands ==================================
 
 " Tab navigation; uses Airline's tab navigation commands which handle windows
 " from Tagbar and NERDTree better
@@ -163,7 +152,6 @@ nnoremap <leader>Q :Bdelete!<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 map <C-b> :TagbarToggle<CR>
-map <C-g> :YcmCompleter GoTo<CR>
 
 "Go back to previous cursor position
 nnoremap <Tab> <C-O> 

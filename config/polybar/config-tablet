@@ -5,32 +5,42 @@
 [colors]
 include-file = ~/.config/polybar/colors
 
+[settings]
+compositing-overline = source
+
 [global/wm]
 margin-top = 0
 margin-bottom = 0
 
 [section/base]
-monitor = ${env:MONITOR:eDP1}
 enable-ipc = true
-override-redirect = false
+override-redirect = true
 bottom = false
 
-height = 80
+height = 680
 width = 100%
-offset-y = 0
+offset-y = -600
 offset-x = 0
 fixed-center = true
 spacing = 1
 module-margin-left = 1
 module-margin-right = 1
 
+overline-size   = 600
+overline-color  = ${colors.background}
+
+border-bottom-size = 4
+border-bottom-color = ${colors.primary}
+
+click-left = ~/.config/i3/scripts/tablet_mode/animate_bar
+
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = "DejaVu Sans:style=Bold:pixelsize=24;2"
-font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=32;6"
-font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=32;6"
-font-3 = "Font Awesome 5 Brands:pixelsize=32;6"
+font-0 = "DejaVu Sans:style=Bold:pixelsize=24;302"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=32;306"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=32;306"
+font-3 = "Font Awesome 5 Brands:pixelsize=32;306"
 
 #-----------------------------------------------------------------------------#
 #------------------------------- Primary bar ---------------------------------#
@@ -38,8 +48,9 @@ font-3 = "Font Awesome 5 Brands:pixelsize=32;6"
 [bar/top]
 inherit = section/base
 modules-left = i3 add_workspace
-modules-center = applauncher
-modules-right = battery date keyboard option_menu
+modules-center = expand_menu
+#modules-right = battery date keyboard option_menu
+modules-right = battery date keyboard 
 
 #----------------------------- Primary modules -------------------------------#
 [module/i3]
@@ -81,13 +92,13 @@ click-left = ~/bin/next_workspace
 
 
 
-[module/applauncher]
+[module/expand_menu]
 type = custom/ipc
-hook-0 = ~/.i3/scripts/polybar_modules/tablet_launcher icon
+hook-0 = ~/.config/i3/scripts/tablet_mode/polybar icon default
+hook-1 = ~/.config/i3/scripts/tablet_mode/polybar icon held
 initial = 1
 format = <output>
-click-left = ~/.i3/scripts/polybar_modules/tablet_launcher toggle
-
+click-left = ~/.config/i3/scripts/tablet_mode/animate_bar
 
 
 [module/date]

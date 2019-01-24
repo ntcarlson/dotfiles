@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# Controls Polybar for tablet mode
+
+APP_WIN_ID=/tmp/tablet_polybar_win_id
+APP_PID=/tmp/tablet_polybar_pid
+SCRIPT_DIR=$(dirname $(realpath $0))
+source $SCRIPT_DIR/dimensions
+
+start() {
+    polybar -c ~/.config/polybar/config-tablet top &
+    echo $! > $APP_PID
+    local win=$(xdotool search --sync --onlyvisible --class "polybar")
+    echo $win > $APP_WIN_ID
+}
+
+expand() {
+    local win=$(cat $APP_WIN_ID)
+    local level=$1
+    case "$level" in
+        0) xdotool windowmove $win 0 $Y_CLOSED;;
+        1) xdotool windowmove $win 0 $Y_MED;;
+        2) xdotool windowmove $win 0 $Y_FULL;;
+        *) xdotool windowmove $win 0 $Y_CLOSED;;
+    esac
+}
+
+set_height() {
+    local win=$(cat $APP_WIN_ID)
+    local height=$1
+    xdotool windowmove $win 0 $height
+}
+
+get_height() {
+    local win=$(cat $APP_WIN_ID)
+    eval $(xdotool getwindowgeometry --shell $win)
+    echo $Y
+}
+
+close() {
+    local pid=$(cat $APP_PID)
+    if [ "$(ps -p $pid -o comm=)" == "polybar" ]; then
+        kill $pid
+    fi
+}
+
+signal() {
+    local pid=$(cat $APP_PID)
+    polybar-msg -p $pid hook $1 $2
+}
+
+
+icon() {
+    # Query colors from Xresources
+    local color_primary=$(xrdb -query ~/.Xresources | awk '/\*primary/ {print $2}')
+    local color_text=$(xrdb -query ~/.Xresources | awk '/\*foreground/ {print $2}')
+
+    local color_open="%{F$color_primary}"
+    local color_closed="%{F$color_text}"
+    local color_end="%{F-}"
+
+    if [ "$1" == "held" ]; then
+        echo "$color_open  $color_end"
+    else
+        echo "$color_closed  $color_end"
+    fi
+}
+
+case "$1" in
+    start)
+        start;;
+    expand)
+        expand $2;;
+    hide)
+        hide;;
+    close)
+        close;;
+    signal)
+        signal $2 $3;;
+    get_height)
+        get_height;;
+    set_height)
+        set_height $2;;
+    icon)
+        icon $2;;
+esac

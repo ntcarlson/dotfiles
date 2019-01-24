@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Script to control the touch gestures to open and close top bar
+
+SCRIPT_DIR=$(dirname $(realpath $0))
+source $SCRIPT_DIR/dimensions
+
+mouse_y() {
+    eval $(xdotool getmouselocation -shell)
+    echo $Y
+}
+
+until_release() {
+    # Use xinput --list to find the index of touchscreen device
+    xinput test 8 | (sed '/release/ q' && killall xinput)
+}
+
+animate() {
+    local win_start=$($SCRIPT_DIR/polybar get_height)
+    local cursor_start=$(mouse_y)
+    $SCRIPT_DIR/launcher show
+    while true; do
+        cursor_pos=$(mouse_y)
+        win_pos=$((cursor_pos - cursor_start + win_start))
+        cur_height=$((win_pos + HEIGHT_FULL))
+        if [ $win_pos -le $Y_FULL -a $win_pos -ge $Y_CLOSED ]; then
+            $SCRIPT_DIR/polybar set_height $win_pos
+        fi
+
+        if [ $cur_height -le $HEIGHT_MED ]; then
+            $SCRIPT_DIR/launcher set_height $((cur_height - HEIGHT_MED + LAUNCHER_Y))
+        fi
+        if [ $cur_height -ge $HEIGHT_FULL_THRESH ]; then
+            $SCRIPT_DIR/launcher set_height $((LAUNCHER_Y + HEIGHT_FULL_THRESH - cur_height))
+        fi
+    done
+}
+
+animate &
+ANIM_PID=$!
+until_release
+kill $ANIM_PID
+
+# Snap to the closest bar state
+win_pos=$($SCRIPT_DIR/polybar get_height)
+cur_height=$((win_pos + HEIGHT_FULL))
+if [ $cur_height -le $HEIGHT_MED_THRESH ]; then
+    $SCRIPT_DIR/polybar expand 0
+    $SCRIPT_DIR/launcher set_height -$LAUNCHER_HEIGHT
+elif [ $cur_height -le $HEIGHT_FULL_THRESH ]; then
+    $SCRIPT_DIR/polybar expand 1
+    $SCRIPT_DIR/launcher set_height $LAUNCHER_Y
+else
+    $SCRIPT_DIR/polybar expand 2
+    $SCRIPT_DIR/launcher set_height -$LAUNCHER_HEIGHT
+fi

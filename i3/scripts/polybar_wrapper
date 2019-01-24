@@ -31,7 +31,8 @@ launch() {
 }
 
 rofi_open() {
-    rofi -show run -location 1 -width 100 -padding 600 -lines 10
+    options_close
+    rofi -show run -location 0 -width 2408 -padding 700 -lines 10
 }
 
 search_open() {

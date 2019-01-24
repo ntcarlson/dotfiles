@@ -123,41 +123,36 @@ endsnippet
 
 
 snippet PRO "problem" A
-\prob{${1:Number}}
-{
-	${2:% Problem statement}
-}
-{
-	${3:% Answer}
-}
+\section{${1:Number}}
+${2:% TODO: Problem $1 statement}
+
+\begin{answer}
+	${3:% TODO Problem $1 solution}
+\end{answer}
 $0
 endsnippet
 
 snippet MPR "multiproblem" A
-\multprob{${1:Number}}
-{
-	${2:% Problem statement}
-}
-{
-	\subprob{${3:Part}}
-	{
-		${4:% Problem statement}
-	}
-	{
-		${5:% Answer}
-	}$6
-}
+\section{${1:Number}}
+${2:% TODO: Problem $1 statement}
+
+\subsection{${3:Subproblem}}
+${4:% TODO: Subproblem $3 statement}
+
+\begin{answer}
+	${5:% TODO: Subproblem $3 solution}
+\end{answer}
 $0
 endsnippet
 
 snippet SPR "subproblem" A
-\subprob{${1:Part}}
-{
-	${2:% Problem statement}
-}
-{
-	${3:% Answer}
-}$0
+\subsection{${1:Subproblem}}
+${2:% TODO: Subproblem $1 statement}
+
+\begin{answer}
+	${3:% TODO: Subproblem $1 solution}
+\end{answer}
+$0
 endsnippet
 
 snippet PREAMB "preamble" A

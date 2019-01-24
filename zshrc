@@ -56,7 +56,6 @@ zle -N zle-keymap-select
 bindkey '^?' backward-delete-char # backspace work after returning from normal mode
 
 export PATH=$PATH:$HOME/bin
-export CS='ncarlson@login.cs.nmt.edu'
 
 bindkey -v "^[[Z" history-substring-search-up
 bindkey -v "^[[A" history-substring-search-up
