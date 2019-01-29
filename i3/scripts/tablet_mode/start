@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Starts tablet mode
+
+SCRIPT_DIR=$(dirname $(realpath $0))
+source $SCRIPT_DIR/dimensions
+
+
+killall animate_bar
+killall polybar
+killall plank
+
+sleep 0.5
+
+#rotate_display tablet
+i3-msg gaps top all set $HEIGHT_CLOSED
+sleep 0.5
+$SCRIPT_DIR/polybar start
+sleep 0.5
+$SCRIPT_DIR/launcher start

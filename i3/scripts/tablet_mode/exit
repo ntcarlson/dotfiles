@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Exits tablet mode
+
+SCRIPT_DIR=$(dirname $(realpath $0))
+
+killall animate_bar
+killall polybar
+killall plank
+
+rotate_display normal
+i3-msg restart
