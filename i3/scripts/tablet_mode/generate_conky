@@ -1,0 +1,105 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(dirname $(realpath $0))
+source $SCRIPT_DIR/dimensions
+
+GRAPH_WIDTH=300
+GRAPH_SPACE=60
+GRAPH_HEIGHT=140
+
+COL2_OFFSET=$((GRAPH_WIDTH + GRAPH_SPACE))
+TOTAL_WIDTH=$((2*GRAPH_WIDTH + GRAPH_SPACE))
+
+GLOBAL_OFFSET=$(((DISPLAY_WIDTH - TOTAL_WIDTH)/2))
+
+glyph() {
+    echo -n "\${font Font Awesome 5 Free:style=Solid}$1\${font}"
+}
+
+conky_graph() {
+    local OPTIND=1
+    local arg graph offset width height text color
+    width=$GRAPH_WIDTH
+    height=$GRAPH_HEIGHT
+
+    while getopts 'g:x:w:h:t:c:' arg
+    do
+        case ${arg} in
+            g) graph=${OPTARG};;
+            x) offset=$((GLOBAL_OFFSET + OPTARG));;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            t) text=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+    
+    echo -n "\${goto $offset}"
+    echo -n "\${$graph $height,$width $color $color}"
+    echo -n "\${goto $((offset+4))}"
+    echo -n "\${voffset 24}"
+    echo -n "$text"
+    echo -n "\${voffset -24}"
+}
+
+conky_battery() {
+    local OPTIND=1
+    local arg offset width height color
+
+    while getopts 'g:x:w:h:t:c:' arg
+    do
+        case ${arg} in
+            x) offset=$((GLOBAL_OFFSET + OPTARG));;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+    
+    echo -n "\${goto $offset}"
+    echo -n "\${color $color}"
+    echo -n "\${battery_bar $height,$width}"
+    echo -n "\${color}"
+    echo -n "\${goto $((offset + 16))}"
+    echo -n "\${voffset 24}"
+    echo -n "$(glyph ) \${battery_time} remaining"
+    echo -n "\${voffset -24}"
+}
+
+new_row() {
+    echo
+}
+
+conky_graph -g memgraph                  \
+            -x 0                         \
+            -t "$(glyph ) \${memperc}%" \
+            -c FFFFFF
+
+conky_graph -g cpugraph                \
+            -x $COL2_OFFSET            \
+            -t "$(glyph ) \${cpu 0}%" \
+            -c FFFFFF
+
+new_row
+
+conky_graph -g "downspeedgraph wlan0"           \
+            -x 0                                \
+            -t "$(glyph ) \${downspeed wlan0}" \
+            -c FFFFFF
+
+conky_graph -g "upspeedgraph wlan0"           \
+            -x $COL2_OFFSET                   \
+            -t "$(glyph ) \${upspeed wlan0}" \
+            -c FFFFFF
+
+new_row
+
+BATTERY_MARGIN=50
+conky_battery -x $BATTERY_MARGIN                     \
+              -w $((TOTAL_WIDTH - 2*BATTERY_MARGIN)) \
+              -h 60                                  \
+              -c FFFFFF
+
+
