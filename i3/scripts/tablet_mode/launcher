@@ -11,7 +11,7 @@ start() {
     echo $! > $APP_PID
     APP_WIN=$(xdotool search --sync --onlyvisible --class "plank")
     xdotool set_window --overrideredirect 1 $APP_WIN
-    xdotool windowsize $APP_WIN x 120
+    xdotool windowsize $APP_WIN x 160
     xdotool windowunmap $APP_WIN
     echo $APP_WIN > $APP_WIN_ID
 }

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Controls the tablet mode info panel that is visible when the bar is
+# fully expanded.
+# The panel consists of a conky window and 3 polybars stacked vertically
+# attached to the conky window.
+
+WIN_ID_CONKY=/tmp/conky_tablet_window_id
+SCRIPT_DIR=$(dirname $(realpath $0))
+source $SCRIPT_DIR/dimensions
+
+create_panel() {
+    killall conky
+    conky -c ~/.config/conky/config-tablet 2> /tmp/conky_out
+    # Extract the hex window id from Conky's output
+    local hex=$(awk '/drawing to created window/ {print $NF}' /tmp/conky_out | tr -d '()' | awk -Fx '{print $2}')
+    i3-msg border none
+    i3-msg floating enable
+    i3-msg resize set 1600 400
+    i3-msg move absolute position 0 0
+
+    local conky_win=$(( 16#$hex )) # convert to decimal
+    echo $conky_win > $WIN_ID_CONKY
+
+    for i in `seq 1 3`; do
+        local menu=option_menu${i}
+        polybar -c ~/dotfiles/config/polybar/config-tablet $menu &
+        local menu_win=$(xdotool search --sync --pid $!)
+        # Attach the polybar to the conky window
+        xdotool windowreparent $menu_win $conky_win
+        # Window position is relative to the parent position
+        xdotool windowmove $menu_win 1300 $((80*i))
+    done
+}
+
+create_panel
