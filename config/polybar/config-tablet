@@ -144,9 +144,9 @@ click-left = ~/bin/onscreen_keyboard toggle
 
 [module/option_menu]
 type = custom/ipc
-hook-0 = ~/.i3/scripts/polybar_modules/tablet_options icon
+hook-0 = ~/.config/i3/scripts/polybar_modules/tablet_options icon
 initial = 1
-click-left = ~/.i3/scripts/polybar_modules/tablet_options toggle
+click-left = ~/.config/i3/scripts/polybar_modules/tablet_options toggle
 
 
 #-----------------------------------------------------------------------------#
@@ -167,37 +167,37 @@ modules-center = chrome web notes pdf terminal music calculator
 [module/chrome]
 type = custom/text
 content = "  "
-click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch chrome
+click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch chrome
 
 [module/web]
 type = custom/text
 content = "  "
-click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch web
+click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch web
 
 [module/notes]
 type = custom/text
 content = "  "
-click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch notes
+click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch notes
 
 [module/pdf]
 type = custom/text
 content = "  "
-click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch pdf
+click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch pdf
 
 [module/terminal]
 type = custom/text
 content = "  "
-click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch terminal
+click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch terminal
 
 [module/music]
 type = custom/text
 content = "  "
-click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch music
+click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch music
 
 [module/calculator]
 type = custom/text
 content = "  "
-click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch calculator
+click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch calculator
 
 
 #-----------------------------------------------------------------------------#
@@ -205,12 +205,26 @@ click-left = ~/.i3/scripts/polybar_modules/tablet_launcher launch calculator
 #-----------------------------------------------------------------------------#
 
 [bar/option_menu]
-inherit = section/base
+enable-ipc = true
 override-redirect = true
-width = 400
-offset-x = 1200
-offset-y = 80
+bottom = false
 
+height = 80
+width = 20%
+offset-y = 0
+offset-x = 0
+fixed-center = true
+spacing = 1
+module-margin-left = 1
+module-margin-right = 1
+
+background = #00000000
+foreground = ${colors.foreground}
+
+font-0 = "DejaVu Sans:style=Bold:pixelsize=24;2"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=32;6"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=32;6"
+font-3 = "Font Awesome 5 Brands:pixelsize=32;6"
 # Small font for the slider bars
 font-4 = "DejaVu Sans Mono:pixelsize=9;2"
 
@@ -239,12 +253,12 @@ click-left = ~/bin/normal_mode
 [module/lock]
 type = custom/text
 content = "  "
-click-left = ~/.i3/scripts/betterlockscreen -l blur
+click-left = ~/.config/i3/scripts/betterlockscreen -l blur
 
 [module/rofi]
 type = custom/text
 content = "  "
-click-left = ~/.i3/scripts/polybar_tablet rofi
+click-left = ~/.config/i3/scripts/polybar_tablet rofi
 
 [module/window_close]
 type = custom/text
@@ -254,33 +268,33 @@ click-left = i3-msg kill
 [module/vol_up]
 type = custom/text
 content = " "
-click-left = ~/.i3/scripts/polybar_modules/volume increase
+click-left = ~/.config/i3/scripts/polybar_modules/volume increase
 
 [module/vol_down]
 type = custom/text
 content = " "
-click-left = ~/.i3/scripts/polybar_modules/volume decrease
+click-left = ~/.config/i3/scripts/polybar_modules/volume decrease
 
 [module/volume]
 type = custom/ipc
-hook-0 = ~/.i3/scripts/polybar_modules/volume slider
+hook-0 = ~/.config/i3/scripts/polybar_modules/volume slider
 format = %{T5}<output>%{T-}
 initial = 1
-click-left = ~/.i3/scripts/polybar_modules/volume mute
+click-left = ~/.config/i3/scripts/polybar_modules/volume mute
 
 [module/backlight_up]
 type = custom/text
 content = " "
-click-left = ~/.i3/scripts/polybar_modules/backlight increase
+click-left = ~/.config/i3/scripts/polybar_modules/backlight increase
 
 [module/backlight_down]
 type = custom/text
 content = " "
-click-left = ~/.i3/scripts/polybar_modules/backlight decrease
+click-left = ~/.config/i3/scripts/polybar_modules/backlight decrease
 
 [module/backlight]
 type = custom/ipc
-hook-0 = ~/.i3/scripts/polybar_modules/backlight slider
+hook-0 = ~/.config/i3/scripts/polybar_modules/backlight slider
 format = %{T5}<output>%{T-}
 initial = 1
 

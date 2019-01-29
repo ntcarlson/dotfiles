@@ -1,56 +1,49 @@
 #!/bin/bash
 
-file="/sys/class/backlight/intel_backlight/brightness"
-current=$(cat $file)
-max=$(cat /sys/class/backlight/intel_backlight/max_brightness)
-min=128
+# This script uses Crouton's brightness script to set the backlight
+
+INC=5
+get-level() {
+    local round=$(( INC/2 ))
+    echo $(( (($(brightness) + round)/INC) * INC))
+}
 
 polybar-signal() {
     polybar-msg hook backlight 1
 }
 
 increase() {
-    current=$(( 2 * $current ))
-    if [ $current -le $max ]; then
-        echo $current > $file
-    else
-        echo $max > $file
-    fi
+    local current=$(get-level)
+    echo $current
+    brightness $((current + $INC))
     polybar-signal
 }
 
 decrease() {
-    if [ $current -eq $max ]; then
-        current=$(( ($current / 2) + 1 ))
-    else
-        current=$(( $current / 2 ))
-    fi
-    if [ $current -ge $min ]; then
-        echo $current > $file
-    else
-        echo $min > $file
-    fi
+    local current=$(get-level)
+    echo $current
+    brightness $((current - $INC))
     polybar-signal
 }
 
-get() {
-    level=$(echo "l($current + 1)/l(2)" | bc -l | awk -F. '{print $1}')
-    percent=$(( $(( $level - 6 )) * 10 ))
-    echo $percent%
+output-perc() {
+    echo $(get-level)%
 }
 
-slider() {
+output-slider() {
     COLOR_ACTIVE="%{F#268BD2}"
     COLOR_END="%{F-}"
      
-    level=$(echo "l($current + 1)/l(2) - 6" | bc -l | awk -F. '{print $1}')
+    local level=$(( $(get-level) / $INC ))
+    local num_steps=$(( (100 / $INC) - 1 ))
+
     echo -n "$COLOR_ACTIVE"
     for i in $(seq 1 $level); do
-        echo -n "━━"
+        echo -n "━"
     done
     echo -n "█$COLOR_END"
-    for i in $(seq $level 9); do
-        echo -n "━━"
+    for i in $(seq $level $num_steps); do
+        echo -n "━"
     done
     echo
 }
@@ -60,8 +53,8 @@ case "$1" in
     inc)        increase;;
     decrease)   decrease;;
     dec)        decrease;;
-    get)        get;;
-    slider)     slider;;
+    get)        output-perc;;
+    slider)     output-slider;;
     *)
         echo "Unknown option $1"
         echo "backlight <inc[rease]|dec[rease]|get|slider>"
