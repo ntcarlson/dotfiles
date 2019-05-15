@@ -17,7 +17,6 @@ create_panel() {
     i3-msg border none
     i3-msg floating enable
     i3-msg resize set 1600 400
-    i3-msg move absolute position 0 0
 
     local conky_win=$(( 16#$hex )) # convert to decimal
     echo $conky_win > $WIN_ID_CONKY
@@ -29,8 +28,22 @@ create_panel() {
         # Attach the polybar to the conky window
         xdotool windowreparent $menu_win $conky_win
         # Window position is relative to the parent position
-        xdotool windowmove $menu_win 1300 $((80*i))
+        xdotool windowmove $menu_win 1200 $((80*i))
     done
+    xdotool set_window --overrideredirect 1 $conky_win
+    xdotool windowunmap $conky_win
+    xdotool windowmap $conky_win
+    xdotool windowmove $conky_win x -400
 }
 
-create_panel
+set_height() {
+    local win=$(cat $WIN_ID_CONKY)
+    xdotool windowmove $win x $1
+}
+
+case "$1" in
+    start)
+        create_panel;;
+    set_height)
+        set_height $2;;
+esac

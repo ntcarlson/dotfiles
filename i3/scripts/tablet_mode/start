@@ -5,7 +5,6 @@
 SCRIPT_DIR=$(dirname $(realpath $0))
 source $SCRIPT_DIR/dimensions
 
-
 killall animate_bar
 killall polybar
 killall plank
@@ -18,3 +17,5 @@ sleep 0.5
 $SCRIPT_DIR/polybar start
 sleep 0.5
 $SCRIPT_DIR/launcher start
+sleep 0.5
+$SCRIPT_DIR/info_panel start

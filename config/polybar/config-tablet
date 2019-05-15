@@ -150,57 +150,6 @@ click-left = ~/.config/i3/scripts/polybar_modules/tablet_options toggle
 
 
 #-----------------------------------------------------------------------------#
-#------------------------------- App launcher --------------------------------#
-#-----------------------------------------------------------------------------#
-[bar/applauncher]
-inherit = section/base
-override-redirect = true
-radius-bottom = 32
-width = 40%
-offset-x = 30%
-offset-y = 80
-
-modules-center = chrome web notes pdf terminal music calculator
-
-
-#--------------------------- Application modules -----------------------------#
-[module/chrome]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch chrome
-
-[module/web]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch web
-
-[module/notes]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch notes
-
-[module/pdf]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch pdf
-
-[module/terminal]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch terminal
-
-[module/music]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch music
-
-[module/calculator]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/polybar_modules/tablet_launcher launch calculator
-
-
-#-----------------------------------------------------------------------------#
 #------------------------------ Options menu ---------------------------------#
 #-----------------------------------------------------------------------------#
 
