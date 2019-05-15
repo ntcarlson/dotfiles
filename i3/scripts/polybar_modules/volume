@@ -5,6 +5,14 @@
 VOL=$(amixer sget Master | grep '[0-9]*%' -o | tr -d '%')
 STEP_SIZE=5
 
+fetch_color()
+{
+    xrdb -query | grep "$1:" | awk -F'#' '{print $2}'
+}
+PRIMARY=$(fetch_color primary)
+TEXT=$(fetch_color foreground)
+MUTE=$(fetch_color background_alt)
+
 polybar-signal() {
     polybar-msg hook volume 1
 }
@@ -45,19 +53,19 @@ icon() {
 
     # Set the color to be greyed out when muted
     if [ -z $(amixer sget Master | grep off) ]; then
-        COLOR="#93A1A1"
+        COLOR="#$TEXT"
     else
-        COLOR="#586E75"
+        COLOR="#$MUTE"
     fi
     echo "%{F$COLOR}$SYMBOL $VOL%{F-}"
 }
 
 slider() {
     if [ -z $(amixer sget Master | grep off) ]; then
-        COLOR="#268BD2"
+        COLOR="#$PRIMARY"
         SYMBOL="█"
     else
-        COLOR="#93A1A1"
+        COLOR="#$MUTE"
         SYMBOL="╳"
     fi
 

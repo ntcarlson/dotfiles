@@ -2,6 +2,13 @@
 
 # This script uses Crouton's brightness script to set the backlight
 
+fetch_color()
+{
+    xrdb -query | grep "$1:" | awk -F'#' '{print $2}'
+}
+PRIMARY=$(fetch_color primary)
+TEXT=$(fetch_color foreground)
+
 INC=5
 get-level() {
     local round=$(( INC/2 ))
@@ -13,16 +20,12 @@ polybar-signal() {
 }
 
 increase() {
-    local current=$(get-level)
-    echo $current
-    brightness $((current + $INC))
+    brightness up
     polybar-signal
 }
 
 decrease() {
-    local current=$(get-level)
-    echo $current
-    brightness $((current - $INC))
+    brightness down
     polybar-signal
 }
 
@@ -31,7 +34,7 @@ output-perc() {
 }
 
 output-slider() {
-    COLOR_ACTIVE="%{F#268BD2}"
+    COLOR_ACTIVE="%{F#$PRIMARY}"
     COLOR_END="%{F-}"
      
     local level=$(( $(get-level) / $INC ))
