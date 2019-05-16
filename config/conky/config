@@ -26,7 +26,7 @@ conky.config = {
 	draw_borders           = false,
 	draw_graph_borders     = true,
 	
-	default_color          = '93A1A1',
+	default_color          = 'D8DEE9',
 	default_shade_color    = '333333',
 	default_outline_color  = 'black',
 	color1                 = '586E75',
@@ -44,35 +44,29 @@ conky.config = {
 
 	font                   = 'DejaVu Sans:style=medium:size=10'
 }
-
 conky.text = [[
+${voffset 4}
+${hr}
+${font Font Awesome 5 Free:style=Regular:size=16} ${voffset -8}${font}${font DejaVu Sans:style=bold:size=16}${time %A, %B %d}${font}${voffset 8}
+${font Font Awesome 5 Free:style=Regular:size=16} ${voffset -12)}${font}${font DejaVu Sans:style=bold:size=16}ntc@${nodename}${font}${voffset 12)}${voffset -10}
+${hr}
 
-${hr}
-${font Font Awesome 5 Free:style=Regular:size=16} ${font}${font DejaVu Sans:style=bold:size=16}${time %A, %B %d}${font}
-${font Font Awesome 5 Free:style=Regular:size=16} ${font}${font DejaVu Sans:style=bold:size=16}${uid_name 1000}@${nodename}${font}
-${hr}
-
-${hr}
-${font Font Awesome 5 Free:style=Solid}${font} ${memperc}% ${goto 300} ${font Font Awesome 5 Free:style=Solid}${font} ${cpu 0}%
-${memgraph 80,260 268BD2 268BD2} ${goto 300} ${cpugraph 0 80,260 859900 859900}
+${goto 2}${color A3BE8C}${memgraph 110,260 A3BE8C A3BE8C}${color D8DEE9}${goto 14}${voffset 24}${font Font Awesome 5 Free:style=Solid}${font} ${memperc}%${voffset -24}${goto 300}${color EBCB8B}${cpugraph 110,260 EBCB8B EBCB8B}${color D8DEE9}${goto 312}${voffset 24}${font Font Awesome 5 Free:style=Solid}${font} ${cpu 0}%${voffset -24}
 Top Processes: ${alignr} (${processes} total processes)
-Name          ${goto 160} PID          ${goto 260} CPU%         ${goto 360} MEM%         ${alignr} TIME
+Name ${goto 160} PID ${goto 260} CPU% ${goto 360} MEM%  TIME
 ${hr}
-${top name 1} ${goto 160} ${top pid 1} ${goto 260} ${top cpu 1} ${goto 360} ${top mem 1} ${alignr} ${top time 1}
-${top name 2} ${goto 160} ${top pid 2} ${goto 260} ${top cpu 2} ${goto 360} ${top mem 2} ${alignr} ${top time 2}
-${top name 3} ${goto 160} ${top pid 3} ${goto 260} ${top cpu 3} ${goto 360} ${top mem 3} ${alignr} ${top time 3}
-${top name 4} ${goto 160} ${top pid 4} ${goto 260} ${top cpu 4} ${goto 360} ${top mem 4} ${alignr} ${top time 4}
-${top name 5} ${goto 160} ${top pid 5} ${goto 260} ${top cpu 5} ${goto 360} ${top mem 5} ${alignr} ${top time 5}
-${hr}
-
-${hr}
-${font Font Awesome 5 Free:style=Solid}${font} ${downspeed wlan0} ${goto 300} ${font Font Awesome 5 Free:style=Solid}${font} ${upspeed wlan0}
-${downspeedgraph wlan0 80,260 6C71C4 6C71C4} ${goto 300} ${upspeedgraph wlan0 80,260 2AA198 2AA198}
-${font Font Awesome 5 Free:style=Solid} ${font}${wireless_essid} ${alignr}${font Font Awesome 5 Free:style=Solid} ${font}${addr wlan0}
+${top name 1}${goto 160} ${top pid 1}${goto 260} ${top cpu 1}${goto 360} ${top mem 1}${alignr} ${top time 1}
+${top name 2}${goto 160} ${top pid 2}${goto 260} ${top cpu 2}${goto 360} ${top mem 2}${alignr} ${top time 2}
+${top name 3}${goto 160} ${top pid 3}${goto 260} ${top cpu 3}${goto 360} ${top mem 3}${alignr} ${top time 3}
+${top name 4}${goto 160} ${top pid 4}${goto 260} ${top cpu 4}${goto 360} ${top mem 4}${alignr} ${top time 4}
+${top name 5}${goto 160} ${top pid 5}${goto 260} ${top cpu 5}${goto 360} ${top mem 5}${alignr} ${top time 5}
+${top name 6}${goto 160} ${top pid 6}${goto 260} ${top cpu 6}${goto 360} ${top mem 6}${alignr} ${top time 6}
 ${hr}
 
-${goto 50}${font Font Awesome 5 Free:style=Solid}${font} ${alignc} ${battery_time} remaining
-${goto 50}${color CB4B16}${battery_bar 20,460}${color}
 ${hr}
-
+${goto 2}${color 81A1C1}${downspeedgraph wlan0 110,260 81A1C1 81A1C1}${color D8DEE9}${goto 14}${voffset 24}${font Font Awesome 5 Free:style=Solid}${font} ${downspeed wlan0}${voffset -24}${goto 300}${color B48EAD}${upspeedgraph wlan0 110,260 B48EAD B48EAD}${color D8DEE9}${goto 312}${voffset 24}${font Font Awesome 5 Free:style=Solid}${font} ${upspeed wlan0}${voffset -24}
+${font Font Awesome 5 Free:style=Solid} ${font}${wireless_essid}${alignr}${font Font Awesome 5 Free:style=Solid} ${font}${addr wlan0}
+${hr}
+${goto 50}${color BF616A}${battery_bar 50,460}${color D8DEE9}${goto 66}${voffset 21}${font Font Awesome 5 Free:style=Solid}${font}${alignr 66}${battery_time} remaining${voffset -21}${voffset -10}
+${hr}
 ]]

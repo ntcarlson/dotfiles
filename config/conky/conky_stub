@@ -1,0 +1,46 @@
+conky.config = {
+	use_xft                = true,
+	xftalpha               = 1,
+	update_interval        = 1,
+	total_run_times        = 0,
+
+	background             = true, 
+    out_to_console         = false,
+    out_to_stderr          = false,
+
+	own_window             = true,
+    own_window_class       = 'Conky',
+	own_window_type        = 'override',
+	own_window_argb_visual = true,
+    own_window_transparent = true,
+
+	double_buffer          = true,
+
+	minimum_width          = 560,
+	maximum_width          = 560,
+
+	minimum_height         = 10,
+
+	draw_shades            = false,
+	draw_outline           = false,
+	draw_borders           = false,
+	draw_graph_borders     = true,
+	
+	default_color          = 'D8DEE9',
+	default_shade_color    = '333333',
+	default_outline_color  = 'black',
+	color1                 = '586E75',
+	color3                 = '586E75',
+
+	alignment              = 'top_right',
+	gap_x                  = 20,
+	gap_y                  = 90,
+	no_buffers             = true,
+	text_buffer_size       = 2048,
+	uppercase              = false,
+	cpu_avg_samples        = 4,
+	net_avg_samples        = 2,
+	override_utf8_locale   = true,
+
+	font                   = 'DejaVu Sans:style=medium:size=10'
+}

@@ -1,0 +1,78 @@
+#!/bin/bash
+
+WIDTH=560
+
+GRAPH_SPACE=40
+GRAPH_WIDTH=$(( (WIDTH - $GRAPH_SPACE)/2 )) 
+GRAPH_HEIGHT=110
+COL2_OFFSET=$((GRAPH_WIDTH + GRAPH_SPACE))
+
+SCRIPT_DIR=$(dirname $(realpath $0))
+source $SCRIPT_DIR/generate_conky
+
+cat $SCRIPT_DIR/conky_stub
+header
+echo "\${voffset 4}"
+vertical_separator
+display_date -f 16
+new_row
+login_name -f 16
+echo "\${voffset -10}"
+vertical_separator
+new_row
+
+conky_graph -g memgraph                  \
+            -x 2                         \
+            -h $GRAPH_HEIGHT             \
+            -w $GRAPH_WIDTH              \
+            -t "$(glyph ) \${memperc}%" \
+            -c $(fetch_color color10)
+
+conky_graph -g cpugraph                \
+            -x $COL2_OFFSET            \
+            -h $GRAPH_HEIGHT           \
+            -w $GRAPH_WIDTH            \
+            -t "$(glyph ) \${cpu 0}%" \
+            -c $(fetch_color color11)
+
+new_row
+
+echo "Top Processes: \${alignr} (\${processes} total processes)"
+process_table -r 6 -1 160 -2 260 -3 360
+
+new_row
+vertical_separator
+
+conky_graph -g "downspeedgraph wlan0"           \
+            -x 2                                \
+            -h $GRAPH_HEIGHT                    \
+            -w $GRAPH_WIDTH                     \
+            -t "$(glyph ) \${downspeed wlan0}" \
+            -c $(fetch_color color12)
+
+conky_graph -g "upspeedgraph wlan0"           \
+            -x $COL2_OFFSET                   \
+            -h $GRAPH_HEIGHT                  \
+            -w $GRAPH_WIDTH                   \
+            -t "$(glyph ) \${upspeed wlan0}" \
+            -c $(fetch_color color13)
+
+new_row
+
+glyph " "
+echo -n "\${wireless_essid}\${alignr}"
+glyph " "
+echo "\${addr wlan0}"
+
+vertical_separator
+
+BATTERY_MARGIN=50
+conky_battery -x $BATTERY_MARGIN                     \
+              -w $((WIDTH - 2*BATTERY_MARGIN))       \
+              -h 50                                  \
+              -c $(fetch_color primary)
+echo "\${voffset -10}"
+vertical_separator
+
+footer
+

@@ -1,0 +1,155 @@
+#!/bin/bash
+
+glyph() {
+    echo -n "\${font Font Awesome 5 Free:style=Solid}$1\${font}"
+}
+
+fetch_color()
+{
+    xrdb -query | grep "$1:" | awk -F'#' '{print $2}'
+}
+PRIMARY=$(fetch_color primary)
+TEXT=$(fetch_color foreground)
+
+display_date() {
+    local OPTIND=1
+    local font
+
+    while getopts 'f:' arg
+    do
+        case ${arg} in
+            f) font=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+    echo -n "\${font Font Awesome 5 Free:style=Regular:size=$font}"
+    echo -n " "
+    echo -n "\${voffset -8}"
+    echo -n "\${font}"
+    echo -n "\${font DejaVu Sans:style=bold:size=$font}"
+    echo -n "\${time %A, %B %d}\${font}"
+    echo -n "\${voffset 8}"
+}
+
+login_name() {
+    local OPTIND=1
+    local font
+
+    while getopts 'f:' arg
+    do
+        case ${arg} in
+            f) font=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+    echo -n "\${font Font Awesome 5 Free:style=Regular:size=$font}"
+    echo -n " "
+    echo -n "\${voffset -12)}"
+    echo -n "\${font}"
+    echo -n "\${font DejaVu Sans:style=bold:size=$font}"
+    echo -n "$(whoami)@\${nodename}\${font}"
+    echo -n "\${voffset 12)}"
+}
+
+process_table() {
+    local OPTIND=1
+    local rows col1 col2 col3
+
+    while getopts 'r:1:2:3:' arg
+    do
+        case ${arg} in
+            r) rows=${OPTARG};;
+            1) col1=${OPTARG};;
+            2) col2=${OPTARG};;
+            3) col3=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    echo "Name \${goto $col1} PID \${goto $col2} CPU% \${goto $col3} MEM% ${alignr} TIME"
+    echo "\${hr}"
+    for i in $(seq $rows); do
+        echo -n "\${top name $i}"
+        echo -n "\${goto $col1} \${top pid $i}"
+        echo -n "\${goto $col2} \${top cpu $i}"
+        echo -n "\${goto $col3} \${top mem $i}"
+        echo "\${alignr} \${top time $i}"
+    done
+    echo "\${hr}"
+}
+
+conky_graph() {
+    local OPTIND=1
+    local arg graph offset width height text color
+    color=$PRIMARY
+
+    while getopts 'g:x:w:h:t:c:' arg
+    do
+        case ${arg} in
+            g) graph=${OPTARG};;
+            x) offset=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            t) text=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+   
+    echo -n "\${goto $offset}"
+    echo -n "\${color $color}" 
+    echo -n "\${$graph $height,$width $color $color}"
+    echo -n "\${color $TEXT}"
+    echo -n "\${goto $((offset+12))}"
+    echo -n "\${voffset 24}"
+    echo -n "$text"
+    echo -n "\${voffset -24}"
+}
+
+conky_battery() {
+    local OPTIND=1
+    local arg offset width height color
+    color=$PRIMARY
+
+    while getopts 'g:x:w:h:t:c:' arg
+    do
+        case ${arg} in
+            x) offset=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+    
+    echo -n "\${goto $offset}"
+    echo -n "\${color $color}"
+    echo -n "\${battery_bar $height,$width}"
+    echo -n "\${color $TEXT}"
+    echo -n "\${goto $((offset + 16))}"
+    echo -n "\${voffset $((height/2 - 4))}"
+    echo -n "$(glyph )"
+    echo -n "\${alignr $((offset + 16))}"
+    echo -n "\${battery_time} remaining"
+    echo -n "\${voffset -$((height/2 - 4))}"
+}
+
+new_row() {
+    echo
+}
+
+vertical_separator() {
+    # echo -n "\${color $PRIMARY}"
+    # echo -n "\${hr}"
+    # echo "\${color}"
+    echo "\${hr}"
+}
+
+header() {
+    echo "conky.text = [["
+}
+
+footer() {
+    echo "]]"
+}
+
