@@ -10,7 +10,7 @@ exec --no-startup-id xmodmap -e 'keycode 133 = Escape'
 exec --no-startup-id compton --no-fading-openclose
 
 # Set a random background every time i3 is launched or reset
-exec_always --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpapers/
+exec_always --no-startup-id ~/.config/i3/scripts/betterlockscreen -w
 
 # Polybar is used instead of i3bar
 exec_always --no-startup-id ~/.config/i3/scripts/polybar_wrapper launch
