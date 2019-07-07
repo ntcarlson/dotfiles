@@ -3,8 +3,12 @@
 
 exec --no-startup-id dropbox start
 
+
 # Swap Esc and capslock
 exec --no-startup-id xmodmap -e 'keycode 133 = Escape'
+
+# Pixelbook function keys
+exec --no-startup-id xmodmap -e 'keycode 73 = XF86AudioPlay'
 
 # Compositor to fix screen tearing and allow transparent windows
 exec --no-startup-id compton --no-fading-openclose
@@ -14,6 +18,9 @@ exec_always --no-startup-id ~/.config/i3/scripts/betterlockscreen -w
 
 # Polybar is used instead of i3bar
 exec_always --no-startup-id ~/.config/i3/scripts/polybar_wrapper launch
+
+# Fuzzy file opener powered by fzf
+exec_always --no-startup-id ~/.config/i3/scripts/fuzzyopener start
 #=============================================================================#
 
 
@@ -71,6 +78,9 @@ bindsym $mod+Return exec --no-startup-id kitty
 
 # Bring up launcher
 bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper rofi
+
+# File opener
+bindsym $mod+o exec --no-startup-id ~/.config/i3/scripts/fuzzyopener show
 
 # Search open windows
 bindsym $mod+grave exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper search

@@ -32,10 +32,13 @@ launch() {
 
 rofi_open() {
     options_close
+    $(dirname $0)/fuzzyopener hide
     rofi -show run -location 0 -width 2408 -padding 700 -lines 10
 }
 
 search_open() {
+    options_close
+    $(dirname $0)/fuzzyopener hide
     rofi -show window -location 1
 }
 

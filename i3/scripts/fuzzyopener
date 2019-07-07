@@ -1,0 +1,77 @@
+#!/bin/bash
+
+FZFTERMINAL=/tmp/fzfterminal_id
+
+open_file() {
+    local filename="$1"
+    
+    if [ -z "$filename" ]; then
+        return
+    elif [ -d "$filename" ]; then
+        kitty -d "$filename"
+    fi
+
+    local extension=${filename##*.}
+
+    case "$extension" in
+        pdf)
+            zathura "$filename" &;;
+        png) ;&
+        jpg) ;&
+        jpeg)
+            feh "$filename" &;;
+        *)
+            gvim "$filename";;
+    esac
+}
+
+create_window() {
+    close_window
+    sleep 0.2
+    kitty --class "fzfterminal" sh -c "$0 loop" &
+    echo test
+    local win_id=$(xdotool search --sync --class "fzfterminal")
+    echo $win_id
+    xdotool set_window --overrideredirect 1 $win_id
+    xdotool windowunmap $win_id
+    xdotool windowsize $win_id 100% 100%
+    echo $win_id > $FZFTERMINAL
+}
+
+close_window() {
+    local win_id=$(cat /tmp/fzfterminal_id)
+    xdotool windowclose $win_id
+}
+
+show_window() {
+    $(dirname $0)/polybar_wrapper options_close
+    local win_id=$(cat /tmp/fzfterminal_id)
+    xdotool windowmap $win_id
+    xdotool windowfocus $win_id
+}
+
+hide_window() {
+    local win_id=$(cat /tmp/fzfterminal_id)
+    xdotool windowunmap $win_id
+}
+
+
+fzf_loop() {
+    while true; do
+        open_file "$(fzf --margin=20)"
+        xdotool windowunmap $(cat $FZFTERMINAL)
+    done
+}
+
+case "$1" in
+    start)
+        create_window;;
+    close)
+        close_window;;
+    show)
+        show_window;;
+    hide)
+        hide_window;;
+    loop)
+        fzf_loop;;
+esac
