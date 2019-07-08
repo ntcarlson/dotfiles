@@ -1,0 +1,48 @@
+#!/bin/bash
+
+ICONS="      "
+NUM_ICONS=$(echo $ICONS | wc -w)
+
+icon_list() {
+    for icon in "$ICONS"; do
+        printf "<span font=\"34\">%s</span>\n" $icon
+    done
+}
+
+rofi_menu() {
+    icon_list | rofi -dmenu     \
+         -markup-rows           \
+         -eh 2                  \
+         -location 0            \
+         -width 2800            \
+         -bw 0                  \
+         -padding 800           \
+         -lines 1               \
+         -fixed-num-lines 1     \
+         -columns $NUM_ICONS    \
+         -p "Set workspace tag" \
+         -font 'Font Awesome 16'
+}
+
+parse_output() {
+    local icon=$(echo "$1" | awk -F">" '{print $2}' | awk -F"<" '{print $1}')
+    if [ -z "$icon" ]; then
+        echo "$1"
+    else
+        echo "$icon"
+    fi
+}
+
+# Extract workspace number from json file that stores workspace state
+get_ws_num() {
+    python3 -c "import json; print(next(filter(lambda w: w['focused'], json.loads('$(i3-msg -t get_workspaces)')))['num'])"
+}
+
+TAG=$(parse_output "$(rofi_menu)")
+WS=$(get_ws_num)
+
+if [ "$TAG" == "" ]; then
+    i3-msg rename workspace to "$WS"
+else
+    i3-msg rename workspace to "$WS:$TAG"
+fi
