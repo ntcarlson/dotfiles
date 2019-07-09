@@ -1,0 +1,34 @@
+#!/bin/bash
+
+
+rofi_menu() {
+    rofi -dmenu     \
+         -markup-rows           \
+         -eh 3                  \
+         -location 0            \
+         -width 2800            \
+         -bw 0                  \
+         -padding 800           \
+         -lines 2               \
+         -columns 4             \
+         -p "Select a color"    
+}
+
+color_list() {
+    xrdb -query | awk '/^\*.color/ {print $2}'
+}
+
+format_color_list() {
+    for color in $(color_list); do
+        printf "<span font=\"36\" foreground=\"%s\">████</span>\n" $color
+    done
+}
+
+extract_color() {
+    echo "$1" | grep -o -P -e "#[A-Fa-f0-9]{6}"
+}
+
+COLOR=$(extract_color "$(format_color_list | rofi_menu)")
+echo $COLOR
+echo -n $COLOR | xclip -sel clip
+#xrdb -query | awk '/^\*.color/ {printf "<span font=\"36\" foreground=\"%s\">████</span>\n", $2}' | rofi_menu
