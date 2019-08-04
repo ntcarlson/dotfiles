@@ -35,7 +35,7 @@ clock_h = {
     graduation_radius=120,
     graduation_thickness=15,        graduation_mark_thickness=1,
     graduation_unit_angle=30,
-    graduation_fg_colour=0xBF616A, graduation_fg_alpha=1,
+    graduation_fg_colour=0xA3BE8C, graduation_fg_alpha=1,
     },
 }
 
@@ -337,7 +337,7 @@ clock_y=240
 
 -- Colour & alpha of the clock hands
 
-clock_colour=0xBF616A
+clock_colour=0xA3BE8C
 clock_alpha=1
 
 -- Do you want to show the seconds hand?

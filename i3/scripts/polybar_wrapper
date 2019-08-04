@@ -32,7 +32,15 @@ launch() {
 
 rofi_open() {
     options_close
-    rofi -show run -location 0 -width 3444 -padding 1300 -lines 10 -yoffset 0 -font 'DejaVu Sans 16'
+    rofi -show run              \
+         -modi run,drun         \
+         -sidebar-mode          \
+         -location 0            \
+         -width 3444            \
+         -padding 1300          \
+         -lines 10              \
+         -yoffset 0             \
+         -font 'DejaVu Sans 18'
 }
 
 search_open() {

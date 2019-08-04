@@ -27,7 +27,7 @@ conky.config = {
 	draw_graph_borders     = true,
 	
     default_color          = 'D8DEE9',
-    color0                 = 'BF616A',
+    color0                 = 'A4BE8C',
     color1                 = 'D08770',
     color2                 = 'EBCB8B',
     color3                 = 'A3BE8C',
@@ -67,8 +67,8 @@ ${top name 3} ${goto 120} ${top pid 3} ${goto 210} ${top cpu 3} ${goto 300} ${to
 ${top name 4} ${goto 120} ${top pid 4} ${goto 210} ${top cpu 4} ${goto 300} ${top mem 4} ${alignr} ${top time 4}
 ${top name 5} ${goto 120} ${top pid 5} ${goto 210} ${top cpu 5} ${goto 300} ${top mem 5} ${alignr} ${top time 5}
 ${color0}${hr}$color
-${font Font Awesome 5 Free:style=Solid}${font} ${downspeed eno1} ${goto 230} ${font Font Awesome 5 Free:style=Solid}${font} ${upspeed eno1}
-${downspeedgraph eno1 60,200 EBCB8B EBCB8B} ${goto 230} ${upspeedgraph eno1 60,210 A3BE8C A3BE8C}
+${font Font Awesome 5 Free:style=Solid}${font} ${downspeed wlp4s1} ${goto 230} ${font Font Awesome 5 Free:style=Solid}${font} ${upspeed wlp4s1}
+${downspeedgraph wlp4s1 60,200 EBCB8B EBCB8B} ${goto 230} ${upspeedgraph wlp4s1 60,210 A3BE8C A3BE8C}
 ${color0}${hr}$color
 ${font Deja Vu:style=bold:size=16} / ${font}     ${goto 48} ${fs_bar 15,180 /}${alignr}${fs_free /} free
 ${font Font Awesome 5 Free:style=Solid} ${font} ${goto 48} ${fs_bar 15,180 /media/WDBlack1}${alignr}${fs_free /media/WDBlack1} free

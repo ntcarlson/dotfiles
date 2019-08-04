@@ -253,12 +253,18 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 
 for_window [class="feh"] floating enable
+for_window [instance="origin.exe"] floating enable
 for_window [class="Steam"] floating enable
 for_window [class="Steam" title="^Steam$"] floating disable
 assign [class="Steam"] $steam
+
 for_window [class="Gnome-calculator"] floating enable
 for_window [class="chrome" instance="calendar.google.com"] floating enable
 for_window [class="chrome" instance="keep.google.com"] floating enable
 for_window [class="chrome" instance="play.google.com"] floating disable
+
 assign [class="chrome" instance="play.google.com"] $music
+
+workspace $music gaps horizontal 500
+workspace $steam gaps horizontal 500
 #=============================================================================#
