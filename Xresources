@@ -54,32 +54,6 @@
 *.color15: nord6
 
 !-----------------------------------------------------------------------------!
-!---------------------------- URxvt configuration ----------------------------!
-!-----------------------------------------------------------------------------!
-URxvt.font          : xft:DejaVu Sans Mono for Powerline:size=12
-URxvt.letterSpace   : 0
-
-! Transparent background
-URxvt.depth         : 32
-URxvt.background    : [94]BG
-
-! Set the icon that appears in Rofi launcher
-URxvt.iconFile      : /usr/share/icons/Arc/apps/symbolic/utilities-terminal-symbolic.svg
-
-! Disable scrollback buffer inside pagers like less
-URxvt.secondaryScreen: 1
-URxvt.secondaryScroll: 0
-
-URxvt.scrollBar: false
-
-! Make Ctrl+Shift+C,V copy and paste like a typical terminal emulator
-URxvt.keysym.Shift-Control-V: eval:paste_clipboard
-URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
-URxvt.iso14755: false
-URxvt.iso14755_52: false
-
-
-!-----------------------------------------------------------------------------!
 !----------------------------- Rofi configuration ----------------------------!
 !-----------------------------------------------------------------------------!
 rofi.show-icons     : true
