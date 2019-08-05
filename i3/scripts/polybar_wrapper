@@ -32,19 +32,16 @@ launch() {
 
 rofi_open() {
     options_close
-    rofi -show run              \
-         -modi run,drun         \
-         -sidebar-mode          \
-         -location 0            \
-         -width 3444            \
-         -padding 1300          \
-         -lines 10              \
-         -yoffset 0             \
-         -font 'DejaVu Sans 18'
+    rofi -show run -modi run
+}
+
+drun_open() {
+    options_close
+    rofi -show drun -modi drun -theme drun
 }
 
 search_open() {
-    rofi -show window -location 1
+    rofi -show window -modi window -theme sidebar
 }
 
 options_open() {
@@ -89,6 +86,8 @@ options_icon() {
 case "$1" in
     rofi)
         rofi_open;;
+    drun)
+        drun_open;;
     search)
         search_open;;
     options)

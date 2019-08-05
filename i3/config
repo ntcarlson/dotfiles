@@ -70,6 +70,7 @@ bindsym $mod+Return exec --no-startup-id kitty
 
 # Bring up launcher
 bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper rofi
+bindsym $mod+shift+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper drun
 
 # Search open windows
 bindsym $mod+grave exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper search

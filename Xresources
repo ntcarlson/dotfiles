@@ -53,26 +53,3 @@
 *.color14: nord7
 *.color15: nord6
 
-!-----------------------------------------------------------------------------!
-!----------------------------- Rofi configuration ----------------------------!
-!-----------------------------------------------------------------------------!
-rofi.show-icons     : true
-rofi.hide-scrollbar : true
-rofi.color-enabled  : true
-rofi.dpi            : 0
-rofi.bw             : 2
-rofi.width          : 480
-rofi.lines          : 50
-rofi.fixed-num-lines: true
-rofi.yoffset        : 40
-rofi.padding        : 8
-rofi.font           : DejaVu Sans 13
-rofi.window-format  : {t}
-rofi.color-window   : BG_ARGB, PRIMARY, CLEAR
-
-!                  bg          text      bg alt     hl bg     hl text
-rofi.color-normal: CLEAR,      TXT,      CLEAR,     PRIMARY,  TXT_ALT
-rofi.color-active: SECONDARY,  TXT_ALT,  SECONDARY, PRIMARY,  TXT_ALT
-rofi.color-urgent: URGENT,     TXT_ALT,  URGENT,    PRIMARY,  TXT_ALT
-
-
