@@ -1,0 +1,46 @@
+#!/bin/bash
+
+LOCK=""
+SLEEP=""
+LOGOUT=""
+RESTART=""
+SHUTDOWN=""
+
+list_icons() {
+    echo $LOCK
+    echo $SLEEP
+    echo $LOGOUT
+    echo $RESTART
+    echo $SHUTDOWN
+}
+
+handle_option() {
+    case "$1" in
+        "$LOCK")
+            betterlockscreen -l blur
+            ;;
+        "$SLEEP")
+            if $(rofi_confirm $SLEEP); then
+                betterlockscreen -l blur &
+                systemctl suspend
+            fi
+            ;;
+        "$LOGOUT")
+            if $(rofi_confirm $LOGOUT); then
+                logout
+            fi
+            ;;
+        "$RESTART")
+            if $(rofi_confirm $RESTART); then
+                reboot
+            fi
+            ;;
+        "$SHUTDOWN")
+            if $(rofi_confirm $SHUTDOWN); then
+                shutdown now
+            fi
+            ;;
+    esac
+}
+
+handle_option "$(list_icons | rofi -dmenu -theme options_menu)"

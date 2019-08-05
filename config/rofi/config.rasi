@@ -1,69 +1,69 @@
 configuration {
-        show-icons:                 false;
-        font:                       "DejaVu Sans 20";
+    show-icons:                     false;
+    font:                           "DejaVu Sans 20";
 }
 
 * {
-        background-color:           transparent;
+    background-color:               transparent;
 
-        background:                 #2E3440CC;
-        background-alt:             #5E81AC80;
-        text-color:                 #D8DEE9;
-        primary:                    #A3BE8C;
-        urgent:                     #BF616A;
+    background:                     #2E3440CC;
+    background-alt:                 #5E81AC80;
+    text-color:                     #D8DEE9;
+    primary:                        #A3BE8C;
+    urgent:                         #BF616A;
 }
 
 window {
-        height:                     100%;
-        width:                      100%;
-        transparency:               "real";
-        background-color:           @background;
-        
+    height:                         100%;
+    width:                          100%;
+    transparency:                   "real";
+    background-color:               @background;
+    
 }
 
 mainbox {
-        children:                   [ entry, listview, message ];
-        padding:                    400px 1400px;
+    children:                       [ entry, listview, message ];
+    padding:                        400px 1400px;
 }
 
 entry {
-        expand:                     false;
-        margin:                     12px 36px;
-        background-color:           @background-alt;
-        padding:                    8px;
-        border:                     8px;
-        border-color:               @background-alt;
-        border-radius:              5px;
+    expand:                         false;
+    margin:                         12px 36px;
+    background-color:               @background-alt;
+    padding:                        8px;
+    border:                         8px;
+    border-color:                   @background-alt;
+    border-radius:                  5px;
 }
 
 element {
-        padding:                    8px;
-        orientation:                horizontal;
+    padding:                        8px;
+    orientation:                    horizontal;
 }
 
 element normal.urgent, element alternate.urgent {
-        background-color:           @urgent;
+    background-color:               @urgent;
 }
 
 element normal.active, element alternate.active {
-        background-color:           @background-alt;
-        border:                     4px 4px solid 4px 4px;
-        border-radius:              8;
-        border-color:               transparent;
+    background-color:               @background-alt;
+    border:                         4px 4px solid 4px 4px;
+    border-radius:                  8;
+    border-color:                   transparent;
 }
 
 element selected {
-        border:                     4px 4px solid 4px 4px;
-        border-radius:              8;
-        border-color:               @primary;
+    border:                         4px 4px solid 4px 4px;
+    border-radius:                  8;
+    border-color:                   @primary;
 }
 
 element selected.urgent {
-        background-color:           @urgent;
+    background-color:               @urgent;
 }
 
 element selected.active {
-        background-color:           @background-alt;
+    background-color:               @background-alt;
 }
 
 element-icon {
