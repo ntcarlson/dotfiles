@@ -15,15 +15,9 @@ conky_launch() {
 }
 
 launch() {
+    killall polybar
     conky_launch
     sleep 0.2
-    killall polybar
-    polybar panel &
-    BAR_ID=$!
-    rm -f /tmp/polybar_mqueue_panel
-    ln -s /tmp/polybar_mqueue.$BAR_ID /tmp/polybar_mqueue_panel
-    sleep 0.2
-    echo "cmd:hide" >> /tmp/polybar_mqueue_panel
     polybar top &
     BAR_ID=$!
     rm -f /tmp/polybar_mqueue_top
@@ -31,12 +25,10 @@ launch() {
 }
 
 rofi_open() {
-    options_close
     rofi -show run -modi run
 }
 
 drun_open() {
-    options_close
     rofi -show drun -modi drun -theme drun
 }
 
@@ -45,30 +37,24 @@ search_open() {
 }
 
 options_open() {
-    echo "hook:module/option_menu1" >> /tmp/polybar_mqueue_top
-    echo "cmd:show" >> /tmp/polybar_mqueue_panel
-    echo "open" > /tmp/polybar_side_panel_state
+    rofi_option_menu &
+    ROFI_PID=$!
+
+    sleep 0.05
+
+    # Show music player and panel
+    echo "hook:module/option_menu2" >> /tmp/polybar_mqueue_top
     ID_CONKY=$(cat $WINDOW_ID_CONKY)
     xdotool windowmap $ID_CONKY
     xdotool windowraise $ID_CONKY
     ~/.config/i3/scripts/music_player show_applet
-}
 
-options_close() {
-    ID_CONKY=$(cat $WINDOW_ID_CONKY)
+    wait $ROFI_PID
+
+    # Close music player and panel
     xdotool windowunmap $ID_CONKY
     ~/.config/i3/scripts/music_player hide_applet
     echo "hook:module/option_menu1" >> /tmp/polybar_mqueue_top
-    echo "cmd:hide" >> /tmp/polybar_mqueue_panel
-    echo "close" > /tmp/polybar_side_panel_state
-}
-
-options_toggle() {
-    if [ "$(cat /tmp/polybar_side_panel_state)" == "open" ]; then
-        options_close
-    else
-        options_open
-    fi
 }
 
 options_icon() {
@@ -76,11 +62,11 @@ options_icon() {
     COLOR_ACTIVE="%{F$(xrdb -query | awk '/^*primary/ {print $2}')}"
     COLOR_END="%{F-}"
 
-    if [ "$(cat /tmp/polybar_side_panel_state)" == "open" ]; then
-        echo "$COLOR_ACTIVE$COLOR_END"
-    else
-        echo "$COLOR_NORMAL$COLOR_END"
-    fi
+    case "$1" in
+        "open")   echo "$COLOR_ACTIVE$COLOR_END";;
+        "closed") echo "$COLOR_NORMAL$COLOR_END";;
+        *)        echo "ERROR";;
+    esac
 }
 
 case "$1" in
@@ -91,9 +77,9 @@ case "$1" in
     search)
         search_open;;
     options)
-        options_toggle;;
+        options_open;;
     options_icon)
-        options_icon;;
+        options_icon "$2";;
     launch)
         launch;;
     hide)

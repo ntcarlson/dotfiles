@@ -23,7 +23,7 @@ require 'cairo'
 clock_h = {
     {
     name='time',                   arg='%H',                    max_value=12,
-    x=220,                           y=240,
+    x=220,                           y=175,
     graph_radius=140,
     graph_thickness=3,
     graph_unit_angle=30,           graph_unit_thickness=5,
@@ -285,7 +285,7 @@ settings_table = {
 		-- "fg_alpha" is the alpha value of the indicator part of the ring.
 		fg_alpha=0,
 		-- "x" and "y" are the x and y coordinates of the centre of the ring, relative to the top left corner of the Conky window.
-		x=220, y=240,
+		x=220, y=175,
 		-- "radius" is the radius of the ring.
 		radius=50,
 		-- "thickness" is the thickness of the ring, centred around the radius.
@@ -303,7 +303,7 @@ settings_table = {
 		bg_alpha=0,
 		fg_colour=0x000000,
 		fg_alpha=0,
-		x=220, y=240,
+		x=220, y=175,
 		radius=56,
 		thickness=5,
 		start_angle=0,
@@ -317,7 +317,7 @@ settings_table = {
 		bg_alpha=0,
 		fg_colour=0x000000,
 		fg_alpha=0,
-		x=220, y=240,
+		x=220, y=175,
 		radius=62,
 		thickness=5,
 		start_angle=0,
@@ -333,7 +333,7 @@ clock_r=125
 -- "clock_x" and "clock_y" are the coordinates of the centre of the clock, in pixels, from the top left of the Conky window.
 
 clock_x=220
-clock_y=240
+clock_y=175
 
 -- Colour & alpha of the clock hands
 

@@ -27,7 +27,7 @@ handle_option() {
             ;;
         "$LOGOUT")
             if $(rofi_confirm $LOGOUT); then
-                logout
+                i3-msg exit
             fi
             ;;
         "$RESTART")
@@ -43,4 +43,5 @@ handle_option() {
     esac
 }
 
-handle_option "$(list_icons | rofi -dmenu -theme options_menu)"
+SELECTION="$(list_icons | rofi -dmenu -theme options_menu)"
+handle_option $SELECTION &

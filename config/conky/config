@@ -35,7 +35,7 @@ conky.config = {
 
 	alignment              = 'top_right',
 	gap_x                  = 20,
-	gap_y                  = 80,
+	gap_y                  = 120,
 	no_buffers             = true,
 	text_buffer_size       = 2048,
 	uppercase              = false,
@@ -52,9 +52,8 @@ conky.config = {
 
 conky.text = [[
 ${color0}${hr}$color
-${font Font Awesome 5 Free:style=Regular:size=16}${font}${goto 36}${voffset -6}${font DejaVu Sans:style=bold:size=16}${time %A, %B %d}${font}
-${voffset 4}${font Font Awesome 5 Free:style=Regular:size=16} ${font}${goto 36}${voffset -7}${font DejaVu Sans:style=bold:size=16}${uid_name 1000}@${nodename}${font}
-${voffset 300}
+${voffset 280}
+${alignc}${color0}${font Droid Serif:style=bold:size=17} ${time %A, %B %d}${font}$color
 ${color0}${hr}$color
 ${font Font Awesome 5 Free:style=Solid}${font} ${memperc}% ${goto 230} ${font Font Awesome 5 Free:style=Solid}${font} ${cpu 0}%
 ${memgraph 60,210 BF616A BF616A} ${goto 230} ${cpugraph 0 60,210 D08770 D08770}

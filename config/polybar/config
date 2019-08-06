@@ -91,7 +91,8 @@ label = %{T2}%title:0:40:...%%{T-}
 #-----------------------------=- Right modules -------------------------------#
 [module/option_menu]
 type = custom/ipc
-hook-0 = ~/.config/i3/scripts/polybar_wrapper options_icon
+hook-0 = ~/.config/i3/scripts/polybar_wrapper options_icon "closed"
+hook-1 = ~/.config/i3/scripts/polybar_wrapper options_icon "open"
 initial = 1
 click-left = ~/.config/i3/scripts/polybar_wrapper options
 
@@ -127,60 +128,3 @@ bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground}
-
-#-----------------------------------------------------------------------------#
-#---------------------------- Side panel config- -----------------------------#
-#-----------------------------------------------------------------------------#
-[bar/panel]
-enable-ipc = true
-override-redirect = true
-bottom = false
-
-height = 1396 # 1440p - bar height - 2*border width
-width = 480
-offset-y = 40
-offset-x = 2960 # 3440p - panel width - 2*border width
-fixed-center = true
-spacing = 1
-module-margin-left = 2
-module-margin-right = 2
-
-border-size = 2
-border-color = ${colors.primary}
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=18;-670"
-font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=18;-670"
-font-2 = "Font Awesome 5 Brands:pixelsize=18;-670"
-
-modules-center = lock exit reboot shutdown screenshot 
-
-#------------------------------ Option modules -------------------------------#
-[module/exit]
-type = custom/text
-content = "  "
-click-left = i3-msg exit
-
-[module/shutdown]
-type = custom/text
-content = "  "
-click-left = shutdown now
-
-[module/reboot]
-type = custom/text
-content = "  "
-click-left = reboot
-
-[module/lock]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/betterlockscreen -l blur
-
-[module/screenshot]
-type = custom/text
-content = "  "
-click-left = scrot -e 'feh $f -x' --delay 1
-
-
