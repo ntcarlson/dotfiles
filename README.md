@@ -5,6 +5,18 @@
 * Bar: [Polybar](https://github.com/polybar/polybar)
 * Launcher: [Rofi (issue949 branch)](https://github.com/davatorium/rofi/tree/issue949)
 * Terminal: [Kitty](https://sw.kovidgoyal.net/kitty/)
+* Compositor [Compton (kawase-blur branch)](https://github.com/GabrielTenma/compton-kawase-blur)
+
+### Other prerequisites
+* `conky-lua` (AUR)
+* `xdotool`
+* `i3lock-color-git` (AUR)
+* `imagemagick`
+* `ttf-dejavu` (or change the font to whatever you want)
+* `ttf-font-awesome` (AUR)
+
+Some scripts expect `i3/scripts/` to be in `PATH`
+
 
 ## Window search sidebar
 ![Window search](/doc/window_search.jpg)
