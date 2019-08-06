@@ -47,13 +47,13 @@ options_open() {
     ID_CONKY=$(cat $WINDOW_ID_CONKY)
     xdotool windowmap $ID_CONKY
     xdotool windowraise $ID_CONKY
-    ~/.config/i3/scripts/music_player show_applet
+    music_player show_applet
 
     wait $ROFI_PID
 
     # Close music player and panel
     xdotool windowunmap $ID_CONKY
-    ~/.config/i3/scripts/music_player hide_applet
+    music_player hide_applet
     echo "hook:module/option_menu1" >> /tmp/polybar_mqueue_top
 }
 

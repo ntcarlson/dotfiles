@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$#" -eq 1 ]; then
-    ~/.config/i3/scripts/music_player $1
+    music_player $1
 else
-    ~/.config/i3/scripts/music_player launch
+    music_player launch
 fi

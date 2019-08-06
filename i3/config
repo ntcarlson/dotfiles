@@ -13,7 +13,7 @@ exec --no-startup-id compton
 exec_always --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpapers/
 
 # Polybar is used instead of i3bar
-exec_always --no-startup-id ~/.config/i3/scripts/polybar_wrapper launch
+exec_always --no-startup-id polybar_wrapper launch
 #=============================================================================#
 
 
@@ -66,34 +66,31 @@ set $mod Mod4
 
 #------------------------------- Applications --------------------------------#
 # Launch a terminal
-bindsym $mod+Return exec --no-startup-id kitty
+bindsym $mod+Return    exec --no-startup-id kitty
 
-# Bring up launcher
-bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper rofi
-bindsym $mod+shift+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper drun
+# Open launcher
+bindsym $mod+d         exec --no-startup-id polybar_wrapper rofi
+bindsym $mod+shift+d   exec --no-startup-id polybar_wrapper drun
 
-# Search open windows
-bindsym $mod+grave exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper search
+# Open left panel (search open windows)
+bindsym $mod+grave     exec --no-startup-id polybar_wrapper search
 
-# Open options menu
-bindsym $mod+BackSpace exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper options
-
-# File browser
-bindsym $mod+t exec --no-startup-id urxvt --depth 24 -e ranger
+# Open right panel (options menu)
+bindsym $mod+BackSpace exec --no-startup-id polybar_wrapper options
 
 # Lock screen
-bindsym $mod+Pause exec --no-startup-id ~/.config/i3/scripts/betterlockscreen -l blur
+bindsym $mod+Pause     exec --no-startup-id betterlockscreen -l blur
 
 # Calculator
-bindsym $mod+g exec --no-startup-id gnome-calculator
+bindsym $mod+g         exec --no-startup-id gnome-calculator
 
 # Volume controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 1 +5% 
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 1 -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 1 toggle
 
 # Screenshot of entire desktop
-bindsym $mod+F4 exec --no-startup-id scrot -e 'feh $f -x' -d 2
+bindsym $mod+F4       exec --no-startup-id scrot -e 'feh $f -x' -d 2
 # Screenshot of focused window
 bindsym $mod+Shift+F4 exec --no-startup-id scrot -u -e 'feh $f -x'   
 #-----------------------------------------------------------------------------#
@@ -218,7 +215,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+p move container to workspace $steam
 
 # Move to next free workspace
-bindsym $mod+equal exec --no-startup-id ~/bin/next_workspace
+bindsym $mod+equal exec --no-startup-id next_workspace
 
 # Move focus/window to open workspace on secondary monitor    
 bindsym $mod+Tab focus output left

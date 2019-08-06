@@ -91,10 +91,10 @@ label = %{T2}%title:0:40:...%%{T-}
 #-----------------------------=- Right modules -------------------------------#
 [module/option_menu]
 type = custom/ipc
-hook-0 = ~/.config/i3/scripts/polybar_wrapper options_icon "closed"
-hook-1 = ~/.config/i3/scripts/polybar_wrapper options_icon "open"
+hook-0 = polybar_wrapper options_icon "closed"
+hook-1 = polybar_wrapper options_icon "open"
 initial = 1
-click-left = ~/.config/i3/scripts/polybar_wrapper options
+click-left = polybar_wrapper options
 
 [module/date]
 type = internal/date
