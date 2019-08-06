@@ -6,24 +6,26 @@
 include-file = ~/.config/polybar/colors
 
 [global/wm]
-margin-top = 0
+margin-top = 16
 margin-bottom = 0
 
 [bar/top]
 enable-ipc = true
-override-redirect = false
+override-redirect = true
+wm-restack = i3
 bottom = false
 
 height = 40
-width = 100%
-offset-y = 0
+width = 70%
+offset-y = 16
+offset-x = 15%
 fixed-center = true
 spacing = 1
 module-margin-left = 2
 module-margin-right = 2
 
-border-bottom-size = 2
-border-bottom-color = ${colors.primary}
+border-size = 4
+border-color = ${colors.primary}
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -38,6 +40,7 @@ modules-left = i3
 modules-center = xwindow
 modules-right = volume date option_menu
 padding-right = 2
+
 
 
 #------------------------------- Left modules --------------------------------#

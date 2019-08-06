@@ -5,10 +5,12 @@ configuration {
 }
 
 window {
-    height:                         1400;
+    height:                         1402; // 1440 - 2*16
     width:                          480px;
-    location:	                    southeast;
-    anchor:		                    southeast;
+    location:                       northeast;
+    anchor:                         northeast;
+    x-offset:                       -16;
+    y-offset:                       16;
 }
 
 mainbox {

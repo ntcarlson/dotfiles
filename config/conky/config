@@ -34,8 +34,8 @@ conky.config = {
     color4                 = 'B48EAD',
 
 	alignment              = 'top_right',
-	gap_x                  = 20,
-	gap_y                  = 120,
+	gap_x                  = 36,
+	gap_y                  = 110,
 	no_buffers             = true,
 	text_buffer_size       = 2048,
 	uppercase              = false,
