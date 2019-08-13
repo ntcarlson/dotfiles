@@ -1,28 +1,37 @@
 set recolor
-set recolor-darkcolor "#002B36"
-set recolor-lightcolor "#EEE8D5"
+set recolor-darkcolor "#2E3440"
+set recolor-lightcolor "#D8DEE9"
 
-set default-bg "#EEE8D5"
-set font "DejaVu Sans Book 16"
+set default-bg "#D8DEE9"
+set font "DejaVu Sans 16"
 
-set inputbar-bg "#073642"
-set inputbar-fg "#93A1A1"
+set inputbar-bg "#2E3440"
+set inputbar-fg "#D8DEE9"
 
-set tabbar-bg "#073642"
-set tabbar-fg "#93A1A1"
+set statusbar-bg "#2E3440"
+set statusbar-fg "#D8DEE9"
 
-set statusbar-bg "#EEE8D5"
-set statusbar-fg "#002B36"
+set completion-bg "#2E3440"
+set completion-fg "#D8DEE9"
+set completion-group-bg "#3B4252"
+set completion-group-fg "#D8DEE9"
+set completion-highlight-bg "#BF616A"
+set completion-highlight-fg "#2E3440"
 
-set completion-bg "#073642"
-set completion-fg "#93A1A1"
+set highlight-color "#BF616A"
+set highlight-active-color "#BF616A"
+set highlight-transparency 0.3
 
-set completion-group-bg "#DC322F"
-set completion-group-fg "#DC322F"
+set notification-bg "#2E3440"
+set notification-fg "#D8DEE9"
+set notification-warning-bg "#BF616A"
+set notification-warning-fg "#2E3440"
+set notification-error-bg "#BF616A"
+set notification-error-fg "#2E3440"
 
-set highlight-color "#B58900"
-set highlight-active-color "#859900"
-
+set index-bg "#2E3440"
+set index-fg "#D8DEE9"
+set index-active-bg "#BF616A"
+set index-active-fg "#2E3440"
 
 set adjust-open "width"
-

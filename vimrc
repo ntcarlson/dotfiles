@@ -24,26 +24,6 @@ call vundle#begin()
     Plugin 'Konfekt/FastFold'                   " To fix slow folding
 call vundle#end()
 
-" ============================= Appearance ====================================
-syntax enable		            " Enable syntax highlighting 
-set t_Co=256		            " Terminal colors
-colorscheme nord                " Nord color scheme
-set background=dark             " Use Solarized Dark
-set number 		                " Enable line numbers
-set rnu 		                " Relative line numbers"
-set hlsearch                    " Highlight search results
-set gcr=a:blinkon0              " Disable cursor blink
-set visualbell                  " No bell sound
-set t_vb=                       " No horrible visual flash on bell
-set showcmd                     " Show incomplete commands
-set encoding=utf-8              " Special characters for plugins
-" Disable tilde on blank line
-hi EndOfBuffer ctermfg=black
-" Underline current line
-set cursorline
-hi CursorLine cterm=underline ctermbg=NONE ctermfg=NONE
-
-
 " ============================= Behavior ======================================
 set nocompatible                " Disable legacy VI mode
 filetype plugin on              " Load different plugins based on file type
@@ -62,8 +42,8 @@ set wildmenu                    " Tab completion menu (for :e, etc)
 set wildmode=longest,list,full  " Nicer tab completion behavior
 set incsearch                   " Enable incremental search
 " Behavior of long lines
-set nowrap 		                " Don't visually wrap lines
-set linebreak 		            " Break lines at word boundaries
+set nowrap                      " Don't visually wrap lines
+set linebreak                   " Break lines at word boundaries
 set sidescroll=0                " Disable horizontal scroll
 set sidescrolloff=2             " Scroll left/right 2 chars away from margin
 " Indentation
@@ -72,9 +52,9 @@ set expandtab                   " Tab key inserts spaces instead of a tab
 set softtabstop=4               " Tab key inserts 4 spaces
 set shiftwidth=4                " < and > shift by 4 spaces for consistency
 " Folding hides functions/sections until they are expanded
-set foldenable 		            " Fold by default
-set foldmethod=syntax 	        " Fold based on indent
-set foldnestmax=3 	            " Deepest fold is 3 levels
+set foldenable                  " Fold by default
+set foldmethod=syntax           " Fold based on indent
+set foldnestmax=3               " Deepest fold is 3 levels
 " Turn off swap files
 set noswapfile
 set nobackup
@@ -85,6 +65,25 @@ if has('persistent_undo')
     set undodir=~/.vim/backups
     set undofile
 endif
+
+" ============================= Appearance ====================================
+syntax enable                   " Enable syntax highlighting 
+set t_Co=256                    " Terminal colors
+colorscheme nord                " Nord color scheme
+set background=dark             " Use Solarized Dark
+set number                      " Enable line numbers
+set rnu                         " Relative line numbers"
+set hlsearch                    " Highlight search results
+set gcr=a:blinkon0              " Disable cursor blink
+set visualbell                  " No bell sound
+set t_vb=                       " No horrible visual flash on bell
+set showcmd                     " Show incomplete commands
+set encoding=utf-8              " Special characters for plugins
+" Disable tilde on blank line
+hi EndOfBuffer ctermfg=black
+" Underline current line
+set cursorline
+hi CursorLine cterm=underline ctermbg=NONE ctermfg=NONE
 
 
 " ============================= Airline =======================================
