@@ -36,7 +36,7 @@ rofi_open() {
 }
 
 search_open() {
-    rofi -show window -location 1
+    rofi -show window -theme sidebar
 }
 
 options_open() {

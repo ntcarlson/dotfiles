@@ -23,9 +23,9 @@
 #define BG_ALT    nord3
 #define TXT       nord4
 #define TXT_ALT   nord6
-#define PRIMARY   nord11
-#define SECONDARY nord14
-#define URGENT    nord15
+#define PRIMARY   nord14
+#define SECONDARY nord8
+#define URGENT    nord12
 
 
 *background      : BG
@@ -52,53 +52,3 @@
 *.color13: nord15
 *.color14: nord7
 *.color15: nord6
-
-!-----------------------------------------------------------------------------!
-!---------------------------- URxvt configuration ----------------------------!
-!-----------------------------------------------------------------------------!
-URxvt.font          : xft:DejaVu Sans Mono for Powerline:size=12
-URxvt.letterSpace   : 0
-
-! Transparent background
-URxvt.depth         : 32
-URxvt.background    : [94]BG
-
-! Set the icon that appears in Rofi launcher
-URxvt.iconFile      : /usr/share/icons/Arc/apps/symbolic/utilities-terminal-symbolic.svg
-
-! Disable scrollback buffer inside pagers like less
-URxvt.secondaryScreen: 1
-URxvt.secondaryScroll: 0
-
-URxvt.scrollBar: false
-
-! Make Ctrl+Shift+C,V copy and paste like a typical terminal emulator
-URxvt.keysym.Shift-Control-V: eval:paste_clipboard
-URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
-URxvt.iso14755: false
-URxvt.iso14755_52: false
-
-
-!-----------------------------------------------------------------------------!
-!----------------------------- Rofi configuration ----------------------------!
-!-----------------------------------------------------------------------------!
-rofi.show-icons     : true
-rofi.hide-scrollbar : true
-rofi.color-enabled  : true
-rofi.dpi            : 0
-rofi.bw             : 2
-rofi.width          : 25
-rofi.lines          : 50
-rofi.fixed-num-lines: true
-rofi.yoffset        : 40
-rofi.padding        : 8
-rofi.font           : DejaVu Sans 13
-rofi.window-format  : {t}
-rofi.color-window   : BG_ARGB, PRIMARY, CLEAR
-
-!                  bg          text      bg alt     hl bg     hl text
-rofi.color-normal: CLEAR,      TXT,      CLEAR,     PRIMARY,  TXT_ALT
-rofi.color-active: SECONDARY,  TXT_ALT,  SECONDARY, PRIMARY,  TXT_ALT
-rofi.color-urgent: URGENT,     TXT_ALT,  URGENT,    PRIMARY,  TXT_ALT
-
-

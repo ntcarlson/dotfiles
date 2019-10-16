@@ -1,0 +1,32 @@
+configuration {
+    theme:              "config";
+    show-icons:         false;
+    font:               "Font Awesome 70";
+}
+
+mainbox {
+    children:           [message, listview];
+    padding:            600px 1520px;
+}
+
+textbox {
+    horizontal-align:   0.5;
+    border:             0px 0px 2px;
+    border-color:       @primary;
+    margin:             12px;
+    padding:            12px;
+}
+
+listview {
+    layout:             vertical;
+    columns:            2;
+    spacing:            15px;
+    lines:              1;
+    fixed-height:       1;
+    dynamic:            false;
+}
+
+element-text {
+    horizontal-align:   0.5;
+    font:               "DejaVu Sans 16";
+}

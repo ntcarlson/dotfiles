@@ -1,0 +1,40 @@
+configuration {
+    theme:                          "config";
+    show-icons:                     false;
+    font:                           "Font Awesome 16";
+}
+
+window {
+    height:                         1402; // 1440 - 2*16
+    width:                          480px;
+    location:                       northeast;
+    anchor:                         northeast;
+    x-offset:                       -16;
+    y-offset:                       16;
+}
+
+mainbox {
+    children:                       [listview]; /* No text entry */
+    border:                         4px;
+    border-color:                   @primary;
+    padding:                        12px;
+}
+
+listview {
+    layout:                         horizontal;
+    spacing:                        15px;
+}
+
+element-text {
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         5px;
+    border:                         0px;
+    border-color:                   @primary;
+    border-radius:                  5;
+    padding:                        12px 0px 6px;
+    width:                          75px;
+}
+element {
+    padding:                        0px;
+}
