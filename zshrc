@@ -55,7 +55,7 @@ zle -N zle-keymap-select
 
 bindkey '^?' backward-delete-char # backspace work after returning from normal mode
 
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/bin:$HOME/.config/polybar/scripts
 alias icat="kitty +kitten icat"
 
 bindkey -v "^[[Z" history-substring-search-up

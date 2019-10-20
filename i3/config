@@ -60,8 +60,9 @@ hide_edge_borders smart
 font pango:DejaVu Sans 10
 
 # Show gaps between open windows; requires i3-gaps fork
-gaps inner 16
+gaps inner 13
 gaps outer 0
+gaps top 60
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
@@ -77,7 +78,8 @@ set $mod Mod1
 bindsym $mod+Return exec --no-startup-id kitty
 
 # Bring up launcher
-bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper rofi
+bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper drun
+bindsym $mod+shift+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper rofi
 
 # File opener
 bindsym $mod+o exec --no-startup-id ~/.config/i3/scripts/fuzzyopener show

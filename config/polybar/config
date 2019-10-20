@@ -2,6 +2,10 @@
 #----------------------------- Global settings -------------------------------#
 #-----------------------------------------------------------------------------#
 
+[settings]
+compositing-overline = source
+compositing-underline = source
+
 [colors]
 include-file = ~/.config/polybar/colors
 
@@ -12,19 +16,22 @@ margin-bottom = 0
 [bar/top]
 monitor = ${env:MONITOR:eDP-1}
 enable-ipc = true
-override-redirect = false
+override-redirect = true 
+wm-restack = i3
 bottom = false
 
-height = 60
+line-size = 7
+line-color = ${colors.primary}
+
+height = 64
 width = 100%
-offset-y = 0
 fixed-center = true
 spacing = 1
 module-margin-left = 2
 module-margin-right = 2
 
-border-bottom-color = ${colors.primary}
-border-bottom-size = 4
+border-color = ${colors.primary}
+border-bottom-size = 7
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -39,7 +46,22 @@ modules-left = i3
 modules-center = xwindow
 modules-right = backlight volume battery date options_open
 padding-right = 2
+padding-left = 2
 
+[bar/expanded]
+inherit = bar/top
+
+wm-restack = none
+height = 384
+overline-size = 327
+font-0 = "DejaVu Sans:style=Bold:pixelsize=18;164"
+font-1 = "DejaVu Sans:pixelsize=18;164"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=24;164"
+font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=24;164"
+font-4 = "Font Awesome 5 Brands:pixelsize=24;164"
+
+modules-center = 
+modules-right = backlight volume battery date options_close
 
 #------------------------------- Left modules --------------------------------#
 
@@ -52,7 +74,7 @@ strip-wsnumbers = true
 label-focused = %name%
 label-focused-background = ${colors.primary}
 label-focused-foreground = ${colors.background}
-label-focused-underline  = ${colors.background-alt}
+label-focused-underline  = ${colors.background}
 label-focused-overline  = ${colors.background}
 label-focused-padding = 2
 
@@ -64,7 +86,6 @@ label-occupied-padding = 1
 
 label-urgent = %name%
 label-urgent-background = ${colors.urgent}
-label-urgent-overline  = ${colors.background}
 label-urgent-padding = 2
 
 label-empty = %name%
@@ -87,7 +108,7 @@ label-visible-padding = ${self.label-focused-padding}
 
 [module/xwindow]
 type = internal/xwindow
-label = %{T2}%title:0:30:...%%{T-}
+label = %{T2}%title:0:50:...%%{T-}
 
 #-----------------------------=- Right modules -------------------------------#
 
@@ -157,62 +178,3 @@ hook-0 = $HOME/.config/i3/scripts/polybar_modules/backlight get
 scroll-up = $HOME/.config/i3/scripts/polybar_modules/backlight increase
 scroll-down = $HOME/.config/i3/scripts/polybar_modules/backlight decrease
 initial = 1
-
-#-----------------------------------------------------------------------------#
-#---------------------------- Side panel config- -----------------------------#
-#-----------------------------------------------------------------------------#
-[bar/panel]
-monitor = ${env:MONITOR:eDP-1}
-enable-ipc = true
-override-redirect = true
-bottom = false
-
-height = 1532 # 1600 - bar height - 2*border width
-width = 25%
-offset-y = 60
-offset-x = 75%
-fixed-center = true
-spacing = 1
-module-margin-left = 2
-module-margin-right = 2
-
-border-color = ${colors.primary}
-border-size = 4
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=24;-730"
-font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=24;-730"
-font-2 = "Font Awesome 5 Brands:pixelsize=24;-730"
-
-modules-center = screenshot rotate exit chromeos lock
-
-#------------------------------ Option modules -------------------------------#
-[module/chromeos]
-type = custom/text
-content = "  "
-click-left = xdotool key control+alt+shift+F1 
-
-
-[module/exit]
-type = custom/text
-content = "  "
-click-left = i3-msg exit
-
-[module/lock]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/betterlockscreen -l blur
-
-[module/rotate]
-type = custom/text
-content = "  "
-click-left = ~/bin/tablet_mode
-
-[module/screenshot]
-type = custom/text
-content = "  "
-click-left = scrot -e 'feh $f -x' --delay 1
-
-

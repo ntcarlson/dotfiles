@@ -1,6 +1,7 @@
 #!/bin/bash
 
 WINDOW_ID_CONKY=/tmp/conky_window_id
+WINDOW_ID_POLYBAR=/tmp/polybar_window_id
 
 conky_launch() {
     # Hacky X11 magic to make Conky appear above polybar
@@ -14,36 +15,61 @@ conky_launch() {
     echo $WIN_ID > $WINDOW_ID_CONKY
 }
 
+polybar_launch() {
+    killall polybar
+
+    polybar top &
+    local pid_top=$!
+    polybar expanded &
+    local pid_expanded=$!
+
+    rm -f /tmp/polybar_mqueue_top
+    rm -f /tmp/polybar_mqueue_expanded
+    ln -s /tmp/polybar_mqueue.$pid_top /tmp/polybar_mqueue_top
+    ln -s /tmp/polybar_mqueue.$pid_expanded /tmp/polybar_mqueue_expanded
+
+    sleep 0.2
+    echo "cmd:hide" >> /tmp/polybar_mqueue_expanded
+}
+
 launch() {
     conky_launch
     sleep 0.2
-    killall polybar
-    polybar panel &
-    BAR_ID=$!
-    rm -f /tmp/polybar_mqueue_panel
-    ln -s /tmp/polybar_mqueue.$BAR_ID /tmp/polybar_mqueue_panel
-    sleep 0.2
-    echo "cmd:hide" >> /tmp/polybar_mqueue_panel
-    polybar top &
-    BAR_ID=$!
-    rm -f /tmp/polybar_mqueue_top
-    ln -s /tmp/polybar_mqueue.$BAR_ID /tmp/polybar_mqueue_top
+    polybar_launch
+}
+
+bar_expand() {
+    echo "cmd:show" >> /tmp/polybar_mqueue_expanded
+    echo "cmd:hide" >> /tmp/polybar_mqueue_top
+}
+
+bar_collapse() {
+    echo "cmd:show" >> /tmp/polybar_mqueue_top
+    echo "cmd:hide" >> /tmp/polybar_mqueue_expanded
 }
 
 rofi_open() {
     options_close
-    $(dirname $0)/fuzzyopener hide
-    rofi -show run -location 0 -width 2408 -padding 700 -lines 10
+    bar_expand &
+    rofi -show run
+    bar_collapse
+}
+
+drun_open() {
+    bar_expand &
+    rofi -theme drun -show drun
+    bar_collapse
 }
 
 search_open() {
     options_close
-    $(dirname $0)/fuzzyopener hide
-    rofi -show window -location 1
+    bar_expand &
+    rofi -show window -theme window
+    bar_collapse
 }
 
 options_open() {
-    echo "cmd:show" >> /tmp/polybar_mqueue_panel
+    bar_expand
     echo "open" > /tmp/polybar_side_panel_state
     ID_CONKY=$(cat $WINDOW_ID_CONKY)
     xdotool windowmap $ID_CONKY
@@ -52,6 +78,7 @@ options_open() {
 }
 
 options_close() {
+    bar_collapse
     ID_CONKY=$(cat $WINDOW_ID_CONKY)
     xdotool windowunmap $ID_CONKY
     ~/.config/i3/scripts/music_player hide_applet
@@ -72,12 +99,10 @@ case "$1" in
         rofi_open;;
     search)
         search_open;;
+    drun)
+        drun_open;;
     options)
         options_toggle;;
     launch)
         launch;;
-    hide)
-        echo "cmd:hide" >> /tmp/polybar_mqueue_top;;
-    show)
-        echo "cmd:show" >> /tmp/polybar_mqueue_top;;
 esac
