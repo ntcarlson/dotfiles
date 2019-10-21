@@ -18,18 +18,12 @@ conky_launch() {
 polybar_launch() {
     killall polybar
 
-    polybar top &
-    local pid_top=$!
     polybar expanded &
-    local pid_expanded=$!
+    local polybar_pid=$!
+    local polybar_win=$(xdotool search --sync --pid $polybar_pid)
+    echo $polybar_win > $WINDOW_ID_POLYBAR
 
-    rm -f /tmp/polybar_mqueue_top
-    rm -f /tmp/polybar_mqueue_expanded
-    ln -s /tmp/polybar_mqueue.$pid_top /tmp/polybar_mqueue_top
-    ln -s /tmp/polybar_mqueue.$pid_expanded /tmp/polybar_mqueue_expanded
-
-    sleep 0.2
-    echo "cmd:hide" >> /tmp/polybar_mqueue_expanded
+    bar_collapse
 }
 
 launch() {
@@ -39,32 +33,32 @@ launch() {
 }
 
 bar_expand() {
-    echo "cmd:show" >> /tmp/polybar_mqueue_expanded
-    echo "cmd:hide" >> /tmp/polybar_mqueue_top
+    local polybar_win=$(cat $WINDOW_ID_POLYBAR)
+    xdotool windowmove $polybar_win 0 0
 }
 
 bar_collapse() {
-    echo "cmd:show" >> /tmp/polybar_mqueue_top
-    echo "cmd:hide" >> /tmp/polybar_mqueue_expanded
+    local polybar_win=$(cat $WINDOW_ID_POLYBAR)
+    xdotool windowmove $polybar_win 0 -320
 }
 
 rofi_open() {
     options_close
     bar_expand &
-    rofi -show run
+    rofi -modi run -show run
     bar_collapse
 }
 
 drun_open() {
     bar_expand &
-    rofi -theme drun -show drun
+    rofi -theme drun -modi drun -show drun
     bar_collapse
 }
 
 search_open() {
     options_close
     bar_expand &
-    rofi -show window -theme window
+    rofi -theme window -modi window -show window 
     bar_collapse
 }
 
