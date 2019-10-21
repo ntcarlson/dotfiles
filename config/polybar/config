@@ -59,6 +59,9 @@ font-1 = "DejaVu Sans:pixelsize=18;164"
 font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=24;164"
 font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=24;164"
 font-4 = "Font Awesome 5 Brands:pixelsize=24;164"
+
+modules-center =
+modules-right = backlight volume battery date options_close
 #------------------------------- Left modules --------------------------------#
 
 [module/i3]
@@ -117,13 +120,13 @@ interval = 3
 [module/options_open]
 type = custom/text
 content-foreground = ${colors.foreground}
-content = ""
+content = ""
 click-left = ~/.config/i3/scripts/polybar_wrapper options
 
 [module/options_close]
 type = custom/text
 content-foreground = ${colors.primary}
-content = ""
+content = ""
 click-left = ~/.config/i3/scripts/polybar_wrapper options
 
 

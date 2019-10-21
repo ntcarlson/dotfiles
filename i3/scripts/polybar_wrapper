@@ -1,7 +1,8 @@
 #!/bin/bash
 
 WINDOW_ID_CONKY=/tmp/conky_window_id
-WINDOW_ID_POLYBAR=/tmp/polybar_window_id
+WINDOW_ID_TOP=/tmp/polybar_top_window_id
+WINDOW_ID_EXPANDED=/tmp/polybar_expanded_window_id
 
 conky_launch() {
     # Hacky X11 magic to make Conky appear above polybar
@@ -18,10 +19,11 @@ conky_launch() {
 polybar_launch() {
     killall polybar
 
+    polybar top &
+    xdotool search --sync --pid $! > $WINDOW_ID_TOP
+
     polybar expanded &
-    local polybar_pid=$!
-    local polybar_win=$(xdotool search --sync --pid $polybar_pid)
-    echo $polybar_win > $WINDOW_ID_POLYBAR
+    xdotool search --sync --pid $! > $WINDOW_ID_EXPANDED
 
     bar_collapse
 }
@@ -33,13 +35,13 @@ launch() {
 }
 
 bar_expand() {
-    local polybar_win=$(cat $WINDOW_ID_POLYBAR)
-    xdotool windowmove $polybar_win 0 0
+    xdotool windowmap $(cat $WINDOW_ID_EXPANDED)
+    xdotool windowunmap $(cat $WINDOW_ID_TOP)
 }
 
 bar_collapse() {
-    local polybar_win=$(cat $WINDOW_ID_POLYBAR)
-    xdotool windowmove $polybar_win 0 -320
+    xdotool windowunmap $(cat $WINDOW_ID_EXPANDED)
+    xdotool windowmap $(cat $WINDOW_ID_TOP)
 }
 
 rofi_open() {

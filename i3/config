@@ -62,7 +62,7 @@ font pango:DejaVu Sans 10
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 13
 gaps outer 0
-gaps top 60
+gaps top 48
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 

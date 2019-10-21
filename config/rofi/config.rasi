@@ -6,14 +6,15 @@ configuration {
 * {
     background-color:               transparent;
 
-    background:                     #2E3440CC;
+    background:                     #2E3440;
+    background-alt:                 #5E81AC80;
     text-color:                     #D8DEE9;
     primary:                        #A3BE8C;
     urgent:                         #BF616A;
 }
 
 window {
-    height:                         412;
+    height:                         390;
     width:                          100%;
     location:                       north;
     anchor:                         north;
@@ -33,7 +34,7 @@ listview {
 
 entry {
     expand:                         false;
-    margin:                         0px 800px;
+    margin:                         4px 800px;
     background-color:               @background;
     padding:                        8px;
     border:                         8px;
