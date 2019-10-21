@@ -51,7 +51,7 @@ rofi_open() {
 
 drun_open() {
     bar_expand &
-    rofi -theme drun -modi drun -show drun
+    rofi -theme drun -modi drun -show drun -drun-categories Custom
     bar_collapse
 }
 
