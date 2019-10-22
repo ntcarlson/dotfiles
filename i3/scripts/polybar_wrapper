@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DIR=$(dirname $(realpath $0))
+
 WINDOW_ID_CONKY=/tmp/conky_window_id
 WINDOW_ID_TOP=/tmp/polybar_top_window_id
 WINDOW_ID_EXPANDED=/tmp/polybar_expanded_window_id
@@ -29,8 +31,9 @@ polybar_launch() {
 }
 
 launch() {
-    conky_launch
-    sleep 0.2
+    # Temporarily disable conky until I update the config
+    # conky_launch
+    # sleep 0.2
     polybar_launch
 }
 
@@ -66,28 +69,13 @@ search_open() {
 
 options_open() {
     bar_expand
-    echo "open" > /tmp/polybar_side_panel_state
-    ID_CONKY=$(cat $WINDOW_ID_CONKY)
-    xdotool windowmap $ID_CONKY
-    xdotool windowraise $ID_CONKY
-    ~/.config/i3/scripts/music_player show_applet
-}
-
-options_close() {
+    $DIR/rofi_option_menu 
     bar_collapse
-    ID_CONKY=$(cat $WINDOW_ID_CONKY)
-    xdotool windowunmap $ID_CONKY
-    ~/.config/i3/scripts/music_player hide_applet
-    echo "cmd:hide" >> /tmp/polybar_mqueue_panel
-    echo "close" > /tmp/polybar_side_panel_state
-}
-
-options_toggle() {
-    if [ "$(cat /tmp/polybar_side_panel_state)" == "open" ]; then
-        options_close
-    else
-        options_open
-    fi
+    # echo "open" > /tmp/polybar_side_panel_state
+    # ID_CONKY=$(cat $WINDOW_ID_CONKY)
+    # xdotool windowmap $ID_CONKY
+    # xdotool windowraise $ID_CONKY
+    # ~/.config/i3/scripts/music_player show_applet
 }
 
 case "$1" in
@@ -98,7 +86,7 @@ case "$1" in
     drun)
         drun_open;;
     options)
-        options_toggle;;
+        options_open;;
     launch)
         launch;;
 esac

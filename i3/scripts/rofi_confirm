@@ -1,0 +1,20 @@
+#!/bin/bash
+
+ICON="$(echo -e "$1")"
+
+options() {
+    echo -e "\tCancel"
+    echo -e "\tConfirm"
+}
+
+get_selection() {
+    local sel="$(options | rofi -dmenu -theme options_menu -mesg "$ICON")"
+    echo $sel | awk '{print $2}'
+}
+
+case "$(get_selection)" in
+    "Cancel")  exit 1;;
+    "Confirm") exit 0;;
+esac
+
+exit 1
