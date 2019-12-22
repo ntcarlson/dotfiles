@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# TODO: Icons from FontAwesome as default options
+rofi_menu() {
+    rofi -dmenu \
+         -location 0 \
+         -width 1924 \
+         -padding 700 \
+         -lines 10 \
+         -yoffset 0 \
+         -p "Set workspace tag" \
+         -font 'DejaVu Sans 16'
+}
+
+# Extract workspace number from json file that stores workspace state
+get_ws_num() {
+    python3 -c "import json; print(next(filter(lambda w: w['focused'], json.loads('$(i3-msg -t get_workspaces)')))['num'])"
+}
+
+TAG=$(rofi_menu)
+WS=$(get_ws_num)
+
+if [ "$TAG" == "" ]; then
+    i3-msg rename workspace to "$WS"
+else
+    i3-msg rename workspace to "$WS:$TAG"
+fi

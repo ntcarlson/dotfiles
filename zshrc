@@ -43,7 +43,7 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v # vim mode
 export KEYTIMEOUT=1
 
-export VISUAL=vim
+export VISUAL=gvim
 export EDITOR=vim
 export GIT_EDITOR=vim
 
@@ -55,8 +55,10 @@ zle -N zle-keymap-select
 
 bindkey '^?' backward-delete-char # backspace work after returning from normal mode
 
-export PATH=$PATH:$HOME/bin
-export CS='ncarlson@login.cs.nmt.edu'
+export PATH=$PATH:$HOME/bin:$HOME/.config/polybar/scripts
+alias icat="kitty +kitten icat"
+
+export LESS=-r # Fixes scrolling through paged file instead of terminal history
 
 bindkey -v "^[[Z" history-substring-search-up
 bindkey -v "^[[A" history-substring-search-up

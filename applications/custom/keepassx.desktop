@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=KeePassX
+GenericName=Password Manager
+Comment=Cross Platform Password Manager
+Exec=keepassx %f
+Icon=keepassx
+Terminal=false
+Type=Application
+Categories=Qt;Utility;Custom;
+MimeType=application/x-keepass2;

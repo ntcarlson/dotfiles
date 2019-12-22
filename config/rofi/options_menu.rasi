@@ -1,40 +1,71 @@
 configuration {
-    theme:                          "config";
     show-icons:                     false;
-    font:                           "Font Awesome 16";
+    font:                           "Font Awesome 17";
 }
 
 window {
-    height:                         1402; // 1440 - 2*16
-    width:                          480px;
+    height:                         300;
+    width:                          300;
     location:                       northeast;
     anchor:                         northeast;
-    x-offset:                       -16;
-    y-offset:                       16;
+    x-offset:                       -10;
+    y-offset:                       10;
+    transparency:                   "real";
+    background-color:               #00000000;
+    border:                         4px 4px solid 4px 4px;
+    border-radius:                  8;
+    border-color:                   @primary;
 }
 
 mainbox {
-    children:                       [listview]; /* No text entry */
-    border:                         4px;
-    border-color:                   @primary;
-    padding:                        12px;
+    children:                       [message, listview];
+    padding:                        0px 0px;
+}
+
+
+textbox {
+    horizontal-align:   0.5;
+    border:             0px 0px 2px;
+    border-color:       @primary;
+    margin:             12px;
+    padding:            12px;
 }
 
 listview {
-    layout:                         horizontal;
-    spacing:                        15px;
+    padding:                        8px 32px;
+}
+
+element {
+    padding:                        8px;
+    orientation:                    horizontal;
+}
+
+element normal.urgent, element alternate.urgent {
+    background-color:               @urgent;
+}
+
+element normal.active, element alternate.active {
+    background-color:               @background-alt;
+    border:                         4px 4px solid 4px 4px;
+    border-radius:                  8;
+    border-color:                   transparent;
+}
+
+element selected {
+    border:                         4px 4px solid 4px 4px;
+    border-radius:                  8;
+    border-color:                   @primary;
+}
+
+element selected.urgent {
+    background-color:               @urgent;
+}
+
+element selected.active {
+    background-color:               @background-alt;
 }
 
 element-text {
-    horizontal-align:               0.5;
-    vertical-align:                 0.5;
-    margin:                         5px;
-    border:                         0px;
-    border-color:                   @primary;
-    border-radius:                  5;
-    padding:                        12px 0px 6px;
-    width:                          75px;
-}
-element {
-    padding:                        0px;
+    horizontal-align:               0;
+    padding:                        0px 8px;
 }

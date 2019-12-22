@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Play Music
+Exec=/home/ntc/.config/i3/scripts/music_player launch
+Icon=chrome-fahmaaghhglfmonjliepjlchgpgfmobi-Default
+StartupWMClass=crx_fahmaaghhglfmonjliepjlchgpgfmobi
+Categories=Network;WebBrowser;Custom;

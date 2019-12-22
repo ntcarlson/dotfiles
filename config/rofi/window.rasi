@@ -1,0 +1,20 @@
+configuration {
+    theme:                          "config";
+    window-format:                  "     {t}";
+    show-icons:                     true;
+    font:                           "DejaVu Sans 13";
+}
+
+listview {
+    columns:                        4;
+    padding:                        36px;
+}
+
+element-icon {
+    size:                           32;
+}
+
+element-text {
+    vertical-align:                 0.5;
+    horizontal-align:               0;
+}

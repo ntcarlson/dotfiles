@@ -1,6 +1,10 @@
 #!/bin/bash
 
+DIR=$(dirname $(realpath $0))
+
 WINDOW_ID_CONKY=/tmp/conky_window_id
+WINDOW_ID_TOP=/tmp/polybar_top_window_id
+WINDOW_ID_EXPANDED=/tmp/polybar_expanded_window_id
 
 conky_launch() {
     # Hacky X11 magic to make Conky appear above polybar
@@ -14,68 +18,64 @@ conky_launch() {
     echo $WIN_ID > $WINDOW_ID_CONKY
 }
 
-launch() {
-    conky_launch
-    sleep 0.2
+polybar_launch() {
     killall polybar
-    polybar panel &
-    BAR_ID=$!
-    rm -f /tmp/polybar_mqueue_panel
-    ln -s /tmp/polybar_mqueue.$BAR_ID /tmp/polybar_mqueue_panel
-    sleep 0.2
-    echo "cmd:hide" >> /tmp/polybar_mqueue_panel
+
     polybar top &
-    BAR_ID=$!
-    rm -f /tmp/polybar_mqueue_top
-    ln -s /tmp/polybar_mqueue.$BAR_ID /tmp/polybar_mqueue_top
+    xdotool search --sync --pid $! > $WINDOW_ID_TOP
+
+    polybar expanded &
+    xdotool search --sync --pid $! > $WINDOW_ID_EXPANDED
+
+    bar_collapse
+}
+
+launch() {
+    # Temporarily disable conky until I update the config
+    # conky_launch
+    # sleep 0.2
+    polybar_launch
+}
+
+bar_expand() {
+    xdotool windowmap $(cat $WINDOW_ID_EXPANDED)
+    xdotool windowunmap $(cat $WINDOW_ID_TOP)
+}
+
+bar_collapse() {
+    xdotool windowunmap $(cat $WINDOW_ID_EXPANDED)
+    xdotool windowmap $(cat $WINDOW_ID_TOP)
 }
 
 rofi_open() {
     options_close
-    rofi -show run -location 0 -width 1924 -padding 700 -lines 10 -yoffset 0 -font 'DejaVu Sans 16'
+    bar_expand &
+    rofi -modi run -show run
+    bar_collapse
+}
+
+drun_open() {
+    bar_expand &
+    rofi -theme drun -modi drun -show drun -drun-categories Custom
+    bar_collapse
 }
 
 search_open() {
-    rofi -show window -theme sidebar
+    options_close
+    bar_expand &
+    rofi -theme window -modi window -show window 
+    bar_collapse
 }
 
 options_open() {
-    echo "hook:module/option_menu1" >> /tmp/polybar_mqueue_top
-    echo "cmd:show" >> /tmp/polybar_mqueue_panel
-    echo "open" > /tmp/polybar_side_panel_state
-    ID_CONKY=$(cat $WINDOW_ID_CONKY)
-    xdotool windowmap $ID_CONKY
-    xdotool windowraise $ID_CONKY
-    ~/.config/i3/scripts/music_player show_applet
-}
-
-options_close() {
-    ID_CONKY=$(cat $WINDOW_ID_CONKY)
-    xdotool windowunmap $ID_CONKY
-    ~/.config/i3/scripts/music_player hide_applet
-    echo "hook:module/option_menu1" >> /tmp/polybar_mqueue_top
-    echo "cmd:hide" >> /tmp/polybar_mqueue_panel
-    echo "close" > /tmp/polybar_side_panel_state
-}
-
-options_toggle() {
-    if [ "$(cat /tmp/polybar_side_panel_state)" == "open" ]; then
-        options_close
-    else
-        options_open
-    fi
-}
-
-options_icon() {
-    COLOR_NORMAL="%{F$(xrdb -query | awk '/^*foreground/ {print $2}')}"
-    COLOR_ACTIVE="%{F$(xrdb -query | awk '/^*primary/ {print $2}')}"
-    COLOR_END="%{F-}"
-
-    if [ "$(cat /tmp/polybar_side_panel_state)" == "open" ]; then
-        echo "$COLOR_ACTIVE$COLOR_END"
-    else
-        echo "$COLOR_NORMAL$COLOR_END"
-    fi
+    bar_expand
+    $DIR/rofi_option_menu 
+    bar_collapse
+    # echo "open" > /tmp/polybar_side_panel_state
+    # ID_CONKY=$(cat $WINDOW_ID_CONKY)
+    # xdotool windowmap $ID_CONKY
+    # xdotool windowraise $ID_CONKY
+    # ~/.config/i3/scripts/music_player show_applet
 }
 
 case "$1" in
@@ -83,14 +83,10 @@ case "$1" in
         rofi_open;;
     search)
         search_open;;
+    drun)
+        drun_open;;
     options)
-        options_toggle;;
-    options_icon)
-        options_icon;;
+        options_open;;
     launch)
         launch;;
-    hide)
-        echo "cmd:hide" >> /tmp/polybar_mqueue_top;;
-    show)
-        echo "cmd:show" >> /tmp/polybar_mqueue_top;;
 esac

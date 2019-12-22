@@ -11,7 +11,7 @@ exec --no-startup-id setxkbmap -option "caps:swapescape"
 exec --no-startup-id compton --no-fading-openclose
 
 # Set a random background every time i3 is launched or reset
-exec_always --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpapers/
+exec_always --no-startup-id ~/.config/i3/scripts/betterlockscreen -w
 
 # Polybar is used instead of i3bar
 exec_always --no-startup-id ~/.config/i3/scripts/polybar_wrapper launch
@@ -43,8 +43,9 @@ client.focused_inactive $bg_alt     $bg_alt     $backgr     $bg_alt
 client.unfocused        $backgr     $backgr     $foregr     $backgr
 client.urgent           $backgr     $urgent     $backgr     $urgent
 
-# Windows have a border of 4 pixels; replace pixel with normal to show titlebar
-new_window pixel 4
+# Tiled and floating findows have a border of 4 pixels
+default_border pixel 4
+default_floating_border pixel 4
 
 # Don't show window borders if there is only one window open
 hide_edge_borders smart
@@ -55,6 +56,7 @@ font pango:DejaVu Sans 10
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 16
 gaps outer 0
+gaps top 44
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
@@ -70,7 +72,8 @@ set $mod Mod4
 bindsym $mod+Return exec --no-startup-id kitty
 
 # Bring up launcher
-bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper rofi
+bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper drun
+bindsym $mod+shift+d exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper rofi
 
 # Search open windows
 bindsym $mod+grave exec --no-startup-id ~/.config/i3/scripts/polybar_wrapper search
@@ -87,14 +90,8 @@ bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 
 
-# File browser
-bindsym $mod+t exec --no-startup-id urxvt --depth 24 -e ranger
-
 # Lock screen
 bindsym $mod+Pause exec --no-startup-id ~/.config/i3/scripts/betterlockscreen -l blur
-
-# Calculator
-bindsym $mod+g exec --no-startup-id gnome-calculator
 
 # Screenshot of entire desktop
 bindsym $mod+F4 exec scrot -e 'feh $f -x' -d 2
@@ -222,7 +219,7 @@ bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+p move container to workspace $steam
 
 # Move to next free workspace
-bindsym $mod+equal exec --no-startup-id ~/bin/next_workspace
+bindsym $mod+equal exec --no-startup-id ~/.config/i3/scripts/next_workspace
 
 # Tag the current workspace
 bindsym $mod+Insert exec --no-startup-id ~/.config/i3/scripts/label_workspace
@@ -259,6 +256,7 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
+for_window [class="Gnome-calculator"] floating enable
 
 for_window [class="feh"] floating enable
 for_window [class="Steam"] floating enable

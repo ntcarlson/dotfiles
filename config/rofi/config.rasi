@@ -6,33 +6,38 @@ configuration {
 * {
     background-color:               transparent;
 
-    background:                     #2E3440CC;
+    background:                     #2E3440;
     background-alt:                 #5E81AC80;
     text-color:                     #D8DEE9;
-    primary:                        #A3BE8C;
+    primary:                        #B48EAD;
     urgent:                         #BF616A;
 }
 
 window {
-    height:                         100%;
+    height:                         392;
     width:                          100%;
+    location:                       north;
+    anchor:                         north;
     transparency:                   "real";
-    background-color:               @background;
-    
+    background-color:               #00000000;
 }
 
 mainbox {
-    children:                       [ entry, listview, message ];
-    padding:                        300px 780px;
+    children:                       [listview, entry];
+    padding:                        0px 0px;
+}
+
+listview {
+    padding:                        0px 800px;
 }
 
 entry {
     expand:                         false;
-    margin:                         16px 0px;
-    background-color:               @background-alt;
+    margin:                         4px 700px;
+    background-color:               @background;
     padding:                        8px;
     border:                         8px;
-    border-color:                   @background-alt;
+    border-color:                   @primary;
     border-radius:                  5px;
     horizontal-align:               0.5;
 }

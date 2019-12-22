@@ -1,0 +1,43 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+NoDisplay=false
+Icon=libreoffice-writer
+Type=Application
+Categories=Office;Custom;
+Exec=libreoffice %U
+MimeType=application/vnd.openofficeorg.extension;x-scheme-handler/vnd.libreoffice.cmis;
+Name=LibreOffice
+GenericName=Office
+Comment=The office productivity suite compatible to the open and standardized ODF document format. Supported by The Document Foundation.
+StartupNotify=true
+StartupWMClass=libreoffice-startcenter
+
+##Define Actions
+Actions=Writer;Calc;Impress;Draw;Base;Math;
+
+[Desktop Action Writer]
+Name=Writer
+Exec=libreoffice --writer
+
+[Desktop Action Calc]
+Name=Calc
+Exec=libreoffice --calc
+
+[Desktop Action Impress]
+Name=Impress
+Exec=libreoffice --impress
+
+[Desktop Action Draw]
+Name=Draw
+Exec=libreoffice --draw
+
+[Desktop Action Base]
+Name=Base
+Exec=libreoffice --base
+
+[Desktop Action Math]
+Name=Math
+Exec=libreoffice --math
+
+##End of actions menu

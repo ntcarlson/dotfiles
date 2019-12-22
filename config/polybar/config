@@ -2,6 +2,10 @@
 #----------------------------- Global settings -------------------------------#
 #-----------------------------------------------------------------------------#
 
+[settings]
+compositing-overline = source
+compositing-underline = source
+
 [colors]
 include-file = ~/.config/polybar/colors
 
@@ -12,8 +16,12 @@ margin-bottom = 0
 [bar/top]
 monitor = ${env:MONITOR:eDP1}
 enable-ipc = true
-override-redirect = false
+override-redirect = true 
+wm-restack = i3
 bottom = false
+
+line-size = 5
+line-color = ${colors.primary}
 
 height = 40
 width = 100%
@@ -23,8 +31,8 @@ spacing = 1
 module-margin-left = 2
 module-margin-right = 2
 
-border-bottom-size = 2
-border-bottom-color = ${colors.primary}
+border-color = ${colors.primary}
+border-bottom-size = 4
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -37,10 +45,24 @@ font-4 = "Font Awesome 5 Brands:pixelsize=18;3"
 
 modules-left = i3
 modules-center = xwindow
-modules-right = xbacklight volume date option_menu
+modules-right = xbacklight volume date options_open
 padding-right = 2
+padding-left = 1
 
+[bar/expanded]
+inherit = bar/top
 
+wm-restack = none
+height = 360
+overline-size = 325
+font-0 = "DejaVu Sans:style=Bold:pixelsize=14;163"
+font-1 = "DejaVu Sans:pixelsize=14;163"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=18;163"
+font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=18;163"
+font-4 = "Font Awesome 5 Brands:pixelsize=18;163"
+
+modules-center =
+modules-right = xbacklight volume date options_close
 #------------------------------- Left modules --------------------------------#
 
 [module/i3]
@@ -52,7 +74,7 @@ strip-wsnumbers = true
 label-focused = %name%
 label-focused-background = ${colors.primary}
 label-focused-foreground = ${colors.background}
-label-focused-underline  = ${colors.background-alt}
+label-focused-underline  = ${colors.background}
 label-focused-overline  = ${colors.background}
 label-focused-padding = 2
 
@@ -60,10 +82,11 @@ label-unfocused = %name%
 label-unfocused-padding = 2
 
 label-occupied = %name%
-label-occupied-padding = 1
+label-occupied-padding = 2
 
 label-urgent = %name%
 label-urgent-background = ${colors.urgent}
+label-urgent-underline  = ${colors.background}
 label-urgent-overline  = ${colors.background}
 label-urgent-padding = 2
 
@@ -90,11 +113,25 @@ type = internal/xwindow
 label = %{T2}%title:0:40:...%%{T-}
 
 #-----------------------------=- Right modules -------------------------------#
-[module/option_menu]
-type = custom/ipc
-hook-0 = ~/.config/i3/scripts/polybar_wrapper options_icon
-initial = 1
+
+[module/song]
+type = custom/script
+exec = ~/bin/music get_title
+format = "%{T2}<label>%{T-}"
+interval = 3
+
+[module/options_open]
+type = custom/text
+content-foreground = ${colors.foreground}
+content = ""
 click-left = ~/.config/i3/scripts/polybar_wrapper options
+
+[module/options_close]
+type = custom/text
+content-foreground = ${colors.primary}
+content = ""
+click-left = ~/.config/i3/scripts/polybar_wrapper options
+
 
 [module/date]
 type = internal/date
@@ -145,66 +182,3 @@ bar-fill-foreground = ${colors.primary}
 bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground}
-
-#-----------------------------------------------------------------------------#
-#---------------------------- Side panel config- -----------------------------#
-#-----------------------------------------------------------------------------#
-[bar/panel]
-monitor = ${env:MONITOR:eDP1}
-enable-ipc = true
-override-redirect = true
-bottom = false
-
-height = 1036 # 1080p - bar height - 2*border width
-width = 25%
-offset-y = 40
-offset-x = 75%
-fixed-center = true
-spacing = 1
-module-margin-left = 2
-module-margin-right = 2
-
-border-size = 2
-border-color = ${colors.primary}
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-font-0 = "Font Awesome 5 Free:style=Solid:pixelsize=18;-490"
-font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=18;-490"
-font-2 = "Font Awesome 5 Brands:pixelsize=18;-490"
-
-modules-center = lock exit hibernate reboot shutdown screenshot 
-
-#------------------------------ Option modules -------------------------------#
-[module/exit]
-type = custom/text
-content = "  "
-click-left = i3-msg exit
-
-[module/hibernate]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/hibernate
-
-[module/shutdown]
-type = custom/text
-content = "  "
-click-left = shutdown now
-
-[module/reboot]
-type = custom/text
-content = "  "
-click-left = reboot
-
-[module/lock]
-type = custom/text
-content = "  "
-click-left = ~/.config/i3/scripts/betterlockscreen -l blur
-
-[module/screenshot]
-type = custom/text
-content = "  "
-click-left = scrot -e 'feh $f -x' --delay 1
-
-
