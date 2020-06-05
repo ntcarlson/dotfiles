@@ -50,7 +50,7 @@ new_window pixel 4
 hide_edge_borders smart
 
 # Font used by i3; controls size of title bar
-font pango:DejaVu Sans 10
+font pango:Fira Sans 12
 
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 32

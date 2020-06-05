@@ -3,7 +3,7 @@ set recolor-darkcolor "#2E3440"
 set recolor-lightcolor "#D8DEE9"
 
 set default-bg "#D8DEE9"
-set font "DejaVu Sans 12"
+set font "Fira Sans 12"
 
 set inputbar-bg "#2E3440"
 set inputbar-fg "#D8DEE9"

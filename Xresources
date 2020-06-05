@@ -23,8 +23,8 @@
 #define BG_ALT    nord3
 #define TXT       nord4
 #define TXT_ALT   nord6
-#define PRIMARY   nord14
-#define SECONDARY nord10
+#define PRIMARY   nord9
+#define SECONDARY nord14
 #define URGENT    nord11
 
 

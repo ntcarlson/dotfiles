@@ -43,7 +43,7 @@ conky.config = {
 	net_avg_samples        = 2,
 	override_utf8_locale   = true,
 
-	font                   = 'DejaVu Sans:style=medium:size=10',
+	font                   = 'Fira Sans:style=medium:size=10',
 
     lua_load = "~/.config/conky/clock.lua",
     lua_draw_hook_pre = "clock_rings",

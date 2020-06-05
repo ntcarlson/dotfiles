@@ -2,7 +2,7 @@ configuration {
     theme:                          "config";
     window-format:                  "{t}";
     show-icons:                     true;
-    font:                           "DejaVu Sans 13";
+    font:                           "Fira Sans 13";
     columns:                        4;
 }
 

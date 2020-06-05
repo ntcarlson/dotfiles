@@ -30,8 +30,8 @@ border-color = ${colors.primary}
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = "DejaVu Sans:style=Bold:pixelsize=14;3"
-font-1 = "DejaVu Sans:pixelsize=14;3"
+font-0 = "Fira Sans:style=Bold:pixelsize=14;3"
+font-1 = "Fira Sans:pixelsize=14;3"
 font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=18;3"
 font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=18;3"
 font-4 = "Font Awesome 5 Brands:pixelsize=18;3"
@@ -62,7 +62,7 @@ label-unfocused = %name%
 label-unfocused-padding = 2
 
 label-occupied = %name%
-label-occupied-padding = 1
+label-occupied-padding = 2
 
 label-urgent = %name%
 label-urgent-background = ${colors.urgent}
@@ -109,25 +109,5 @@ label = "%time% "
 
 [module/volume]
 type = internal/pulseaudio
-
-format-volume =   <bar-volume>
-
-label-muted = "muted"
-label-muted-foreground = ${colors.background-alt}
-
-bar-volume-width = 10
-bar-volume-foreground-0 = ${colors.primary}
-bar-volume-foreground-1 = ${colors.primary}
-bar-volume-foreground-2 = ${colors.primary}
-bar-volume-foreground-3 = ${colors.primary}
-bar-volume-foreground-4 = ${colors.primary}
-bar-volume-foreground-5 = ${colors.urgent}
-bar-volume-foreground-6 = ${colors.urgent}
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground}
+format-volume = "  <label-volume>"
+label-muted = "  muted"

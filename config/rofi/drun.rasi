@@ -1,7 +1,7 @@
 configuration {
     theme:             "config";
     show-icons:        true;
-    font:              "DejaVu Sans 13";
+    font:              "Fira Sans 13";
 }
 
 mainbox {

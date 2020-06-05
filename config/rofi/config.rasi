@@ -1,6 +1,6 @@
 configuration {
     show-icons:                     false;
-    font:                           "DejaVu Sans 20";
+    font:                           "Fira Sans 20";
 }
 
 * {
@@ -9,7 +9,7 @@ configuration {
     background:                     #2E3440CC;
     background-alt:                 #5E81AC80;
     text-color:                     #D8DEE9;
-    primary:                        #A3BE8C;
+    primary:                        #81A1C1;
     urgent:                         #BF616A;
 }
 

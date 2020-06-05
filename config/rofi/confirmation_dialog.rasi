@@ -28,5 +28,5 @@ listview {
 
 element-text {
     horizontal-align:   0.5;
-    font:               "DejaVu Sans 16";
+    font:               "Fira Sans 16";
 }
