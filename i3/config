@@ -7,7 +7,8 @@ exec --no-startup-id dropbox start  # Dropbox daemon
 exec --no-startup-id setxkbmap -option "caps:swapescape"
 
 # Compositor to fix screen tearing and allow transparent windows
-exec --no-startup-id compton
+# --experimental-backend switch required for dual_kawase blurring
+exec --no-startup-id picom --experimental-backend
 
 # Set a random background every time i3 is launched or reset
 exec_always --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpapers/
