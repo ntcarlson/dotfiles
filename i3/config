@@ -93,9 +93,9 @@ bindsym $mod+Pause     exec --no-startup-id betterlockscreen -l blur
 bindsym $mod+g         exec --no-startup-id gnome-calculator
 
 # Volume controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 1 +5% 
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 1 -5%
-bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 1 toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
+bindsym XF86AudioMute        exec --no-startup-id amixer -q sset Master toggle
 
 # Screenshot of entire desktop
 bindsym $mod+F4       exec --no-startup-id scrot -e 'feh $f -x' -d 2
