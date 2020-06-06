@@ -58,7 +58,10 @@ tray-offset-x = -300
 type = internal/i3
 format = <label-state> <label-mode>
 
+pin-workspaces = true
 strip-wsnumbers = true
+index-sort = true
+wrapping-scroll = false
 
 label-focused = %name%
 label-focused-background = ${colors.primary}
@@ -67,32 +70,35 @@ label-focused-underline  = ${colors.background}
 label-focused-overline  = ${colors.background}
 label-focused-padding = 2
 
-label-unfocused = %name%
-label-unfocused-padding = 2
-
-label-occupied = %name%
-label-occupied-padding = 2
-
 label-urgent = %name%
 label-urgent-background = ${colors.urgent}
 label-urgent-underline  = ${colors.background}
 label-urgent-overline  = ${colors.background}
 label-urgent-padding = 2
 
+label-visible = %name%
+label-visible-background = ${colors.primary}
+label-visible-foreground = ${colors.background}
+label-visible-underline  = ${colors.background}
+label-visible-overline  = ${colors.background}
+label-visible-padding = 2
+
+label-unfocused = %name%
+label-unfocused-padding = 2
+
+label-occupied = %name%
+label-occupied-padding = 2
+
 label-empty = %name%
-label-empty-foreground = ${colors.foreground}
 label-empty-padding = 2
 
-index-sort = true
-wrapping-scroll = false
 
+# Mode indicator (i.e. for i3 resize mode, etc)
 label-mode-padding = 2
-label-mode-foreground = #000
+label-mode-foreground = ${colors.background}
 label-mode-background = ${colors.primary}
-
-label-visible = %name%
-label-visible-underline = ${self.label-focused-underline}
-label-visible-padding = ${self.label-focused-padding}
+label-mode-underline  = ${colors.background}
+label-mode-overline   = ${colors.background}
 
 
 #------------------------------ Center modules -------------------------------#

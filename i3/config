@@ -54,6 +54,11 @@ font pango:Fira Sans 12
 
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 32
+
+# Large horizontal spacing that only appears when a single window is open
+# for better ultrawide behavior
+smart_gaps inverse_outer
+gaps horizontal 200
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
@@ -217,9 +222,10 @@ bindsym $mod+Shift+p move container to workspace $steam
 # Move to next free workspace
 bindsym $mod+equal exec --no-startup-id next_workspace
 
-# Move focus/window to open workspace on secondary monitor    
+# Move focus/window/workspace between monitors
 bindsym $mod+Tab focus output left
 bindsym $mod+Shift+Tab move container to output left
+bindsym $mod+Control+Tab move workspace to output left
 
 # The hotkey to move to the current workspace will instead move to the previous
 workspace_auto_back_and_forth yes
@@ -262,7 +268,4 @@ for_window [class="chrome" instance="keep.google.com"] floating enable
 for_window [class="chrome" instance="play.google.com"] floating disable
 
 assign [class="chrome" instance="play.google.com"] $music
-
-workspace $music gaps horizontal 500
-workspace $steam gaps horizontal 500
 #=============================================================================#
