@@ -15,6 +15,9 @@ exec_always --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpapers/
 
 # Polybar is used instead of i3bar
 exec_always --no-startup-id polybar_wrapper
+
+# Manually set GPU fan curve
+exec_always --no-startup-id gpu_fan_curve
 #=============================================================================#
 
 
