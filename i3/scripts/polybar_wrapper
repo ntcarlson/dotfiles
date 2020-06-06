@@ -16,13 +16,15 @@ conky_launch() {
 
 launch() {
     killall polybar
-    conky_launch
-    sleep 0.2
-    polybar top &
-    BAR_ID=$!
-    rm -f /tmp/polybar_mqueue_top
-    ln -s /tmp/polybar_mqueue.$BAR_ID /tmp/polybar_mqueue_top
+    if type "xrandr"; then
+      for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+        MONITOR=$m polybar --reload top &
+      done
+    else
+      polybar --reload top &
+    fi
 }
+
 
 rofi_open() {
     rofi -modi drun -show drun -theme grid \

@@ -54,8 +54,6 @@ font pango:Fira Sans 12
 
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 32
-gaps outer 32
-gaps top 48
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
