@@ -1,74 +1,14 @@
 configuration {
-    show-icons:                     false;
-    font:                           "Fira Sans 20";
+    font:                           "Fira Sans 16";
 }
 
 * {
     background-color:               transparent;
 
-    background:                     #2E3440CC;
-    background-alt:                 #5E81AC80;
+    background:                     #2E3440A0;
+    background-alt:                 #2E3440;
     text-color:                     #D8DEE9;
     primary:                        #81A1C1;
+    primary-alt:                    #81A1C160;
     urgent:                         #BF616A;
-}
-
-window {
-    height:                         100%;
-    width:                          100%;
-    transparency:                   "real";
-    background-color:               @background;
-    
-}
-
-mainbox {
-    children:                       [ entry, listview, message ];
-    padding:                        400px 1400px;
-}
-
-entry {
-    expand:                         false;
-    margin:                         12px 36px;
-    background-color:               @background-alt;
-    padding:                        8px;
-    border:                         8px;
-    border-color:                   @background-alt;
-    border-radius:                  5px;
-}
-
-element {
-    padding:                        8px;
-    orientation:                    horizontal;
-}
-
-element normal.urgent, element alternate.urgent {
-    background-color:               @urgent;
-}
-
-element normal.active, element alternate.active {
-    background-color:               @background-alt;
-    border:                         4px 4px solid 4px 4px;
-    border-radius:                  8;
-    border-color:                   transparent;
-}
-
-element selected {
-    border:                         4px 4px solid 4px 4px;
-    border-radius:                  8;
-    border-color:                   @primary;
-}
-
-element selected.urgent {
-    background-color:               @urgent;
-}
-
-element selected.active {
-    background-color:               @background-alt;
-}
-
-element-icon {
-    border:                         1px;
-    border-color:                   @primary;
-    border-radius:                  5;
-    padding:                        6px;
 }

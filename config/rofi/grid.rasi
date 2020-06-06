@@ -1,0 +1,40 @@
+configuration {
+    show-icons:                     true;
+    drun-display-format:            "{name}";
+    drun-match-fields:              "name";
+    font:                           "Fira Sans 16";
+}
+
+@import "launcher"
+
+listview {
+    dynamic:                        true;
+    columns:                        4;
+}
+
+element {
+    padding:                        8px;
+    orientation:                    vertical;
+}
+
+element-icon {
+    padding:                        8px;
+    margin:                         4px 36px;
+    size:                           96;
+}
+
+element-icon selected {
+    border:                         2px;
+    border-color:                   @primary;
+    border-radius:                  2;
+}
+
+element-text {
+    font:                           "Fira Sans 10";
+    width:                          180px;
+    horizontal-align:               0.5;
+}
+
+element-text selected {
+    text-color:                     @primary;
+}

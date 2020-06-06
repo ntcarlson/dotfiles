@@ -25,15 +25,18 @@ launch() {
 }
 
 rofi_open() {
-    rofi -show run -modi run
+    rofi -modi drun -show drun -theme grid \
+         -display-drun Applications 
 }
 
 drun_open() {
-    rofi -show drun -modi drun -theme drun
+    rofi -modi run -show run -theme list \
+         -display-run Run
 }
 
 search_open() {
-    rofi -show window -modi window -theme sidebar
+    rofi -modi window -show window -theme list \
+         -display-run Windows
 }
 
 options_open() {

@@ -1,0 +1,46 @@
+configuration {
+    show-icons:                     true;
+    window-format:                  "{t}";
+}
+
+@import "launcher"
+
+element {
+    padding:                        8px;
+    orientation:                    horizontal;
+}
+
+element normal.urgent, element alternate.urgent {
+    background-color:               @urgent;
+}
+
+element normal.active, element alternate.active {
+    background-color:               @primary-alt;
+    border:                         4px 4px solid 4px 4px;
+    border-radius:                  8;
+    border-color:                   transparent;
+}
+
+element selected.active {
+    background-color:               @primary-alt;
+}
+
+element selected {
+    border:                         4px 4px solid 4px 4px;
+    border-radius:                  8;
+    border-color:                   @primary;
+}
+
+element selected.urgent {
+    background-color:               @urgent;
+}
+
+element-icon {
+    padding:                        6px;
+    size:                           32;
+}
+
+element-text {
+    horizontal-align:               0;
+    vertical-align:                 0.5;
+}

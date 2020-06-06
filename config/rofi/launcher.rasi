@@ -1,0 +1,72 @@
+// Common configuration for fullscreen launcher styles. Don't use this theme
+// directly. Either use grid.rasi or list.rasi which inherit from this.
+
+window {
+    children:                       [dummy, mainbox, dummy];
+    orientation:                    horizontal;
+    height:                         100%;
+    width:                          100%;
+    transparency:                   "real";
+    background-color:               @background;
+}
+
+mainbox {
+    children:                       [ textbox-width, mode-switcher, listview, inputbar ];
+    expand:                         false;
+    padding:                        15% 0%;
+}
+
+// Dummy textbox used to set the width of the launcher since there is no
+// way to directly set the width of mainbox
+textbox-width {
+    expand:                         false;
+    str:                            "";
+    width:                          1200px;
+}
+
+listview {
+    background-color:               @background;
+    padding:                        64px;
+    border:                         8px;
+    border-color:                   @primary;
+    border-radius:                  5px;
+}
+
+mode-switcher {
+    children:                       [button];
+    margin:                         0px 64px -8px;
+}
+
+button {
+    margin:                         0px 8px 0px;
+    border:                         8px;
+    border-color:                   @primary;
+    border-radius:                  5px;
+}
+
+button selected.normal {
+    background-color:               @primary;
+    text-color:                     @background-alt;
+}
+
+inputbar {
+    children:                       [ textbox-prompt, entry];
+    expand:                         false;
+    margin:                         -38px 64px 0px;
+    background-color:               @background-alt;
+    padding:                        8px;
+    border:                         8px;
+    border-color:                   @primary;
+    border-radius:                  5px;
+}
+
+textbox-prompt {
+    font:                           "Font Awesome 20";
+    background-color:               @primary;
+    text-color:                     @background-alt;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         -8px 8px -8px -8px;
+    str:                            "  ";
+    expand:                         false;
+}
