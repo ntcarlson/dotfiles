@@ -11,7 +11,7 @@ exec --no-startup-id setxkbmap -option "caps:swapescape"
 exec --no-startup-id picom --experimental-backend
 
 # Set a random background every time i3 is launched or reset
-exec_always --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpapers/
+exec_always --no-startup-id betterlockscreen -w
 
 # Polybar is used instead of i3bar
 exec_always --no-startup-id polybar_wrapper
