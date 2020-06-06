@@ -14,7 +14,7 @@ exec --no-startup-id picom --experimental-backend
 exec_always --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpapers/
 
 # Polybar is used instead of i3bar
-exec_always --no-startup-id polybar_wrapper launch
+exec_always --no-startup-id polybar_wrapper
 #=============================================================================#
 
 
@@ -74,14 +74,14 @@ set $mod Mod4
 bindsym $mod+Return    exec --no-startup-id kitty
 
 # Open launcher
-bindsym $mod+d         exec --no-startup-id polybar_wrapper rofi
-bindsym $mod+shift+d   exec --no-startup-id polybar_wrapper drun
+bindsym $mod+d         exec --no-startup-id rofi_wrapper applications
+bindsym $mod+shift+d   exec --no-startup-id rofi_wrapper run
 
-# Open left panel (search open windows)
-bindsym $mod+grave     exec --no-startup-id polybar_wrapper search
+# Search open windows
+bindsym $mod+grave     exec --no-startup-id rofi_wrapper window
 
-# Open right panel (options menu)
-bindsym $mod+BackSpace exec --no-startup-id polybar_wrapper options
+# Open options menu (lock screen, logout, shutdown, etc.)
+bindsym $mod+BackSpace exec --no-startup-id rofi_wrapper options
 
 # Lock screen
 bindsym $mod+Pause     exec --no-startup-id betterlockscreen -l blur

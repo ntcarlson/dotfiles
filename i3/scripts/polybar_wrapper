@@ -1,94 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-WINDOW_ID_CONKY=/tmp/conky_window_id
+# Convenience wrapper for launching polybar on all monitors
 
-conky_launch() {
-    # Hacky X11 magic to make Conky appear above polybar
-    killall conky
-    # xdotool search can't find Conky's window but fortunately Conky outputs it
-    conky -c ~/.config/conky/config 2> /tmp/conky_out
-    # Extract the hex window id from Conky's output
-    HEX=$(awk '/drawing to created window/ {print $NF}' /tmp/conky_out | tr -d '()' | awk -Fx '{print $2}')
-    WIN_ID=$(( 16#$HEX )) # convert to decimal
-    xdotool windowunmap $WIN_ID
-    echo $WIN_ID > $WINDOW_ID_CONKY
-}
-
-launch() {
-    killall polybar
-    if type "xrandr"; then
-      for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-        MONITOR=$m polybar --reload top &
-      done
-    else
-      polybar --reload top &
-    fi
-}
-
-
-rofi_open() {
-    rofi -modi drun -show drun -theme grid \
-         -display-drun Applications 
-}
-
-drun_open() {
-    rofi -modi run -show run -theme list \
-         -display-run Run
-}
-
-search_open() {
-    rofi -modi window -show window -theme list \
-         -display-run Windows
-}
-
-options_open() {
-    rofi_option_menu &
-    ROFI_PID=$!
-
-    sleep 0.05
-
-    # Show music player and panel
-    echo "hook:module/option_menu2" >> /tmp/polybar_mqueue_top
-    ID_CONKY=$(cat $WINDOW_ID_CONKY)
-    xdotool windowmap $ID_CONKY
-    xdotool windowraise $ID_CONKY
-    music_player show_applet
-
-    wait $ROFI_PID
-
-    # Close music player and panel
-    xdotool windowunmap $ID_CONKY
-    music_player hide_applet
-    echo "hook:module/option_menu1" >> /tmp/polybar_mqueue_top
-}
-
-options_icon() {
-    COLOR_NORMAL="%{F$(xrdb -query | awk '/^*foreground/ {print $2}')}"
-    COLOR_ACTIVE="%{F$(xrdb -query | awk '/^*primary/ {print $2}')}"
-    COLOR_END="%{F-}"
-
-    case "$1" in
-        "open")   echo "$COLOR_ACTIVE$COLOR_END";;
-        "closed") echo "$COLOR_NORMAL$COLOR_END";;
-        *)        echo "ERROR";;
-    esac
-}
-
-case "$1" in
-    rofi)
-        rofi_open;;
-    drun)
-        drun_open;;
-    search)
-        search_open;;
-    options)
-        options_open;;
-    options_icon)
-        options_icon "$2";;
-    launch)
-        launch;;
-    hide)
-        echo "cmd:hide" >> /tmp/polybar_mqueue_top;;
-    show)
-        echo "cmd:show" >> /tmp/polybar_mqueue_top;;
-esac
+killall polybar
+if type "xrandr"; then
+  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    MONITOR=$m polybar --reload top &
+  done
+else
+  polybar --reload top &
+fi
