@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Lutris
+Comment=Open gaming platform
+Categories=Curated
+Keywords=gaming;wine;emulator;
+Exec=lutris %U
+Icon=lutris
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/lutris;

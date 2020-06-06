@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Play Music
+Exec=/opt/google/chrome/google-chrome --app="https://play.google.com/music/listen?u=0#/home"
+Icon=chrome-fahmaaghhglfmonjliepjlchgpgfmobi-Default
+StartupWMClass=crx_fahmaaghhglfmonjliepjlchgpgfmobi
+Categories=Network;WebBrowser;Curated;

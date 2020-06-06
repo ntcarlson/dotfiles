@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Thunar File Manager
+Comment=Browse the filesystem with the file manager
+GenericName=File Manager
+Exec=thunar %F
+Icon=Thunar
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=System;Utility;Core;GTK;FileTools;FileManager;Curated
+MimeType=inode/directory;
+
+# vi:set encoding=UTF-8:

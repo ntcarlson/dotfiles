@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if [ "$#" -eq 1 ]; then
-    music_player $1
-else
-    music_player launch
-fi

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Web Browser
+GenericName=Web Browser
+Exec=/opt/google/chrome/google-chrome --incognito
+StartupNotify=true
+Terminal=false
+Icon=google-chromium
+Type=Application
+Categories=Network;WebBrowser;Curated;

@@ -79,6 +79,7 @@ bindsym $mod+Return    exec --no-startup-id kitty
 # Open launcher
 bindsym $mod+d         exec --no-startup-id rofi_wrapper applications
 bindsym $mod+shift+d   exec --no-startup-id rofi_wrapper run
+bindsym $mod+g         exec --no-startup-id rofi_wrapper games
 
 # Search open windows
 bindsym $mod+grave     exec --no-startup-id rofi_wrapper window
@@ -88,9 +89,6 @@ bindsym $mod+BackSpace exec --no-startup-id rofi_wrapper options
 
 # Lock screen
 bindsym $mod+Pause     exec --no-startup-id betterlockscreen -l blur
-
-# Calculator
-bindsym $mod+g         exec --no-startup-id gnome-calculator
 
 # Volume controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
