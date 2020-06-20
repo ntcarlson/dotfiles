@@ -4,8 +4,8 @@ Version=1.0
 Terminal=false
 Type=Application
 Name=Calendar
-Exec=/opt/google/chrome/google-chrome --app="https://calendar.google.com/calendar/r"
-Icon=stock_calendar
+Exec=firefox -P default --ssb="https://calendar.google.com/calendar/r"
+Icon=office-calendar
 StartupWMClass=crx_pjkljhegncpnkpknbcohdijeoejaedia
 Categories=Network;WebBrowser;Curated;
 

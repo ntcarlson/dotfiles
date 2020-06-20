@@ -95,6 +95,11 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
 bindsym XF86AudioMute        exec --no-startup-id amixer -q sset Master toggle
 
+# Music player controls
+bindsym XF86AudioPlay        exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext        exec --no-startup-id playerctl next
+bindsym XF86AudioPrev        exec --no-startup-id playerctl previous
+
 # Screenshot of entire desktop
 bindsym $mod+F4       exec --no-startup-id scrot -e 'feh $f -x' -d 2
 # Screenshot of focused window
@@ -264,9 +269,7 @@ for_window [class="Steam" title="^Steam$"] floating disable
 assign [class="Steam"] $steam
 
 for_window [class="Gnome-calculator"] floating enable
-for_window [class="chrome" instance="calendar.google.com"] floating enable
-for_window [class="chrome" instance="keep.google.com"] floating enable
-for_window [class="chrome" instance="play.google.com"] floating disable
 
-assign [class="chrome" instance="play.google.com"] $music
+# For some reason assign does not work with the spotify client
+for_window [class="(Spotify|spotify)"] move to workspace $music
 #=============================================================================#

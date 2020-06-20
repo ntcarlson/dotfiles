@@ -4,8 +4,7 @@ Version=1.0
 Terminal=false
 Type=Application
 Name=Gmail
-Exec=/opt/google/chrome/google-chrome --profile-directory=Default --app-id=pjkljhegncpnkpknbcohdijeoejaedia
-Icon=chrome-pjkljhegncpnkpknbcohdijeoejaedia-Default
-StartupWMClass=crx_pjkljhegncpnkpknbcohdijeoejaedia
+Exec=firefox -P default --ssb "https://mail.google.com/mail/u/0/#inbox"
+Icon=gmail
 Categories=Network;WebBrowser;Curated;
 

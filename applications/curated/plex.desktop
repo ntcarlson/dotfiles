@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Terminal=false
+Type=Application
+Name=Plex
+Exec=firefox -P app --new-window "http://localhost:32400/web/index.html"
+Icon=plexmediaplayer
+StartupWMClass=plex
+Categories=Network;WebBrowser;Curated;
