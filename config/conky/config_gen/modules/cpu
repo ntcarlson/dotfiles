@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+cd $(dirname $(realpath $0))
+source modules/common
+
+conky_cpu() {
+    local OPTIND=1
+    local arg x y width height text color num_cores
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:t:c:n:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            t) text=${OPTARG};;
+            c) color=${OPTARG};;
+            n) num_cores=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+    
+    local subframe_spacing=10
+    local subframe_width=$((width - 2*subframe_spacing))
+    local subframe_height=$(( (height - (num_cores+1)*subframe_spacing - text_height)/num_cores))
+    local subframe_x=$((x + subframe_spacing))
+    local subframe_y=$((y + subframe_spacing + text_height))
+
+    local graph_width=$((subframe_width/2))
+    local graph_height=$((subframe_height - text_height))
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+    
+    cpu_model=$(cat /proc/cpuinfo | awk -F: '/model name/ {print $2}' | head -n 1)
+    conky_element -e "$cpu_model"               \
+                  -x $x -y $((y + text_offset)) \
+                  -w $width -a
+
+    for core_num in $(seq 1 $num_cores); do
+        conky_frame -x $subframe_x -y $subframe_y                               \
+                    -w $subframe_width -h $subframe_height                      \
+                    -c $color
+
+        conky_element -e "Core $((core_num - 1)) @ \${freq_g $core_num} GHz"    \
+                      -x $((subframe_x + subframe_width/2 - 50))                \
+                      -y $((subframe_y + text_offset))
+
+        graph_offset=$subframe_x
+        for thread_num in $core_num $((core_num + num_cores)); do
+            conky_graph -g "cpugraph cpu$thread_num"                                   \
+                        -x $graph_offset                                               \
+                        -y $((subframe_y + text_height - 10))                          \
+                        -t "Thread $((thread_num - 1)) usage: \${cpu cpu$thread_num}%" \
+                        -w $graph_width -h $graph_height                               \
+                        -s 1 -c $color 
+            graph_offset=$((graph_offset + graph_width))
+        done
+        subframe_y=$((subframe_y + subframe_height + subframe_spacing))
+    done
+   
+}

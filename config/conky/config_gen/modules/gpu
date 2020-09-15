@@ -1,0 +1,166 @@
+#!/usr/bin/env bash
+
+cd $(dirname $(realpath $0))
+source modules/common
+
+conky_gpu_core() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local text_height=30
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "Performance"                                      \
+                  -x $x -y $((y + text_offset))                         \
+                  -w $width -a
+
+    conky_graph -g "nvidiagraph gpuutil"                                \
+                -x $x                                                   \
+                -y $((y + text_height - 10))                            \
+                -t "Utilization: \${nvidia gpuutil 0}%"                 \
+                -w $((width/2)) -h $((height - text_height))            \
+                -c $color
+    conky_graph -g "nvidiagraph gpufreq"                                \
+                -x $((x + width/2))                                     \
+                -y $((y + text_height - 10))                            \
+                -t "Core clock: \${nvidia gpufreq 0} MHz"               \
+                -w $((width/2)) -h $((height - text_height))            \
+                -c $color
+}
+conky_gpu_mem() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local text_height=30
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "Video memory"                                     \
+                  -x $x -y $((y + text_offset))                         \
+                  -w $width -a
+
+    conky_graph -g "nvidiagraph memutil"                                \
+                -x $x                                                   \
+                -y $((y + text_height - 10))                            \
+                -t "Used: \${nvidia memused 0}/\${nvidia memmax 0} MiB" \
+                -w $((width/2)) -h $((height - text_height))            \
+                -c $color
+
+    conky_graph -g "nvidiagraph memfreq"                                \
+                -x $((x + width/2))                                     \
+                -y $((y + text_height - 10))                            \
+                -t "Frequency: \${nvidia memfreq 0} MHz"                \
+                -w $((width/2)) -h $((height - text_height))            \
+                -c $color
+}
+
+conky_gpu_thermals() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local text_height=30
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "Thermals"                                     \
+                  -x $x -y $((y + text_offset))                     \
+                  -w $width -a
+
+    conky_graph -g "nvidiagraph fanlevel"                           \
+                -x $x                                               \
+                -y $((y + text_height - 10))                        \
+                -t "Fan speed: \${nvidia fanspeed 0} RPM"           \
+                -w $((width/2)) -h $((height - text_height))        \
+                -c $color
+    conky_graph -g "nvidiagraph gputemp"                            \
+                -x $((x + width/2))                                 \
+                -y $((y + text_height - 10))                        \
+                -t "Temperature: \${nvidia gputemp 0} C"            \
+                -w $((width/2)) -h $((height - text_height))        \
+                -c $color
+}
+conky_gpu() {
+    local OPTIND=1
+    local arg x y width height text color num_cores
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:t:c:n:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            t) text=${OPTARG};;
+            c) color=${OPTARG};;
+            n) num_cores=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+    
+    local text_height=30
+
+    local subframe_spacing=10
+    local subframe_width=$((width - 2*subframe_spacing))
+    local subframe_height=$(( (height - 4*subframe_spacing - text_height)/3))
+    local subframe_x=$((x + subframe_spacing))
+    local subframe_y=$((y + subframe_spacing + text_height))
+
+
+    local graph_height=$((subframe_height - text_height))
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+    
+    cpu_model=$(cat /proc/cpuinfo | awk -F: '/model name/ {print $2}' | head -n 1)
+
+    conky_element -e "\${nvidia modelname 1}"   \
+                  -x $((x + width/2 - 50))      \
+                  -y $((y + text_offset))
+
+    conky_gpu_core -x $subframe_x -y $subframe_y \
+                   -w $subframe_width -h $subframe_height
+
+    subframe_y=$((subframe_y + subframe_height + subframe_spacing))
+
+    conky_gpu_mem -x $subframe_x -y $subframe_y \
+                  -w $subframe_width -h $subframe_height
+
+    subframe_y=$((subframe_y + subframe_height + subframe_spacing))
+
+    conky_gpu_thermals -x $subframe_x -y $subframe_y \
+                       -w $subframe_width -h $subframe_height
+}

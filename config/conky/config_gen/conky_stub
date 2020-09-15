@@ -1,0 +1,40 @@
+conky.config = {
+    use_xft                = true,
+    xftalpha               = 1,
+    update_interval        = 1,
+    total_run_times        = 0,
+
+    background             = true, 
+    out_to_console         = false,
+    out_to_stderr          = false,
+
+    own_window             = true,
+    own_window_class       = 'Conky',
+    own_window_type        = 'desktop',
+    own_window_argb_visual = true,
+    own_window_argb_value  = 220,
+    own_window_colour      = '2E3440',
+
+    double_buffer          = true,
+
+    draw_shades            = false,
+    draw_outline           = false,
+    draw_borders           = false,
+    draw_graph_borders     = true,
+    
+    alignment              = 'middle_middle',
+    minimum_width          = WIDTH,
+    maximum_width          = WIDTH,
+    minimum_height         = HEIGHT,
+    maximum_height         = HEIGHT,
+    gap_x                  = 0,
+    gap_y                  = 0,
+    text_buffer_size       = 2048,
+    uppercase              = false,
+    cpu_avg_samples        = 4,
+    net_avg_samples        = 2,
+    override_utf8_locale   = true,
+
+    font                   = 'Fira Sans:style=medium:size=10'
+}
+

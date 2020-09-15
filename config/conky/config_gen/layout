@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+cd $(dirname $(realpath $0))
+source modules/common
+source modules/cpu
+source modules/gpu
+source modules/mem
+source modules/fs
+source modules/top
+source modules/network
+source modules/journal
+
+# Draw a column with the chosen elements
+# Usage: draw_col index element1 percentage [element2 percentage ...]
+# If the percent is omitted on the last element, it will take up the remainder
+# of the vertical space
+draw_col() {
+    nrow=$((${#@}/2))
+    i=$1
+    shift
+    
+    elem_y=$spacing
+    total_perc=0
+
+    while [ ! -z "$1" ]; do
+        cmd="$1"
+        shift
+        if [ ! -z "$1" ]; then
+            perc=$1
+            total_perc=$((total_perc + perc))
+            shift
+        else
+            perc=$((100-total_perc))
+        fi
+        elem_width=$(( (width - (ncol + 1)*spacing)/ncol ))
+        elem_height=$(( (height - (nrow + 1)*spacing)*perc/100 ))
+        elem_x=$((elem_width*(i-1) + spacing*i))
+        eval $cmd -x $elem_x -y $elem_y          \
+                  -w $elem_width -h $elem_height \
+                  -c '$PRIMARY'
+        elem_y=$((elem_y + elem_height + spacing))
+    done
+}
+
+# Geometry of panel
+width=1456
+height=972
+ncol=3
+spacing=20
+
+{
+    echo -e "# Generated file; do not edit directly\n\n"
+    sed "s/WIDTH/$width/g;s/HEIGHT/$height/g" conky_stub 
+    conky_header
+
+    #           col     first elem          perc    second elem
+    draw_col    1       "conky_cpu -n 4"    75      "conky_mem"
+    draw_col    2       "conky_top"         35      "conky_gpu"
+    draw_col    3       "conky_network"     25      "conky_fs"
+
+    conky_footer
+} > ../config

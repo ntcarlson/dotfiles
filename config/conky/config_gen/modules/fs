@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+cd $(dirname $(realpath $0))
+source modules/common
+
+conky_disk() {
+    local OPTIND=1
+    local arg x y width height color device mnt
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:d:m:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            d) device=${OPTARG};;
+            m) mnt=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local graph_width=$((width/2))
+    local graph_height=$((height - 2*text_height))
+    local graph_x=$x
+    local graph_y=$((y + text_height))
+
+    local bar_height=18
+    local bar_spacing=$(( (text_height-bar_height)/2 ))
+    local bar_width=$((width - 2*bar_spacing))
+    local bar_x=$((x + bar_spacing))
+    local bar_y=$((graph_y + graph_height + bar_spacing))
+
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "$mnt ($device)"                               \
+                  -x $x -y $((y + text_offset))                     \
+                  -w $width -a
+
+    conky_graph -g "diskiograph_read $device"                       \
+                -x $graph_x                                         \
+                -y $((graph_y - 10))                                \
+                -t "Read: \${diskio_read $device}"                  \
+                -w $((width/2)) -h $graph_height                    \
+                -s 1 -c $color
+
+    conky_graph -g "diskiograph_write $device"                      \
+                -x $((graph_x + width/2))                           \
+                -y $((graph_y - 10))                                \
+                -t "Write: \${diskio_write $device}"                \
+                -w $((width/2)) -h $graph_height                    \
+                -s 1 -c $color
+
+    conky_element -e "\${fs_bar $bar_height,$bar_width $mnt}"       \
+                  -x $bar_x                                         \
+                  -y $((bar_y - 10))                                \
+                  -c $BG_ALT
+
+    conky_element -e "\${fs_used $mnt}/\${fs_size $mnt}"            \
+                  -x $((x + 15))                                    \
+                  -y $((y + height - text_height + text_offset))
+}
+
+conky_fs() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local devices=$(cat /proc/mounts | awk '/^\/dev\// {printf "%s:%s\n", $1, $2}')
+    local ndrives=$(cat /proc/mounts | awk '/^\/dev\// {print $2}' | wc -l)
+
+    local subframe_spacing=10
+    local subframe_width=$((width - 2*subframe_spacing))
+    local subframe_height=$(( (height - (ndrives+1)*subframe_spacing - text_height)/ndrives ))
+    local subframe_x=$((x + subframe_spacing))
+    local subframe_y=$((y + subframe_spacing + text_height))
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "Filesystem"                   \
+                  -x $x -y $((y + text_offset))     \
+                  -w $width -a
+
+    for device in $devices; do
+        dev=$(echo $device | awk -F: '{print $1}')
+        mnt=$(echo $device | awk -F: '{print $2}')
+        conky_disk -d $dev -m $mnt                          \
+                   -x $subframe_x -y $subframe_y            \
+                   -w $subframe_width -h $subframe_height
+        subframe_y=$((subframe_y + subframe_height + subframe_spacing))
+    done
+}

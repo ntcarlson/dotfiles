@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+cd $(dirname $(realpath $0))
+source modules/common
+
+conky_journal() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "\${journal 50}"                                    \
+                  -x $x -y $((y + text_offset)) 
+}

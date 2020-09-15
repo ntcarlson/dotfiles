@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+cd $(dirname $(realpath $0))
+source modules/common
+
+conky_network_device() {
+    local OPTIND=1
+    local arg x y width height color device
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:d:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            d) device=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local graph_width=$((width/2))
+    local graph_height=$((height - 2*text_height))
+    local graph_x=$x
+    local graph_y=$((y + text_height))
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "$device"                                      \
+                  -x $x -y $((y + text_offset))                     \
+                  -w $width -a
+
+    conky_graph -g "downspeedgraph $device"                         \
+                -x $graph_x                                         \
+                -y $((graph_y - 10))                                \
+                -t "$(glyph )  \${downspeed $device}/s"            \
+                -w $((width/2)) -h $graph_height                    \
+                -s 1 -c $color
+
+    conky_graph -g "upspeedgraph $device"                           \
+                -x $((graph_x + width/2))                           \
+                -y $((graph_y - 11))                                \
+                -t "$(glyph )  \${upspeed $device}/s"              \
+                -w $((width/2)) -h $graph_height                    \
+                -s 1 -c $color
+
+    conky_element -e "Total down: \${totaldown $device}"            \
+                  -x $((x + 15))                                    \
+                  -y $((graph_y + graph_height + text_offset))
+
+    conky_element -e "Total up: \${totalup $device}"                \
+                  -x $((x + 15 + width/2))                          \
+                  -y $((graph_y + graph_height + text_offset))
+}
+
+conky_network() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local ndevices=1
+    local subframe_spacing=10
+    local subframe_width=$((width - 2*subframe_spacing))
+    local subframe_height=$(( (height - (ndevices+1)*subframe_spacing - text_height)/ndevices ))
+    local subframe_x=$((x + subframe_spacing))
+    local subframe_y=$((y + subframe_spacing + text_height))
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "Network"                      \
+                  -x $x -y $((y + text_offset))     \
+                  -w $width -a
+
+    for device in eno1; do
+        conky_network_device -d $device                                 \
+                             -x $subframe_x -y $subframe_y              \
+                             -w $subframe_width -h $subframe_height
+
+        subframe_y=$((subframe_y + subframe_height + subframe_spacing))
+    done
+    
+    # TODO: local and public addresses, ping, vpn status
+
+    # conky_element -e "Local address: \${addr}"        \
+    #               -x $x -y $((subframe_y + text_offset))    \
+    #               -w $width -a
+}

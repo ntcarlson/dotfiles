@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+cd $(dirname $(realpath $0))
+source modules/common
+
+
+conky_top() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local text_height=30
+    local min_row_height=25
+    local n_rows=$(( (height - text_height)/min_row_height ))
+    if [[ $n_rows -ge 10 ]]; then
+        n_rows=10
+    fi
+    local row_height=$(( (height - text_height - 5)/n_rows ))
+    local row_y=$((y + text_height + 5))
+
+    local name_width=120
+    local column_width=$(( (width - name_width)/4 ))
+    local column_x=$((x + name_width))
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+    conky_frame -x $x -y $y -w $width -h $text_height -c $color
+
+    conky_element -e "Process"                      \
+                  -x $((x + 10))                    \
+                  -y $((y + text_offset))
+
+    conky_element -e "CPU"                          \
+                  -x $((column_x + 5))              \
+                  -y $((y + text_offset))
+
+    conky_element -e "Memory"                       \
+                  -x $((column_x + column_width))   \
+                  -y $((y + text_offset))
+    
+    conky_element -e "Read"                         \
+                  -x $((column_x + 2*column_width)) \
+                  -y $((y + text_offset))
+
+    conky_element -e "Write"                        \
+                  -x $((column_x + 3*column_width)) \
+                  -y $((y + text_offset))
+
+    for proc in $(seq 1 $n_rows); do
+        conky_element -e "\${top name $proc}"           \
+                      -x $((x + 10))                    \
+                      -y $row_y
+
+
+        conky_element -e "\${top cpu $proc}"            \
+                      -x $column_x                      \
+                      -y $row_y
+
+        conky_element -e "\${top mem_res $proc}"        \
+                      -x $((column_x + column_width))   \
+                      -y $row_y
+
+        conky_element -e "\${top io_read $proc}"        \
+                      -x $((column_x + 2*column_width)) \
+                      -y $row_y
+
+        conky_element -e "\${top io_write $proc}"       \
+                      -x $((column_x + 3*column_width)) \
+                      -y $row_y
+
+        row_y=$((row_y + row_height))
+    done
+
+
+}
