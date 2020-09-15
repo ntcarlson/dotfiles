@@ -37,7 +37,7 @@ element selected.urgent {
 
 element-icon {
     padding:                        6px;
-    size:                           32;
+    size:                           48;
 }
 
 element-text {

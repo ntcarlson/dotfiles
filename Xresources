@@ -20,11 +20,11 @@
 #define BG        nord0
 #define BG_TRANS  #D92E3440
 #define BG_ARGB   argb:D92E3440
-#define BG_ALT    nord3
+#define BG_ALT    nord1
 #define TXT       nord4
 #define TXT_ALT   nord6
-#define PRIMARY   nord9
-#define SECONDARY nord14
+#define PRIMARY   nord15
+#define SECONDARY nord9
 #define URGENT    nord11
 
 

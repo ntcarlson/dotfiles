@@ -8,8 +8,9 @@ configuration {
 @import "launcher"
 
 listview {
-    dynamic:                        true;
+    dynamic:                        false;
     columns:                        4;
+    fixed-columns: true;
 }
 
 element {
@@ -17,16 +18,19 @@ element {
     orientation:                    vertical;
 }
 
+element selected {
+}
+
 element-icon {
     padding:                        8px;
-    margin:                         4px 36px;
+    margin:                         4px 64px;
     size:                           96;
 }
 
 element-icon selected {
-    border:                         2px;
+    border:                         3px;
     border-color:                   @primary;
-    border-radius:                  2;
+    border-radius:                  8;
 }
 
 element-text {
