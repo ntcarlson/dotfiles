@@ -11,7 +11,7 @@ exec --no-startup-id setxkbmap -option "caps:swapescape"
 exec --no-startup-id picom --experimental-backend
 
 # Set a random background every time i3 is launched or reset
-exec_always --no-startup-id betterlockscreen -w
+exec_always --no-startup-id multilockscreen --wall
 
 # Polybar is used instead of i3bar
 exec_always --no-startup-id polybar_wrapper
@@ -88,7 +88,7 @@ bindsym $mod+grave     exec --no-startup-id rofi_wrapper window
 bindsym $mod+BackSpace exec --no-startup-id rofi_wrapper options
 
 # Lock screen
-bindsym $mod+Pause     exec --no-startup-id betterlockscreen -l blur
+bindsym $mod+Pause     exec --no-startup-id multilockscreen --lock blur
 
 # Volume controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+

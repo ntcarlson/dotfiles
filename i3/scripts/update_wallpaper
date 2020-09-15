@@ -2,4 +2,5 @@
 
 SCRIPT_DIR=$(dirname $(realpath $0))
 
-$SCRIPT_DIR/betterlockscreen -u ~/.config/i3/wallpapers/ -b 2
+multilockscreen --update ../wallpapers/ --fx blur --blur 2.0
+multilockscreen --wall

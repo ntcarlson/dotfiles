@@ -17,11 +17,11 @@ list_icons() {
 handle_option() {
     case "$1" in
         "$LOCK")
-            betterlockscreen -l blur
+            multilockscreen --lock blur
             ;;
         "$SLEEP")
             if $(rofi_confirm $SLEEP); then
-                betterlockscreen -l blur &
+                multilockscreen --lock blur &
                 systemctl suspend
             fi
             ;;
