@@ -15,20 +15,17 @@ exec_always --no-startup-id multilockscreen --wall
 
 # Polybar is used instead of i3bar
 exec_always --no-startup-id polybar_wrapper
-
-# Manually set GPU fan curve
-exec_always --no-startup-id gpu_fan_curve
 #=============================================================================#
 
 
 #================================= Appearance ================================#
 #----------------------------------- Colors ----------------------------------#
-# Colors are set from .Xresources. Fallback is Solarized color scheme
-set_from_resource $backgr background        #002B36
-set_from_resource $bg_alt background_alt    #93A1A1
-set_from_resource $foregr foreground        #586E75
-set_from_resource $primar primary           #268BD2
-set_from_resource $urgent urgent            #DC322F
+# Colors are set from .Xresources. Fallback is dark Nord color scheme
+set_from_resource $backgr background        #2E3440
+set_from_resource $bg_alt background_alt    #3B4252
+set_from_resource $foregr foreground        #D8DEE9
+set_from_resource $primar primary           #B48EAD
+set_from_resource $urgent urgent            #BF616A
 #-----------------------------------------------------------------------------#
 
 #----------------------------- Window appearance -----------------------------#
@@ -59,7 +56,7 @@ font pango:Fira Sans 12
 gaps inner 32
 
 # Large horizontal spacing that only appears when a single window is open
-# for better ultrawide behavior
+# for better behavior on ultrawide monitors
 smart_gaps inverse_outer
 gaps horizontal 200
 #-----------------------------------------------------------------------------#
