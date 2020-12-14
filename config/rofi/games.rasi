@@ -1,0 +1,48 @@
+configuration {
+    show-icons:                     true;
+    drun-display-format:            "{name}";
+    drun-match-fields:              "name";
+    font:                           "Fira Sans 16";
+}
+
+@import "launcher"
+
+mainbox {
+    background-color:               @background;
+    children:                       [ textbox-width, listview, inputbar ];
+    expand:                         false;
+    margin:                         15% 0%;
+    border-radius:                  12px;
+}
+
+listview {
+    layout: vertical;
+    columns: 6;
+}
+
+element {
+    // Placing element-text on either side of element-icon ensures that it is centered
+    children: [element-text, element-icon, element-text];
+    padding:                        8px;
+    orientation: horizontal;
+}
+
+element-icon {
+    padding:                        0px -40px;
+    margin:                         4px 0px;
+    size:                           240;
+    border:                         4px;
+    border-color:                   @transparent;
+    border-radius:                  16;
+}
+
+element-icon selected {
+    border-color:                   @primary;
+}
+
+element-text {
+    font:                           "Fira Sans 10";
+    width:                          200px;
+    horizontal-align:               0.1;
+    text-color:                     transparent;
+}
