@@ -1,7 +1,4 @@
 i3/wallpapers
 vim/backups
 vim/bundle
-config/oni/GPUCache
-config/oni/Local\ Storage
-config/oni/Preferences
-config/oni/Settings
+config/conky/conky.conf

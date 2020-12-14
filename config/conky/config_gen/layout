@@ -59,4 +59,4 @@ spacing=20
     draw_col    3       "conky_network"     25      "conky_fs"
 
     conky_footer
-} > ../config
+} > ../conky.conf
