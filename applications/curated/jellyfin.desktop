@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Terminal=false
+Type=Application
+Name=Jellyfin
+Exec=firefox -P app --new-window "http://localhost:8096/web/index.html"
+Icon=jellyfin
+StartupWMClass=jellyfin
+Categories=Network;WebBrowser;Curated;
