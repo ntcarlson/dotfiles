@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=OpenSCAD
+Icon=openscad
+Exec=openscad %f
+MimeType=application/x-openscad;
+Categories=Graphics;3DGraphics;Engineering;Curated
+Keywords=3d;solid;geometry;csg;model;stl;

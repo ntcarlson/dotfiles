@@ -22,6 +22,7 @@ call vundle#begin()
     Plugin 'tpope/vim-commentary'               " Comment out code with gc
     Plugin 'tpope/vim-repeat'                   " Improves repeat support
     Plugin 'Konfekt/FastFold'                   " To fix slow folding
+    Plugin 'sirtaj/vim-openscad'                " OpenSCAD file support
 call vundle#end()
 
 " ============================= Appearance ====================================
@@ -99,7 +100,7 @@ set laststatus=2                    " Always show status bar
 "   Tabline   - Enable top bar to show tabs and buffers
 "   Syntastic - Show errors and warnings from Syntastic on the status bar
 "   Tagbar    - Show the current function on the status bar
-let g:airline_extensions = ['branch', 'tabline', 'ycm', 'tagbar', ]
+let g:airline_extensions = ['branch', 'tabline', 'tagbar', ]
 " Label the tabs/buffers which allows for the tab navigation commands
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
