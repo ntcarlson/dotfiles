@@ -4,43 +4,32 @@ configuration {
     drun-match-fields:              "name";
 }
 
-window {
-    height:                         360;
-}
-
 
 listview {
     padding:                        12px;
     dynamic:                        true;
-    columns:                        9;
+    columns:                        12;
 }
 
 @media (min-width: 2400) {
-    listview {
-        columns:                    12;
-    }
-}
-
-@media (min-width: 3440) {
     listview {
         columns:                    16;
     }
 }
 
-element-icon {
-    padding:                        0px -40px;
-    border:                         4px 4px solid 4px 4px;
-    border-color:                   transparent;
-    border-radius:                  16;
-    size:                           240;
+@media (min-width: 3440) {
+    listview {
+        columns:                    22;
+    }
 }
 
 element-icon selected {
     border-color:                   @primary;
+    background-color:               rgba(0, 0, 0, 0.2);
 }
 
 element-text {
     horizontal-align:               0.5;
     horizontal-align:               0.5;
-    width:                          160px;
+    width:                          120px;
 }

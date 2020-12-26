@@ -1,14 +1,78 @@
 configuration {
-    font:                           "Fira Sans 16";
+    font:                           "Fira Sans 13";
 }
 
 * {
     background-color:               transparent;
-
-    background:                     #2E3440A0;
-    background-alt:                 #2E3440;
+    background:                     rgba(46, 52, 64, 0.5);
     text-color:                     #D8DEE9;
     primary:                        #B48EAD;
-    primary-alt:                    #B48EAD60;
-    urgent:                         #BF616A;
+}
+
+window {
+    height:                         240;
+    width:                          100%;
+    location:                       south;
+    anchor:                         south;
+    transparency:                   "real";
+    background-color:               @background;
+    border:                         5px 0px 0px 0px;
+    border-color:                   @primary;
+}
+
+mainbox {
+    children:                       [inputbar, listview];
+    padding:                        0px 0px;
+}
+
+listview {
+    padding:                        12px;
+    dynamic:                        true;
+}
+
+inputbar {
+    children:                       [dummy, textbox-prompt, entry, dummy];
+}
+
+textbox-prompt {
+    font:                           "Font Awesome 18";
+    text-color:                     @text;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    str:                            "";
+    expand:                         false;
+}
+
+entry {
+    expand:                         false;
+    padding:                        8px;
+    horizontal-align:               0;
+    width:                          200;
+}
+
+element {
+    children:                       [dummy, element-box, dummy];
+    padding:                        0px;
+    orientation:                    horizontal;
+    border:                         0;
+    border-color:                   transparent;
+}
+
+element-box {
+    children:                       [element-icon, element-text];
+    orientation:                    vertical;
+    expand:                         false;
+}
+
+element-icon {
+    padding:                        16px;
+    border:                         4px 4px solid 4px 4px;
+    border-color:                   transparent;
+    border-radius:                  8;
+    size:                           96;
+}
+
+element-text {
+    horizontal-align:               0;
+    width:                          200px;
 }

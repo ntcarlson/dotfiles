@@ -4,10 +4,10 @@
 
 case "$1" in
     run)
-        rofi -modi run -show run -theme list \
+        rofi -modi run -show run -theme run \
              -display-run "Run command";;
     applications)
-        rofi -modi drun -show drun -theme grid \
+        rofi -modi drun -show drun -theme drun \
              -display-drun "Launch application" \
              -drun-categories Curated;;
     games)
