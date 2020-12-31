@@ -4,10 +4,11 @@ configuration {
     drun-match-fields:              "name";
 }
 
+@import "launcher"
+
 window {
     height:                         360;
 }
-
 
 listview {
     padding:                        12px;

@@ -1,68 +1,67 @@
-// Common configuration for fullscreen launcher styles. Don't use this theme
-// directly. Either use grid.rasi or list.rasi which inherit from this.
-
 window {
-    children:                       [dummy, mainbox, dummy];
-    orientation:                    horizontal;
-    height:                         100%;
+    height:                         240;
     width:                          100%;
+    location:                       south;
+    anchor:                         south;
     transparency:                   "real";
     background-color:               @background;
+    border:                         5px 0px 0px 0px;
+    border-color:                   @primary;
 }
 
 mainbox {
-    background-color:               @background;
-    children:                       [ textbox-width, listview, inputbar ];
-    expand:                         false;
-    margin:                         15% 0%;
-    border-radius:                  12px;
-}
-
-// Dummy textbox used to set the width of the launcher since there is no
-// way to directly set the width of mainbox
-textbox-width {
-    expand:                         false;
-    str:                            "";
-    width:                          1200px;
+    children:                       [inputbar, listview];
+    padding:                        0px 0px;
 }
 
 listview {
-    background-color:               @transparent;
-    padding:                        16px;
-}
-
-mode-switcher {
-    children:                       [button];
-    margin:                         -8px;
-}
-
-button {
-    margin:                         0px;
-    padding:                        4px;
-}
-
-button selected.normal {
-    background-color:               @primary;
-    text-color:                     @background-alt;
+    padding:                        12px;
+    dynamic:                        true;
 }
 
 inputbar {
-    children:                       [ mode-switcher, textbox-prompt, entry];
-    expand:                         false;
-    background-color:               @background-alt;
-    padding:                        8px;
-    border:                         8px;
-    border-color:                   @primary;
-    border-radius:                  5px;
+    children:                       [dummy, textbox-prompt, entry, dummy];
 }
 
 textbox-prompt {
-    font:                           "Font Awesome 20";
-    background-color:               @primary;
-    text-color:                     @background-alt;
+    font:                           "Font Awesome 18";
+    text-color:                     @text;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
-    margin:                         -8px 8px -8px 6px;
-    str:                            "  ";
+    str:                            "";
     expand:                         false;
+}
+
+entry {
+    expand:                         false;
+    padding:                        8px;
+    horizontal-align:               0;
+    width:                          200;
+}
+
+element {
+    children:                       [dummy, element-box, dummy];
+    padding:                        0px;
+    orientation:                    horizontal;
+    border:                         0;
+    border-color:                   transparent;
+}
+
+element-box {
+    children:                       [element-icon, element-text];
+    orientation:                    vertical;
+    expand:                         false;
+}
+
+element-icon {
+    padding:                        16px;
+    border:                         4px 4px solid 4px 4px;
+    border-color:                   transparent;
+    border-radius:                  8;
+    size:                           96;
+}
+
+element-text {
+    horizontal-align:               0;
+    width:                          200px;
 }

@@ -4,6 +4,7 @@ configuration {
     drun-match-fields:              "name";
 }
 
+@import "launcher"
 
 listview {
     padding:                        12px;
