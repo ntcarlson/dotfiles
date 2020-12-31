@@ -15,7 +15,7 @@ case "$1" in
              -display-drun "Launch game" \
              -drun-categories SteamLibrary;;
     window)
-        rofi -modi window -show window -theme list \
+        rofi -modi window -show window -theme window \
              -display-window "Search open windows";;
     options)
         rofi_option_menu;;

@@ -4,7 +4,7 @@ window {
     location:                       south;
     anchor:                         south;
     transparency:                   "real";
-    background-color:               @background;
+    background-color:               @background-transparent;
     border:                         5px 0px 0px 0px;
     border-color:                   @primary;
 }
