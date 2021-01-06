@@ -1,20 +1,24 @@
-#============================= Launch settings ===============================#
-# Applications to be launched when i3 starts
+#=============================== Applications ================================#
+#--------------------------- Default applications ----------------------------#
+set $terminal       kitty
+set $statusbar      $HOME/.config/polybar/polybar-wrapper.sh
+set $compositor     picom --experimental-backed
+set $lockscreen     multilockscreen --lock blur
+set $applauncher    rofi -show drun -theme drun -drun-categories Curated
+set $gamelauncher   rofi -show drun -theme games -drun-categories SteamLibrary
+set $scriptlauncher rofi -show run -theme run
+set $windowsearch   rofi -show window -theme window
+set $optionsmenu    $HOME/.config/rofi/scripts/rofi-options-menu.sh
+#-----------------------------------------------------------------------------#
 
-exec --no-startup-id dropbox start  # Dropbox daemon
-
-# Swap Esc and capslock
-exec --no-startup-id setxkbmap -option "caps:swapescape"
-
-# Compositor to fix screen tearing and allow transparent windows
-# --experimental-backend switch required for dual_kawase blurring
-exec --no-startup-id picom --experimental-backend
-
-# Set a random background every time i3 is launched or reset
+#----------------------------- Startup applications --------------------------#
+# Swap capslock and escape
+exec        --no-startup-id setxkbmap -option "caps:swapescape"
+exec        --no-startup-id dropbox start  # Dropbox daemon
+exec        --no-startup-id $compositor
+exec_always --no-startup-id $statusbar
 exec_always --no-startup-id multilockscreen --wall
-
-# Polybar is used instead of i3bar
-exec_always --no-startup-id polybar_wrapper
+#-----------------------------------------------------------------------------#
 #=============================================================================#
 
 
@@ -71,21 +75,21 @@ set $mod Mod4
 
 #------------------------------- Applications --------------------------------#
 # Launch a terminal
-bindsym $mod+Return    exec --no-startup-id kitty
+bindsym $mod+Return    exec --no-startup-id $terminal
 
 # Open launcher
-bindsym $mod+d         exec --no-startup-id rofi_wrapper applications
-bindsym $mod+shift+d   exec --no-startup-id rofi_wrapper run
-bindsym $mod+g         exec --no-startup-id rofi_wrapper games
+bindsym $mod+d         exec --no-startup-id $applauncher
+bindsym $mod+shift+d   exec --no-startup-id $scriptlauncher
+bindsym $mod+g         exec --no-startup-id $gamelauncher
 
 # Search open windows
-bindsym $mod+grave     exec --no-startup-id rofi_wrapper window
+bindsym $mod+grave     exec --no-startup-id $windowsearch
 
 # Open options menu (lock screen, logout, shutdown, etc.)
-bindsym $mod+BackSpace exec --no-startup-id rofi_wrapper options
+bindsym $mod+BackSpace exec --no-startup-id $optionsmenu
 
 # Lock screen
-bindsym $mod+Pause     exec --no-startup-id multilockscreen --lock blur
+bindsym $mod+Pause     exec --no-startup-id $lockscreen
 
 # Volume controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+

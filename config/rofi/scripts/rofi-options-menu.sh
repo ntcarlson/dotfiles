@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(dirname $(realpath $0))
 
 LOCK=""
 SLEEP=""
@@ -20,23 +22,23 @@ handle_option() {
             multilockscreen --lock blur
             ;;
         "$SLEEP")
-            if $(rofi_confirm $SLEEP); then
+            if $($SCRIPT_DIR/rofi-confirm.sh $SLEEP); then
                 multilockscreen --lock blur &
                 systemctl suspend
             fi
             ;;
         "$LOGOUT")
-            if $(rofi_confirm $LOGOUT); then
+            if $($SCRIPT_DIR/rofi-confirm.sh $LOGOUT); then
                 i3-msg exit
             fi
             ;;
         "$RESTART")
-            if $(rofi_confirm $RESTART); then
+            if $($SCIRPT_DIR/rofi-confirm.sh $RESTART); then
                 reboot
             fi
             ;;
         "$SHUTDOWN")
-            if $(rofi_confirm $SHUTDOWN); then
+            if $($SCRIPT_DIR/rofi-confirm.sh $SHUTDOWN); then
                 shutdown now
             fi
             ;;
