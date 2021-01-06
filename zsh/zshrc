@@ -1,9 +1,10 @@
 # Theme
-export ZSH=/home/ntc/.oh-my-zsh
-ZSH_THEME="agnoster_modified"
+ZSH=/usr/share/oh-my-zsh
+ZSH_CUSTOM="$HOME/dotfiles/zsh"
+ZSH_THEME="agnoster-modified"
+
 autoload -U promptinit
 promptinit
-
 
 # Shell history
 HISTFILE=~/.histfile
@@ -36,8 +37,9 @@ setopt hash_list_all    # Correct false reports of spelling errors
 
 # Plugins:
 #   git: Builtin aliases for common git commands
-#   archlinux: Builtin aliases for pacman and yaourt
+#   archlinux: Builtin aliases for pacman and yay
 plugins=(git archlinux history-substring-search)
+
 source $ZSH/oh-my-zsh.sh
 
 bindkey -v # vim mode
@@ -55,11 +57,11 @@ zle -N zle-keymap-select
 
 bindkey '^?' backward-delete-char # backspace work after returning from normal mode
 
-export PATH=$PATH:$HOME/bin
-export CS='ncarlson@login.cs.nmt.edu'
-
 bindkey -v "^[[Z" history-substring-search-up
 bindkey -v "^[[A" history-substring-search-up
 bindkey -v "^[[B" history-substring-search-down
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+  mkdir $ZSH_CACHE_DIR
+fi
