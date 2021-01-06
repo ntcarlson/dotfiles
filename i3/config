@@ -2,7 +2,7 @@
 #--------------------------- Default applications ----------------------------#
 set $terminal       kitty
 set $statusbar      $HOME/.config/polybar/polybar-wrapper.sh
-set $compositor     picom --experimental-backed
+set $compositor     picom --experimental-backend
 set $lockscreen     multilockscreen --lock blur
 set $applauncher    rofi -show drun -theme drun -drun-categories Curated
 set $gamelauncher   rofi -show drun -theme games -drun-categories SteamLibrary
@@ -23,7 +23,9 @@ exec_always --no-startup-id multilockscreen --wall
 
 
 #================================= Appearance ================================#
-#----------------------------------- Colors ----------------------------------#
+#------------------------------- Colors & font -------------------------------#
+set $font_family Fira Sans
+
 # Colors are set from .Xresources. Fallback is dark Nord color scheme
 set_from_resource $backgr background        #2E3440
 set_from_resource $bg_alt background_alt    #3B4252
@@ -50,11 +52,8 @@ client.urgent           $backgr     $urgent     $backgr     $urgent
 # Windows have a border of 4 pixels; replace pixel with normal to show titlebar
 new_window pixel 4
 
-# Don't show window borders if there is only one window open
-hide_edge_borders smart
-
 # Font used by i3; controls size of title bar
-font pango:Fira Sans 12
+font pango:$font_family 12
 
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 32
