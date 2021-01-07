@@ -54,7 +54,7 @@ spacing=20
     conky_header
 
     #           col     first elem          perc    second elem
-    draw_col    1       "conky_cpu -n 4"    75      "conky_mem"
+    draw_col    1       "conky_cpu_threads" 75      "conky_mem"
     draw_col    2       "conky_top"         35      "conky_gpu"
     draw_col    3       "conky_network"     25      "conky_fs"
 

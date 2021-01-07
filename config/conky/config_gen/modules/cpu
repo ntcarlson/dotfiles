@@ -3,61 +3,113 @@
 cd $(dirname $(realpath $0))
 source modules/common
 
-conky_cpu() {
+# Widget that displays the per thread CPU usage.
+# Threads are grouped together by physical core.
+# Thread usage can be displayed as a graph (default) or as a bar (-b)
+conky_cpu_threads() {
     local OPTIND=1
-    local arg x y width height text color num_cores
+    local arg x y width height color element_type
     color=$PRIMARY
+    element_type="graph"
 
-    while getopts 'x:y:w:h:t:c:n:' arg
+    while getopts 'x:y:w:h:c:b' arg
     do
         case ${arg} in
             x) x=${OPTARG};;
             y) y=${OPTARG};;
             w) width=${OPTARG};;
             h) height=${OPTARG};;
-            t) text=${OPTARG};;
             c) color=${OPTARG};;
-            n) num_cores=${OPTARG};;
+            b) element_type="bar";;
             *) return 1 # illegal option
         esac
     done
     
-    local subframe_spacing=10
-    local subframe_width=$((width - 2*subframe_spacing))
-    local subframe_height=$(( (height - (num_cores+1)*subframe_spacing - text_height)/num_cores))
-    local subframe_x=$((x + subframe_spacing))
-    local subframe_y=$((y + subframe_spacing + text_height))
+    local num_cores=$(cat /proc/cpuinfo | awk -F: '/^cpu cores/ {print $2}' | head -n 1)
 
-    local graph_width=$((subframe_width/2))
-    local graph_height=$((subframe_height - text_height))
+    local core_spacing=10
+    local core_height=$(( (height - (num_cores-1)*core_spacing)/num_cores))
+    local core_y=$y
 
-    conky_frame -x $x -y $y -w $width -h $height -c $color
-    
-    cpu_model=$(cat /proc/cpuinfo | awk -F: '/model name/ {print $2}' | head -n 1)
-    conky_element -e "$cpu_model"               \
-                  -x $x -y $((y + text_offset)) \
-                  -w $width -a
+    local element_spacing=10
+    local element_width=$(( (width - 3*element_spacing)/2 ))
+    local element_height=$((core_height - text_height - element_spacing))
+
+    local element
+    case "$element_type" in
+        "graph") element=conky_cpu_thread_graph;;
+        "bar")   element=conky_cpu_thread_bar;;
+    esac
 
     for core_num in $(seq 1 $num_cores); do
-        conky_frame -x $subframe_x -y $subframe_y                               \
-                    -w $subframe_width -h $subframe_height                      \
-                    -c $color
+        conky_frame -x $x -y $core_y -w $width -h $core_height -c $color
 
         conky_element -e "Core $((core_num - 1)) @ \${freq_g $core_num} GHz"    \
-                      -x $((subframe_x + subframe_width/2 - 50))                \
-                      -y $((subframe_y + text_offset))
+                      -x $((x + width/2 - 50))                                  \
+                      -y $((core_y + text_offset))
 
-        graph_offset=$subframe_x
+        element_offset=$((x + $element_spacing))
         for thread_num in $core_num $((core_num + num_cores)); do
-            conky_graph -g "cpugraph cpu$thread_num"                                   \
-                        -x $graph_offset                                               \
-                        -y $((subframe_y + text_height - 10))                          \
-                        -t "Thread $((thread_num - 1)) usage: \${cpu cpu$thread_num}%" \
-                        -w $graph_width -h $graph_height                               \
-                        -s 1 -c $color 
-            graph_offset=$((graph_offset + graph_width))
+
+            eval $element -x $element_offset                    \
+                          -y $((core_y + text_height - 10))     \
+                          -w $element_width                     \
+                          -h $element_height                    \
+                          -t $thread_num
+
+            element_offset=$((element_offset + element_width + element_spacing))
         done
-        subframe_y=$((subframe_y + subframe_height + subframe_spacing))
+        core_y=$((core_y + core_height + core_spacing))
     done
-   
+}
+
+conky_cpu_thread_bar() {
+    local OPTIND=1
+    local arg x y width height color thread
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:t:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            t) thread=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    conky_element -e "\${cpubar cpu$thread $height,$width}" \
+                  -x $x -y $y -c $color
+
+    conky_element -e "Thread $thread"       \
+                  -x $((x + 15))            \
+                  -y $((y + height/2 - 5))
+}
+
+conky_cpu_thread_graph() {
+    local OPTIND=1
+    local arg x y width height color thread
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:t:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            t) thread=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    conky_graph -g "cpugraph cpu$thread"                                \
+                -x $x -y $y                                             \
+                -t "Thread $((thread - 1)) usage: \${cpu cpu$thread}%"  \
+                -w $width -h $height                                    \
+                -s 1 -c $color 
 }
