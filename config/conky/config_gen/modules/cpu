@@ -3,6 +3,58 @@
 cd $(dirname $(realpath $0))
 source modules/common
 
+# Widget that graphs the average and max core frequency
+conky_cpu_freq() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    freq_max_perc="awk -F: '/cpu MHz/ {if (\$2 > max) {max = \$2}} END {print max/50}' /proc/cpuinfo"
+    freq_max_GHz="awk -F: '/cpu MHz/ {if (\$2 > max) {max = \$2}} END {printf \"%.2f GHz\", max/1000}' /proc/cpuinfo"
+    freq_avg_perc="awk -F: '/cpu MHz/ {sum += \$2; ncore +=1} END {print (sum/ncore)/50}' /proc/cpuinfo"
+    freq_avg_GHz="awk -F: '/cpu MHz/ {sum += \$2; ncore +=1} END {printf \"%.2f GHz\", (sum/ncore)/1000}' /proc/cpuinfo"
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "CPU clock frequency"                              \
+                  -x $x -y $((y + text_offset))                         \
+                  -w $width -a
+
+    conky_graph -g "execgraph \"$freq_max_perc\""                       \
+                -x $x                                                   \
+                -y $((y + text_height - 10))                            \
+                -w $width -h $((height - 2*text_height))                \
+                -t "" -s 1 -c $BLUE
+
+    conky_graph -g "execgraph \"$freq_avg_perc\""                       \
+                -x $x                                                   \
+                -y $((y + text_height - 10))                            \
+                -w $width -h $((height - 2*text_height))                \
+                -t "" -s 1 -c $PRIMARY
+
+    conky_element -e "Average core clock: \${exec \"$freq_avg_GHz\"}"   \
+                  -x $((x + 10))                              \
+                  -y $((y + height - text_height + text_offset))        \
+                  -c $color
+
+    conky_element -e "Highest core clock: \${exec \"$freq_max_GHz\"}"   \
+                  -x $((x + width - 190))                               \
+                  -y $((y + height - text_height + text_offset))        \
+                  -c $BLUE
+}
+
 # Widget that displays the per thread CPU usage.
 # Threads are grouped together by physical core.
 # Thread usage can be displayed as a graph (default) or as a bar (-b)
