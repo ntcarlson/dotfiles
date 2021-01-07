@@ -50,6 +50,32 @@ conky_graph() {
     echo -n "\${voffset -$y}"
 }
 
+conky_bar() {
+    local OPTIND=1
+    local arg bar x y width height text color
+    color=$PRIMARY
+
+    while getopts 'b:x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            b) bar=${OPTARG};;
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    echo -n "\${voffset $y}"
+    echo -n "\${goto $x}"
+    echo -n "\${color $color}"
+    echo -n "\${$bar $height,$width}"
+    echo -n "\${color $TEXT}"
+    echo -n "\${voffset -$y}"
+}
+
 conky_frame() {
     local OPTIND=1
     local arg x y width height color

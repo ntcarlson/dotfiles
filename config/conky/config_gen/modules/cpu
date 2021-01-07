@@ -133,12 +133,14 @@ conky_cpu_thread_bar() {
         esac
     done
 
-    conky_element -e "\${cpubar cpu$thread $height,$width}" \
-                  -x $x -y $y -c $color
+    conky_bar -b "cpubar cpu$thread" \
+              -x $x -y $y            \
+              -w $width -h $height   \
+              -c $color
 
-    conky_element -e "Thread $thread"       \
-                  -x $((x + 15))            \
-                  -y $((y + height/2 - 5))
+    conky_element -e "Thread $thread"               \
+                  -x $x -y $((y + height/2 - 3))    \
+                  -w $width -a
 }
 
 conky_cpu_thread_graph() {
