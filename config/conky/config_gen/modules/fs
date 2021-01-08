@@ -64,6 +64,63 @@ conky_disk() {
                   -y $((y + height - text_height + text_offset))
 }
 
+conky_disk_compact() {
+    local OPTIND=1
+    local arg x y width height color device mnt
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:d:m:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            d) device=${OPTARG};;
+            m) mnt=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local bar_height=$((height - 2*text_height))
+    local bar_spacing=10
+    local bar_width=$((width - 2*bar_spacing))
+    local bar_x=$((x + bar_spacing))
+    local bar_y=$((y + text_height))
+
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "$mnt"                                         \
+                  -x $x -y $((y + text_offset))                     \
+                  -w $width -a
+
+    conky_element -e "\${fs_bar $bar_height,$bar_width $mnt}"       \
+                  -x $bar_x                                         \
+                  -y $((bar_y - 10))                                \
+                  -c $color
+
+    conky_element -e "Used: \${fs_used $mnt}"                       \
+                  -x $((x + 10))                                    \
+                  -y $((y + height - text_height + text_offset))    \
+                  -c $color
+    
+    conky_element -e "Available: \${fs_free $mnt}"                  \
+                  -x $((x + width - 130))                           \
+                  -y $((y + height - text_height + text_offset))
+
+    # conky_element -e "Buffers: \${memwithbuffers}"                      \
+    #               -x $((x + width/2 - 48))                              \
+    #               -y $((y + height - text_height + text_offset))        \
+    #               -c $BLUE
+
+    # conky_element -e "Available: \${memeasyfree}"                       \
+    #               -x $((x + 3*width/4 - 40))                            \
+    #               -y $((y + height - text_height + text_offset))        \
+    #               -c $GREEN
+}
+
 conky_fs() {
     local OPTIND=1
     local arg x y width height color
@@ -88,7 +145,7 @@ conky_fs() {
     local subframe_width=$((width - 2*subframe_spacing))
     local subframe_height=$(( (height - (ndrives+1)*subframe_spacing - text_height)/ndrives ))
     local subframe_x=$((x + subframe_spacing))
-    local subframe_y=$((y + subframe_spacing + text_height))
+    local subframe_y=$((y + text_height))
 
     conky_frame -x $x -y $y -w $width -h $height -c $color
 
@@ -99,9 +156,9 @@ conky_fs() {
     for device in $devices; do
         dev=$(echo $device | awk -F: '{print $1}')
         mnt=$(echo $device | awk -F: '{print $2}')
-        conky_disk -d $dev -m $mnt                          \
-                   -x $subframe_x -y $subframe_y            \
-                   -w $subframe_width -h $subframe_height
+        conky_disk_compact -d $dev -m $mnt                          \
+                           -x $subframe_x -y $subframe_y            \
+                           -w $subframe_width -h $subframe_height
         subframe_y=$((subframe_y + subframe_height + subframe_spacing))
     done
 }
