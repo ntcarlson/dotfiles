@@ -115,6 +115,60 @@ conky_cpu_threads() {
     done
 }
 
+# Compact version of widget to display thread usage
+conky_cpu_threads_compact() {
+    local OPTIND=1
+    local arg x y width height color element_type
+    color=$PRIMARY
+    element_type="graph"
+
+    while getopts 'x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+    
+    local num_cores=$(cat /proc/cpuinfo | awk -F: '/^cpu cores/ {print $2}' | head -n 1)
+
+    local core_spacing=10
+    local core_offset=$text_height
+    local core_height=$(( (height - core_offset- (num_cores+1)*core_spacing)/num_cores))
+    local core_y=$((y + core_offset))
+
+    local text_width=130
+    local bar_width=$(( (width - 3*core_spacing - text_width)/2 ))
+    
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "Thread utilization"           \
+                  -x $x -y $((y + text_offset))     \
+                  -w $width -a
+
+    for core_num in $(seq 1 $num_cores); do
+        conky_element -e "Core $((core_num - 1)) @ \${freq_g $core_num} GHz"    \
+                      -x $((x + 10))                                            \
+                      -y $((core_y + core_height/2 - 3))
+
+        element_offset=$((x + core_spacing + text_width))
+        for thread_num in $core_num $((core_num + num_cores)); do
+
+            conky_cpu_thread_bar -x $element_offset -y $core_y  \
+                          -w $bar_width                         \
+                          -h $core_height                       \
+                          -t $thread_num
+
+            element_offset=$((element_offset + bar_width + core_spacing))
+        done
+        core_y=$((core_y + core_height + core_spacing))
+    done
+}
+
 conky_cpu_thread_bar() {
     local OPTIND=1
     local arg x y width height color thread
