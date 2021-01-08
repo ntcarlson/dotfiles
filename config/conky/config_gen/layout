@@ -43,9 +43,9 @@ draw_col() {
 }
 
 # Geometry of panel
-width=1456
-height=972
-ncol=3
+width=600
+height=1300
+ncol=1
 spacing=20
 
 {
@@ -53,10 +53,11 @@ spacing=20
     sed "s/WIDTH/$width/g;s/HEIGHT/$height/g" conky_stub 
     conky_header
 
-    #           col     first elem          perc    second elem
-    draw_col    1       "conky_cpu_threads -b" 50      "conky_cpu_freq" 25 "conky_mem_bar"
-    draw_col    2       "conky_top"         35      "conky_gpu"
-    draw_col    3       "conky_network"     25      "conky_fs"
+    #           element                 height %
+    draw_col 1  "conky_cpu_threads -b"  36 \
+                "conky_cpu_freq"        16 \
+                "conky_mem_bar"         7  \
+                "conky_fs"              20
 
     conky_footer
 } > ../conky.conf

@@ -39,7 +39,7 @@ conky_mem_bar() {
                   -c $PRIMARY
 
     conky_element -e "Used: \${mem}"                                    \
-                  -x $((x + width/4 - 40))                              \
+                  -x $((x + 10))                                        \
                   -y $((y + height - text_height + text_offset))        \
                   -c $color
 
@@ -49,9 +49,8 @@ conky_mem_bar() {
                   -c $BLUE
 
     conky_element -e "Available: \${memeasyfree}"                       \
-                  -x $((x + 3*width/4 - 40))                            \
-                  -y $((y + height - text_height + text_offset))        \
-                  -c $GREEN
+                  -x $((x + width - 130))                               \
+                  -y $((y + height - text_height + text_offset))
 }
 
 conky_mem_graph() {

@@ -83,42 +83,24 @@ conky_disk_compact() {
         esac
     done
 
-    local bar_height=$((height - 2*text_height))
-    local bar_spacing=10
-    local bar_width=$((width - 2*bar_spacing))
-    local bar_x=$((x + bar_spacing))
-    local bar_y=$((y + text_height))
+    local bar_height=20
 
-
-    conky_frame -x $x -y $y -w $width -h $height -c $color
+    conky_element -e "\${fs_bar $bar_height,$width $mnt}"           \
+                  -x $x -y $y                                       \
+                  -c $color
 
     conky_element -e "$mnt"                                         \
-                  -x $x -y $((y + text_offset))                     \
+                  -x $x -y $((y + text_offset + 4))                 \
                   -w $width -a
-
-    conky_element -e "\${fs_bar $bar_height,$bar_width $mnt}"       \
-                  -x $bar_x                                         \
-                  -y $((bar_y - 10))                                \
-                  -c $color
 
     conky_element -e "Used: \${fs_used $mnt}"                       \
                   -x $((x + 10))                                    \
-                  -y $((y + height - text_height + text_offset))    \
+                  -y $((y + bar_height + text_offset + 4))          \
                   -c $color
     
     conky_element -e "Available: \${fs_free $mnt}"                  \
                   -x $((x + width - 130))                           \
-                  -y $((y + height - text_height + text_offset))
-
-    # conky_element -e "Buffers: \${memwithbuffers}"                      \
-    #               -x $((x + width/2 - 48))                              \
-    #               -y $((y + height - text_height + text_offset))        \
-    #               -c $BLUE
-
-    # conky_element -e "Available: \${memeasyfree}"                       \
-    #               -x $((x + 3*width/4 - 40))                            \
-    #               -y $((y + height - text_height + text_offset))        \
-    #               -c $GREEN
+                  -y $((y + bar_height + text_offset + 4))
 }
 
 conky_fs() {
