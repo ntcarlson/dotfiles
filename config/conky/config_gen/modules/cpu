@@ -3,6 +3,46 @@
 cd $(dirname $(realpath $0))
 source modules/common
 
+conky_cpu() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+    local cpu_model=$(cat /proc/cpuinfo | awk -F: '/^model name/ {print $2}' | head -n 1)
+
+    local subframe_spacing=10
+    local subframe_width=$((width - 2*subframe_spacing))
+    local subframe_total_height=$(( (height - 2*subframe_spacing - text_height)))
+    local util_height=220
+    local freq_height=$((subframe_total_height - util_height))
+    local subframe_x=$((x + subframe_spacing))
+    local subframe_y=$((y + text_height))
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+    conky_element -e "$cpu_model" -x $x -y $y -w $width -a
+
+    conky_cpu_threads_compact -x $subframe_x -y $subframe_y \
+                              -w $subframe_width -h $util_height \
+                              -c $color
+
+    subframe_y=$((subframe_y + util_height + subframe_spacing))
+
+    conky_cpu_freq -x $subframe_x -y $subframe_y \
+                   -w $subframe_width -h $freq_height \
+                   -c $color
+}
+
 # Widget that graphs the average and max core frequency
 conky_cpu_freq() {
     local OPTIND=1

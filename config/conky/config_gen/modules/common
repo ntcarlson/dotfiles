@@ -122,7 +122,7 @@ conky_element() {
     echo -n "\${voffset $y}"
     if [[ $align -eq 1 ]]; then
         nchar=$(expr length "$element")
-        text_len=$((nchar * 6))
+        text_len=$((nchar * 7))
         offset=$(( (width - text_len)/2 ))
         echo -n "\${goto $((x + offset))}"
     else

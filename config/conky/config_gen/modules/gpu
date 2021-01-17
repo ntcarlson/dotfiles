@@ -170,8 +170,6 @@ conky_gpu() {
 
     conky_frame -x $x -y $y -w $width -h $height -c $color
     
-    cpu_model=$(cat /proc/cpuinfo | awk -F: '/model name/ {print $2}' | head -n 1)
-
     conky_element -e "\${nvidia modelname 1}"   \
                   -x $((x + width/2 - 50))      \
                   -y $((y + text_offset))
