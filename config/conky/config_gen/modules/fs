@@ -94,12 +94,11 @@ conky_disk_compact() {
                   -w $width -a
 
     conky_element -e "Used: \${fs_used $mnt}"                       \
-                  -x $((x + 10))                                    \
-                  -y $((y + bar_height + text_offset + 4))          \
+                  -x $x -y $((y + bar_height + text_offset + 4))    \
                   -c $color
     
     conky_element -e "Available: \${fs_free $mnt}"                  \
-                  -x $((x + width - 130))                           \
+                  -x $((x + width - 120))                           \
                   -y $((y + bar_height + text_offset + 4))
 }
 

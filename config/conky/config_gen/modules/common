@@ -38,7 +38,7 @@ conky_graph() {
         esac
     done
    
-    echo -n "\${voffset $y}"
+    echo -n "\${voffset $((y-10))}"
     echo -n "\${goto $x}"
     echo -n "\${color $color}" 
     echo -n "\${$graph $height,$width $color $color $scale 0}"
@@ -47,7 +47,7 @@ conky_graph() {
     echo -n "\${voffset 16}"
     echo -n "$text"
     echo -n "\${voffset -16}"
-    echo -n "\${voffset -$y}"
+    echo -n "\${voffset -$((y-10))}"
 }
 
 conky_bar() {

@@ -57,7 +57,8 @@ spacing=20
     draw_col 1  "conky_cpu_threads_compact"     18 \
                 "conky_cpu_freq"                16 \
                 "conky_mem_bar"                 7  \
-                "conky_fs"                      20
+                "conky_fs"                      20 \
+                "conky_gpu"
 
     conky_footer
 } > ../conky.conf

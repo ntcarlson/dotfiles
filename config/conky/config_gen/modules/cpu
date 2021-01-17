@@ -34,13 +34,13 @@ conky_cpu_freq() {
 
     conky_graph -g "execgraph \"$freq_max_perc\""                       \
                 -x $x                                                   \
-                -y $((y + text_height - 10))                            \
+                -y $((y + text_height))                                 \
                 -w $width -h $((height - 2*text_height))                \
                 -t "" -s 1 -c $BLUE
 
     conky_graph -g "execgraph \"$freq_avg_perc\""                       \
                 -x $x                                                   \
-                -y $((y + text_height - 10))                            \
+                -y $((y + text_height))                                 \
                 -w $width -h $((height - 2*text_height))                \
                 -t "" -s 1 -c $PRIMARY
 
