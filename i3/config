@@ -9,14 +9,16 @@ set $gamelauncher   rofi -show drun -theme games -drun-categories SteamLibrary
 set $scriptlauncher rofi -show run -theme run
 set $windowsearch   rofi -show window -theme window
 set $optionsmenu    $HOME/.config/rofi/scripts/rofi-options-menu.sh
+set $conky          $HOME/.config/conky/conky-wrapper.sh
 #-----------------------------------------------------------------------------#
 
 #----------------------------- Startup applications --------------------------#
-# Swap capslock and escape
 exec        --no-startup-id setxkbmap -option "caps:swapescape"
-exec        --no-startup-id dropbox start  # Dropbox daemon
+exec        --no-startup-id dropbox start
+exec        --no-startup-id nm-applet
 exec        --no-startup-id $compositor
 exec_always --no-startup-id $statusbar
+exec_always --no-startup-id $conky
 exec_always --no-startup-id multilockscreen --wall
 #-----------------------------------------------------------------------------#
 #=============================================================================#
