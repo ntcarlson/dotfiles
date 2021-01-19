@@ -33,7 +33,7 @@ handle_option() {
             fi
             ;;
         "$RESTART")
-            if $($SCIRPT_DIR/rofi-confirm.sh $RESTART); then
+            if $($SCRIPT_DIR/rofi-confirm.sh $RESTART); then
                 reboot
             fi
             ;;
