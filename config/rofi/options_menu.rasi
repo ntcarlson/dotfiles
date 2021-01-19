@@ -1,7 +1,7 @@
 configuration {
     theme:                          "config";
     show-icons:                     false;
-    font:                           "Font Awesome 24";
+    font:                           "Fira Sans 20";
 }
 
 window {

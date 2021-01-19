@@ -22,28 +22,36 @@ handle_option() {
             multilockscreen --lock blur
             ;;
         "$SLEEP")
-            if $($SCRIPT_DIR/rofi-confirm.sh $SLEEP); then
+            if $($SCRIPT_DIR/rofi-confirm.sh "Confirm suspend"); then
                 multilockscreen --lock blur &
                 systemctl suspend
             fi
             ;;
         "$LOGOUT")
-            if $($SCRIPT_DIR/rofi-confirm.sh $LOGOUT); then
+            if $($SCRIPT_DIR/rofi-confirm.sh "Confirm logout"); then
                 i3-msg exit
             fi
             ;;
         "$RESTART")
-            if $($SCRIPT_DIR/rofi-confirm.sh $RESTART); then
+            if $($SCRIPT_DIR/rofi-confirm.sh "Confirm reboot"); then
                 reboot
             fi
             ;;
         "$SHUTDOWN")
-            if $($SCRIPT_DIR/rofi-confirm.sh $SHUTDOWN); then
+            if $($SCRIPT_DIR/rofi-confirm.sh "Confirm shutdown"); then
                 shutdown now
             fi
             ;;
     esac
 }
 
-SELECTION="$(list_icons | rofi -dmenu -theme options_menu)"
-handle_option $SELECTION &
+{
+    SELECTION="$(list_icons | rofi -dmenu -theme options_menu)"
+    handle_option $SELECTION &
+    sleep 0.05
+    ~/.config/conky/conky-wrapper.sh show
+    wait $!
+    ~/.config/conky/conky-wrapper.sh hide
+} &
+sleep 0.05
+~/.config/conky/conky-wrapper.sh show

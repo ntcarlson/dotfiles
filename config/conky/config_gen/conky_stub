@@ -12,8 +12,7 @@ conky.config = {
     own_window_class       = 'Conky',
     own_window_type        = 'override',
     own_window_argb_visual = true,
-    own_window_argb_value  = 220,
-    own_window_colour      = '2E3440',
+    own_window_transparent = true,
 
     double_buffer          = true,
 

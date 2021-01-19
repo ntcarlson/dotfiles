@@ -11,6 +11,7 @@ conky_launch() {
     # Extract the hex window id from Conky's output
     local win_id=$(awk '/drawing to created window/ {print $NF}' /tmp/conky_out | tr -d '()')
     xdotool windowunmap $win_id
+    xdotool set_window --class "Conky" $win_id
     echo $win_id > $WINDOW_ID_CONKY
 }
 
