@@ -6,6 +6,7 @@ WINDOW_ID_CONKY=/tmp/conky_window_id
 
 conky_launch() {
     killall conky
+    sleep 0.1
     # xdotool search can't find Conky's window but fortunately Conky outputs it
     conky 2> /tmp/conky_out
     # Extract the hex window id from Conky's output
