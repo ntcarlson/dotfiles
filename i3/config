@@ -47,7 +47,7 @@ client.background $backgr   # default background color
 
 # class                 bar border  win border  text        indicator
 client.focused          $primar     $primar     $backgr     $primar
-client.focused_inactive $bg_alt     $bg_alt     $backgr     $bg_alt
+client.focused_inactive $bg_alt     $bg_alt     $foregr     $bg_alt
 client.unfocused        $backgr     $backgr     $foregr     $backgr
 client.urgent           $backgr     $urgent     $backgr     $urgent
 
@@ -57,13 +57,15 @@ new_window pixel 4
 # Font used by i3; controls size of title bar
 font pango:$font_family 12
 
+focus_on_window_activation focus
+
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 32
 
 # Large horizontal spacing that only appears when a single window is open
 # for better behavior on ultrawide monitors
 smart_gaps inverse_outer
-gaps horizontal 200
+gaps horizontal 480
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 

@@ -49,8 +49,7 @@ padding-right = 2
 padding-left = 1
 
 tray-position = right
-tray-detached = true
-tray-offset-x = -300
+tray-maxsize = 32
 
 #------------------------------- Left modules --------------------------------#
 
