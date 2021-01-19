@@ -43,14 +43,15 @@ draw_col() {
 }
 
 # Geometry of panel
-width=480
+width=470
 height=1300
+gap_y=$((1440 - height))
 ncol=1
 spacing=20
 
 {
     echo -e "# Generated file; do not edit directly\n\n"
-    sed "s/WIDTH/$width/g;s/HEIGHT/$height/g" conky_stub 
+    sed "s/WIDTH/$width/g;s/HEIGHT/$height/g;s/GAP_Y/$gap_y/g" conky_stub 
     conky_header
 
     #           element         height %
