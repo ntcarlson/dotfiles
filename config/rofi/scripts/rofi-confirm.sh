@@ -2,9 +2,12 @@
 
 ICON="$1"
 
-case "$(echo -e "Cancel\nConfirm" | rofi -dmenu -theme confirmation_dialog -mesg "$ICON" )" in
-    "Cancel")  exit 1;;
-    "Confirm") exit 0;;
+CANCEL=""
+CONFIRM=""
+
+case "$(echo -e "$CANCEL\n$CONFIRM" | rofi -dmenu -theme options_menu -mesg "$ICON" )" in
+    "$CANCEL")  exit 1;;
+    "$CONFIRM") exit 0;;
 esac
 
 exit 1
