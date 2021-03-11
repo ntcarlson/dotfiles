@@ -1,26 +1,51 @@
 #/usr/bin/env bash
 
-APP_PATH=$HOME/.local/share/applications
-ICON_PATH=$HOME/.local/share/Steam/appcache/librarycache
-EXEC_STR="Exec=steam steam://rungameid/"
+# Generates .desktop entries for all installed Steam games with box art for
+# the icons to be used with a specifically configured Rofi launcher
 
-for shortcut in $APP_PATH/*.desktop; do
-    appid=$(grep -e "^$EXEC_STR[[:digit:]]*" "$shortcut" | grep -o -e "[[:digit:]]*$")
+STEAM_ROOT=$HOME/.local/share/Steam
+APP_PATH=$HOME/.local/share/applications/steam
 
-    if [ ! -z $appid ]; then
-        echo "Updating $(basename "$shortcut")"
-        box_art="$ICON_PATH/${appid}_library_600x900.jpg"
-        header="$ICON_PATH/${appid}_header.jpg"
-        if [ ! -z $box_art ]; then
-            file_data=$(file -F, $box_art | awk -F", " '{print $2}' )
-            if [ "$file_data" == "JPEG image data" ] ; then
-                sed -i "s:^Icon=.*$:Icon=$box_art:g" "$shortcut"
-                sed -i "s:^Categories=.*:Categories=SteamLibrary;:g" "$shortcut"
-            else
-                echo "Could not update $shortcut: $box_art is invalid"
-            fi
-        else
-            echo "Could not update $shortcut: file $box_art does not exist"
-        fi
+# Fetch all Steam library folders.
+steam_libraries() {
+    echo $STEAM_ROOT
+
+    # Additional library folders are recorded in libraryfolders.vdf
+    libraryfolders=$STEAM_ROOT/steamapps/libraryfolders.vdf
+    if [ -e $libraryfolders ]; then
+        awk -F\" '/^[[:space:]]*"[[:digit:]]+"/ {print $4}' $libraryfolders
     fi
+}
+
+# Generate the contents of a .desktop file for a Steam game.
+# Expects appid, title, and box art file to be given as arguments
+desktop_entry() {
+cat <<EOF
+[Desktop Entry]
+Name=$2
+Exec=steam steam://rungameid/$1
+Icon=$3
+Terminal=false
+Type=Application
+Categories=SteamLibrary;
+EOF
+}
+
+
+mkdir -p $APP_PATH
+for library in $(steam_libraries); do
+    # All installed Steam games correspond with an appmanifest_<appid>.acf file
+    for manifest in $library/steamapps/appmanifest_*.acf; do
+        appid=$(basename $manifest | grep -oe "[[:digit:]]*")
+        title=$(awk -F\" '/"name"/ {print $4}' $manifest | tr -d "™®")
+        boxart=$STEAM_ROOT/appcache/librarycache/${appid}_library_600x900.jpg
+        entry=$APP_PATH/${title}.desktop
+
+        # Check that the box art exists.
+        # This filters out non-game entries like Proton versions
+        if [ -f $boxart ]; then
+            echo "Generating $entry..."
+            desktop_entry $appid "$title" $boxart > $entry
+        fi
+    done
 done
