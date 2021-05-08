@@ -2,7 +2,7 @@
     "position": "top",
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["backlight", "pulseaudio", "clock", "tray"],
+    "modules-right": ["battery", "backlight", "pulseaudio", "tray", "clock"],
     // Modules configuration
     "sway/workspaces": {
          "format": "<b>{name}</b>",
@@ -46,16 +46,14 @@
         "on-click": "pactl set-sink-mute 0 toggle",
         "on-click-right": "pavucontrol"
     },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
         },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    }
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
 }

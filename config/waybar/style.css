@@ -51,6 +51,7 @@ window#waybar {
 #backlight,
 #network,
 #pulseaudio,
+#battery,
 #custom-media,
 #tray,
 #mode {
@@ -60,4 +61,14 @@ window#waybar {
     background: rgba(0, 0, 0, 0.2);
     border: 4px solid transparent;
     border-radius: 8px;
+}
+
+#battery.warning:not(.charging) {
+    background-color: #D08770;
+    color: #2E3440;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #BF616A;
+    color: #2E3440;
 }
