@@ -1,6 +1,0 @@
-#!/bin/bash
-
-SCRIPT_DIR=$(dirname $(realpath $0))
-
-multilockscreen --update ../wallpapers/ --fx blur --blur 2.0
-multilockscreen --wall

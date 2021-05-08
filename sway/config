@@ -1,44 +1,69 @@
-#=============================== Applications ================================#
-#--------------------------- Default applications ----------------------------#
-set $terminal       kitty
-set $statusbar      $HOME/.config/polybar/polybar-wrapper.sh
-set $compositor     picom --experimental-backend
-set $lockscreen     multilockscreen --lock blur
-set $applauncher    rofi -show drun -theme drun -drun-categories Curated
-set $gamelauncher   rofi -show drun -theme games -drun-categories SteamLibrary
-set $scriptlauncher rofi -show run -theme run
-set $windowsearch   rofi -show window -theme window
-set $optionsmenu    $HOME/.config/rofi/scripts/rofi-options-menu.sh
-set $conky          $HOME/.config/conky/conky-wrapper.sh launch
-#-----------------------------------------------------------------------------#
+#======================= Startup and default programs ========================#
+# Applications to be launched when Sway starts
 
-#----------------------------- Startup applications --------------------------#
-exec        --no-startup-id setxkbmap -option "caps:swapescape"
-exec        --no-startup-id dropbox start
-exec        --no-startup-id nm-applet
-exec        --no-startup-id $compositor
-exec_always --no-startup-id $statusbar
-exec_always --no-startup-id $conky
-exec_always --no-startup-id multilockscreen --wall
-#-----------------------------------------------------------------------------#
+exec --no-startup-id dropbox start  # Dropbox daemon
+exec --no-startup-id nm-applet      # Network manager applet
+
+set $term      kitty
+set $drun_menu rofi -theme drun -show drun -drun-categories Custom
+set $run_menu  rofi -theme run  -show run
+set $lock      swaylock # Swaylock branch from swaylock-effects-git in AUR
+
+exec swayidle -w \
+    timeout 300 "brightnessctl -s set 20%-" \
+        resume "brightnessctl -r" \
+    timeout 360 "brightnessctl set 30%-" \
+        resume "brightnessctl -r" \
+    timeout 600 "$lock" \
+    before-sleep "$lock"
+
 #=============================================================================#
-
 
 #================================= Appearance ================================#
 #------------------------------- Colors & font -------------------------------#
 set $font_family Fira Sans
 
-# Colors are set from .Xresources. Fallback is dark Nord color scheme
-set_from_resource $backgr background        #2E3440
-set_from_resource $bg_alt background_alt    #3B4252
-set_from_resource $foregr foreground        #D8DEE9
-set_from_resource $primar primary           #B48EAD
-set_from_resource $urgent urgent            #BF616A
+set $nord0  #2E3440
+set $nord1  #3B4252
+set $nord2  #434C5E
+set $nord3  #4C566A
+set $nord4  #D8DEE9
+set $nord5  #E5E9F0
+set $nord6  #ECEFF4
+set $nord7  #8FBCBB
+set $nord8  #88C0D0
+set $nord9  #81A1C1
+set $nord10 #5E81AC
+set $nord11 #BF616A
+set $nord12 #D08770
+set $nord13 #EBCB8B
+set $nord14 #A3BE8C
+set $nord15 #B48EAD
+
+set $background     $nord0
+set $bg_alt         $nord3
+set $foreground     $nord4
+set $primary        $nord15
+set $urgent         $nord11
+#-----------------------------------------------------------------------------#
+
+#------------------------------ Desktop appearance ---------------------------#
+# Set scaling factor
+output eDP-1 res 2400x1600 scale 1.37
+
+
+# Set walllpaper
+output * bg ~/.config/i3/wallpapers/* fill
+
+# Waybar is used as the status bar instead of the default swaybar
+bar {
+    swaybar_command waybar
+}
 #-----------------------------------------------------------------------------#
 
 #----------------------------- Window appearance -----------------------------#
 # Window colors
-client.background $backgr   # default background color
+client.background $background # default background color
 
 # bar border    - Border color around title bar (used in tabbed windows)
 # window border - Border color around window
@@ -46,68 +71,51 @@ client.background $backgr   # default background color
 # indicator     - Color of border edge where new window will be created
 
 # class                 bar border  win border  text        indicator
-client.focused          $primar     $primar     $backgr     $primar
-client.focused_inactive $bg_alt     $bg_alt     $foregr     $bg_alt
-client.unfocused        $backgr     $backgr     $foregr     $backgr
-client.urgent           $backgr     $urgent     $backgr     $urgent
+client.focused          $primary    $primary    $background $primary
+client.focused_inactive $bg_alt     $bg_alt     $background $bg_alt
+client.unfocused        $background $background $foreground $background
+client.urgent           $background $urgent     $background $urgent
 
-# Windows have a border of 4 pixels; replace pixel with normal to show titlebar
-new_window pixel 4
+# Tiled and floating findows have a border of 4 pixels
+default_border pixel 4
+default_floating_border pixel 4
 
-# Font used by i3; controls size of title bar
-font pango:$font_family 12
+# Font used by Sway; controls size of title bar
+font pango:$font_family Bold 12
 
-focus_on_window_activation focus
-
-# Show gaps between open windows; requires i3-gaps fork
-gaps inner 32
-
-# Large horizontal spacing that only appears when a single window is open
-# for better behavior on ultrawide monitors
-smart_gaps inverse_outer
-gaps horizontal 480
+# Show gaps between open windows
+gaps inner 16
+gaps outer 0
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
 
 #================================= Controls ==================================#
-# Controls are mostly default i3 bindings except the directional navigation
-# keys j,k,l,; are changed to the Vim style h,j,k,l instead
 # Mod4 = windows key, Mod1 = Alt
 set $mod Mod4
 
 #------------------------------- Applications --------------------------------#
 # Launch a terminal
-bindsym $mod+Return    exec --no-startup-id $terminal
+bindsym $mod+Return exec $term
 
-# Open launcher
-bindsym $mod+d         exec --no-startup-id $applauncher
-bindsym $mod+shift+d   exec --no-startup-id $scriptlauncher
-bindsym $mod+g         exec --no-startup-id $gamelauncher
+# Bring up launcher
+bindsym $mod+d       exec $drun_menu
+bindsym $mod+shift+d exec $run_menu
 
-# Search open windows
-bindsym $mod+grave     exec --no-startup-id $windowsearch
+# Open options menu
+bindsym $mod+BackSpace exec ~/.config/i3/scripts/rofi_option_menu
 
-# Open options menu (lock screen, logout, shutdown, etc.)
-bindsym $mod+BackSpace exec --no-startup-id $optionsmenu
+# Volume control
+bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume 0 +5% 
+bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume 0 -5%
+bindsym XF86AudioMute        exec pactl set-sink-mute 0 toggle
+
+# Backlight control
+bindsym XF86MonBrightnessUp   exec brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 
 # Lock screen
-bindsym $mod+Pause     exec --no-startup-id $lockscreen
-
-# Volume controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
-bindsym XF86AudioMute        exec --no-startup-id amixer -q sset Master toggle
-
-# Music player controls
-bindsym XF86AudioPlay exec --no-startup-id playerctl -p spotify play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl -p spotify next
-bindsym XF86AudioPrev exec --no-startup-id playerctl -p spotify previous
-
-# Screenshot of entire desktop
-bindsym $mod+F4       exec --no-startup-id scrot -e 'feh $f -x' -d 2
-# Screenshot of focused window
-bindsym $mod+Shift+F4 exec --no-startup-id scrot -u -e 'feh $f -x'   
+bindsym $mod+Pause exec $lock
 #-----------------------------------------------------------------------------#
 
 #---------------------------- Workspace navigation ---------------------------#
@@ -199,16 +207,16 @@ set $steam 11:
 set $music 12:
 
 # Switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
 bindsym $mod+p workspace $steam
 bindsym $mod+m workspace $music
 
@@ -217,25 +225,24 @@ bindsym $mod+Ctrl+l workspace next
 bindsym $mod+Ctrl+h workspace prev
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+p move container to workspace $steam
 
 # Move to next free workspace
-bindsym $mod+equal exec --no-startup-id next_workspace
+bindsym $mod+equal exec ~/.config/i3/scripts/next_workspace
 
-# Move focus/window/workspace between monitors
+# Move focus/window to open workspace on secondary monitor    
 bindsym $mod+Tab focus output left
 bindsym $mod+Shift+Tab move container to output left
-bindsym $mod+Control+Tab move workspace to output left
 
 # The hotkey to move to the current workspace will instead move to the previous
 workspace_auto_back_and_forth yes
@@ -243,14 +250,11 @@ workspace_auto_back_and_forth yes
 
 #------------------------------ Miscellaneous --------------------------------#
 # Reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 
-# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-
-# Exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Exit i3?' \
-                                           -b 'Exit' 'i3-msg exit'"
+# Exit Sway (logs you out of your Wayland session)
+bindsym $mod+Shift+e exec "swaynag -t warning -m 'Exit Sway?' \
+                                                     -b 'Exit' 'swaymsg exit'"
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
@@ -265,15 +269,9 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-
-for_window [class="feh"] floating enable
-for_window [instance="origin.exe"] floating enable
-for_window [class="Steam"] floating enable
-for_window [class="Steam" title="^Steam$"] floating disable
-assign [class="Steam"] $steam
-
 for_window [class="Gnome-calculator"] floating enable
 
-# For some reason assign does not work with the spotify client
-for_window [class="(Spotify|spotify)"] move to workspace $music
+for_window [class="feh"] floating enable
+for_window [class="Steam"] floating enable
+assign [class="Steam"] $steam
 #=============================================================================#
