@@ -1,11 +1,11 @@
 #======================= Startup and default programs ========================#
 # Applications to be launched when Sway starts
 
-exec --no-startup-id dropbox start  # Dropbox daemon
-exec --no-startup-id nm-applet      # Network manager applet
+exec --no-startup-id dropbox start
+exec --no-startup-id nm-applet --indicator
 
 set $term      kitty
-set $drun_menu rofi -theme drun -show drun -drun-categories Custom
+set $drun_menu rofi -theme drun -show drun -drun-categories Curated
 set $run_menu  rofi -theme run  -show run
 set $lock      swaylock # Swaylock branch from swaylock-effects-git in AUR
 
@@ -51,9 +51,16 @@ set $urgent         $nord11
 # Set scaling factor
 output eDP-1 res 2400x1600 scale 1.37
 
-
 # Set walllpaper
 output * bg ~/.config/i3/wallpapers/* fill
+
+# Set GTK theme
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme Nordic
+    gsettings set $gnome-schema icon-theme Numix-Circle
+    gsettings set $gnome-schema font-name "Fira Sans Semi-Light 11"
+}
 
 # Waybar is used as the status bar instead of the default swaybar
 bar {
