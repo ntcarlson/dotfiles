@@ -4,7 +4,7 @@ Version=1.0
 Terminal=false
 Type=Application
 Name=Wikipedia
-Exec=firefox -P app --new-window "https://en.wikipedia.org/wiki/Main_Page"
+Exec=env MOZ_USE_XINPUT2=1 MOZ_ENABLE_WAYLAND=1 firefox -P app --new-window "https://en.wikipedia.org/wiki/Main_Page"
 Icon=web-wikipedia
 Categories=Network;WebBrowser;Curated;
 
