@@ -14,11 +14,8 @@ set $lock      swaylock
 set $lock-slow swaylock --grace 15 --fade-in 10
 
 exec swayidle -w \
-    timeout 300 "brightnessctl -s set 20%-" \
-        resume "brightnessctl -r" \
-    timeout 360 "brightnessctl set 30%-" \
-        resume "brightnessctl -r" \
-    timeout 600 "$lock" \
+    timeout 600 "brightnessctl set 0%" \
+        resume "brightnessctl set 100%" \
     before-sleep "$lock"
 
 #=============================================================================#
@@ -56,7 +53,7 @@ set $urgent         $nord11
 output eDP-1 res 2400x1600 scale 1.333333
 
 # Set walllpaper
-output * bg ~/.config/i3/wallpapers/* fill
+output * bg ~/.config/sway/wallpapers/* fill
 
 # Set GTK theme
 set $gnome-schema org.gnome.desktop.interface
@@ -101,9 +98,16 @@ gaps outer 0
 #=============================================================================#
 
 
-#================================= Controls ==================================#
-# Mod4 = windows key, Mod1 = Alt
+#============================= Controls & input ==============================#
+# Mod4 = super key, Mod1 = Alt
 set $mod Mod4
+
+#--------------------------------- Touchpad ----------------------------------#
+input "type:touchpad" {
+    accel_profile adaptive
+    pointer_accel 0
+    dwt disabled
+}
 
 #------------------------------- Applications --------------------------------#
 # Launch a terminal
@@ -116,6 +120,10 @@ bindsym $mod+shift+d exec $run_menu
 # Pixelbook's hamburger menu button is mapped to XF86Tools
 bindsym XF86Tools      exec $options
 bindsym $mod+XF86Tools exec $lock
+
+# /etc/systemd/logind.conf is edited to add HandlePowerKey=ignore so Sway
+# can handle the XF86PowerOff button instead
+bindsym XF86PowerOff   exec $lock
 
 # Volume control
 bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume 0 +5% 
