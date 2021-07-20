@@ -12,18 +12,6 @@ listview {
     columns:                        12;
 }
 
-@media (min-width: 2400) {
-    listview {
-        columns:                    16;
-    }
-}
-
-@media (min-width: 3440) {
-    listview {
-        columns:                    22;
-    }
-}
-
 element-icon selected {
     border-color:                   @primary;
     background-color:               rgba(0, 0, 0, 0.2);

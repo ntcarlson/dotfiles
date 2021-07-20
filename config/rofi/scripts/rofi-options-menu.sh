@@ -29,7 +29,7 @@ handle_option() {
             ;;
         "$LOGOUT")
             if $($SCRIPT_DIR/rofi-confirm.sh "Confirm logout"); then
-                i3-msg exit
+                swaymsg exit
             fi
             ;;
         "$RESTART")

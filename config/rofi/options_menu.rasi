@@ -5,15 +5,26 @@ configuration {
 }
 
 window {
-    children:                       [listview];
+    children:                       [message, listview];
+    orientation:                    horizontal;
     location:                       northeast;
     anchor:                         northeast;
-    y-offset:                       53px;
+    y-offset:                       48px;
     width:                          400px;
     transparency:                   "real";
     background-color:               @background-transparent;
-    border:                         5px;
+    border:                         0px 4px 4px 4px;
     border-color:                   @primary;
+}
+
+message {
+    expand:                         true;
+    padding:                        0px -15px 0px 0px;
+}
+
+textbox {
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
 }
 
 listview {
@@ -21,7 +32,8 @@ listview {
     lines:                          1;
     columns:                        10;
     border:                         5px;
-    expand:                         false;
+    expand:                         true;
+    border-color:                   transparent;
 }
 
 element {
