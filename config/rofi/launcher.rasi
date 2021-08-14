@@ -10,22 +10,34 @@ window {
 }
 
 mainbox {
-    children:                       [inputbar, listview];
+    children:                       [inputbar-box, listview];
     padding:                        0px 0px;
 }
 
 listview {
-    padding:                        12px;
+    padding:                        0px;
     dynamic:                        true;
 }
 
+inputbar-box {
+    children:                       [dummy, inputbar, dummy];
+    orientation:                    horizontal;
+    expand:                         false;
+}
+
 inputbar {
-    children:                       [dummy, textbox-prompt, entry, dummy];
+    children:                       [textbox-prompt, entry];
+    margin:                         12px 0px 0px 0px;
+    background-color:               @primary;
+    border:                         4px;
+    border-color:                   @primary;
+    border-radius:                  8px;
 }
 
 textbox-prompt {
     font:                           "Font Awesome 18";
-    text-color:                     @text;
+    text-color:                     @background;
+    padding:                        0px 4px 0px 2px;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
     str:                            "";
@@ -34,9 +46,14 @@ textbox-prompt {
 
 entry {
     expand:                         false;
-    padding:                        8px;
+    padding:                        4px;
+    margin:                         -6px;
     horizontal-align:               0;
-    width:                          200;
+    width:                          300;
+    background-color:               @background;
+    border:                         6px;
+    border-color:                   @primary;
+    border-radius:                  8px;
 }
 
 element {
@@ -54,8 +71,8 @@ element-box {
 }
 
 element-icon {
-    padding:                        16px;
-    border:                         4px 4px solid 4px 4px;
+    padding:                        8px;
+    border:                         4px;
     border-color:                   transparent;
     border-radius:                  8;
     size:                           96;
