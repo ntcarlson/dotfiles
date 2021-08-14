@@ -3,6 +3,7 @@
 
 exec --no-startup-id dropbox start
 exec --no-startup-id nm-applet --indicator
+exec --no-startup-id mako # Notification daemon
 
 set $term      kitty
 set $drun_menu rofi -theme drun -show drun -drun-categories Curated
@@ -291,4 +292,5 @@ for_window [class="Gnome-calculator"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="Steam"] floating enable
 assign [class="Steam"] $steam
+for_window [class="Spotify"] move --no-auto-back-and-forth container to workspace $music
 #=============================================================================#

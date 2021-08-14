@@ -1,0 +1,13 @@
+font=Fira Sans 14
+background-color=#2E3440
+text-color=#D8DEE9
+width=400
+padding=16
+border-color=#B48EAD
+border-size=4
+border-radius=8
+icons=1
+max-icon-size=64
+icon-location=left
+default-timeout=5000
+max-history=10
