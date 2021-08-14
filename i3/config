@@ -13,8 +13,8 @@ set $conky          $HOME/.config/conky/conky-wrapper.sh launch
 #-----------------------------------------------------------------------------#
 
 #----------------------------- Startup applications --------------------------#
-exec        --no-startup-id setxkbmap -option "caps:swapescape"
 exec        --no-startup-id dropbox start
+exec        --no-startup-id dunst
 exec        --no-startup-id nm-applet
 exec        --no-startup-id $compositor
 exec_always --no-startup-id $statusbar
@@ -56,8 +56,6 @@ new_window pixel 4
 
 # Font used by i3; controls size of title bar
 font pango:$font_family 12
-
-focus_on_window_activation focus
 
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 32
@@ -268,6 +266,7 @@ for_window [window_type="menu"] floating enable
 
 for_window [class="feh"] floating enable
 for_window [instance="origin.exe"] floating enable
+for_window [instance="steam_app_*"] floating enable
 for_window [class="Steam"] floating enable
 for_window [class="Steam" title="^Steam$"] floating disable
 assign [class="Steam"] $steam
