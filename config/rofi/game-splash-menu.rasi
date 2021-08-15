@@ -63,7 +63,7 @@ listview {
 element {
     children:                       [element-text];
     padding:                        8px;
-    margin:                         20px 60px;
+    margin:                         12px 60px;
     orientation:                    horizontal;
     background-color:               rgba(0, 0, 0, 0.5);
     border-radius:                  16px;

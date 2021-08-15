@@ -46,7 +46,7 @@ handle_option() {
 }
 
 {
-    SELECTION="$(list_icons | rofi -dmenu -theme options_menu)"
+    SELECTION="$(list_icons | rofi -dmenu -theme options-menu)"
     handle_option $SELECTION &
     sleep 0.05
     ~/.config/conky/conky-wrapper.sh show
