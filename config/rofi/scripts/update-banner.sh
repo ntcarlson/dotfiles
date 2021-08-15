@@ -37,7 +37,6 @@ update-banner() {
         rm $TITLE
     fi
 
-    rm $out
     if [ ! -f $out ]; then
         local gradient=$CACHE_DIR/gradient.tiff
         local left=$CACHE_DIR/left.tiff
