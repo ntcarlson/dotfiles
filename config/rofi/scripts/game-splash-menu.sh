@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Wrapper script to open the game splash menu for a given appid
+
 cd $(dirname $(realpath $0))
 source update-game-entries.sh
 source update-banner.sh
