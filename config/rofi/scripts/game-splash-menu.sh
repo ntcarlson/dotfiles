@@ -3,7 +3,6 @@
 # Wrapper script to open the game splash menu for a given appid
 
 cd $(dirname $(realpath $0))
-source update-game-entries.sh
 source update-banner.sh
 
 PLAY=""
@@ -33,8 +32,6 @@ handle-option() {
         "$ACHIEVEMENTS")  steam steam://url/SteamIDAchievementsPage/$APPID;;
         "$NEWS")          steam steam://appnews/$APPID;;
         "$BACK")          ./rofi-wrapper.sh games;;
-        *)
-            update-game-entries
     esac
 }
 

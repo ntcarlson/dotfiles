@@ -34,27 +34,52 @@ EOF
 }
 
 update-game-entries() {
+    local OPTIND=1
+    local quiet update
+
+    while getopts 'qf' arg
+    do
+        case ${arg} in
+            f) update=1;;
+            q) quiet=1;;
+            *)
+                echo "Usage: $0 [-f] [-q]"
+                echo "  -f: Full refresh; update existing entries"
+                echo "  -q: Quiet; Turn off diagnostic output"
+                exit
+        esac
+    done
+
     mkdir -p "$APP_PATH"
     for library in $(steam-libraries); do
         # All installed Steam games correspond with an appmanifest_<appid>.acf file
         for manifest in "$library"/steamapps/appmanifest_*.acf; do
-            appid=$(basename "$manifest" | grep -oe "[[:digit:]]*")
-            title=$(awk -F\" '/"name"/ {print $4}' "$manifest" | tr -d "™®/")
+            appid=$(basename "$manifest" | tr -dc "[0-9]")
+            entry=$APP_PATH/${appid}.desktop
+
+            # Don't update existing entries unless doing a full refresh
+            if [ -z $update ] && [ -f "$entry" ]; then
+                [ -z $quiet ] && echo "Not updating $entry"
+                continue
+            fi
+
+            title=$(awk -F\" '/"name"/ {print $4}' "$manifest" | tr -d "™®")
             boxart=$STEAM_ROOT/appcache/librarycache/${appid}_library_600x900.jpg
-            entry=$APP_PATH/${title}.desktop
 
             # Filter out non-game entries (e.g. Proton versions or soundtracks) by
             # checking for boxart and other criteria
             if [ ! -f "$boxart" ]; then
-                echo "Skipping $title"
+                [ -z $quiet ] && echo "Skipping $title"
                 continue
             fi
             if echo "$title" | grep -qe "Soundtrack"; then
-                echo "Skipping $title"
+                [ -z $quiet ] && echo "Skipping $title"
                 continue
             fi
-            echo "Generating $entry..."
+            [ -z $quiet ] && echo -e "Generating $entry\t($title)"
             desktop-entry "$appid" "$title" "$boxart" > "$entry"
         done
     done
 }
+
+update-game-entries $@
