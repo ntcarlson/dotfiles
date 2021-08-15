@@ -4,11 +4,11 @@ set $terminal       kitty
 set $statusbar      $HOME/.config/polybar/polybar-wrapper.sh
 set $compositor     picom --experimental-backend
 set $lockscreen     multilockscreen --lock blur
-set $applauncher    rofi -show drun -theme drun -drun-categories Curated
-set $gamelauncher   rofi -show drun -theme games -drun-categories SteamLibrary
-set $scriptlauncher rofi -show run -theme run
-set $windowsearch   rofi -show window -theme window
-set $optionsmenu    $HOME/.config/rofi/scripts/rofi-options-menu.sh
+set $applauncher    $HOME/.config/rofi/scripts/rofi-wrapper.sh drun
+set $gamelauncher   $HOME/.config/rofi/scripts/rofi-wrapper.sh games
+set $scriptlauncher $HOME/.config/rofi/scripts/rofi-wrapper.sh run
+set $windowsearch   $HOME/.config/rofi/scripts/rofi-wrapper.sh windows
+set $optionsmenu    $HOME/.config/rofi/scripts/rofi-wrapper.sh options
 set $conky          $HOME/.config/conky/conky-wrapper.sh launch
 #-----------------------------------------------------------------------------#
 
