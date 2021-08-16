@@ -3,7 +3,6 @@
 # Wrapper script to open the game splash menu for a given appid
 
 cd $(dirname $(realpath $0))
-source update-banner.sh
 
 HEIGHT=360 # This should match height in game-splash-menu.rasi
 
@@ -46,6 +45,6 @@ get-display-width() {
            | sort -nr | head -n 1
 }
 
-update-banner -w $(get-display-width) -h $HEIGHT -a $APPID
+./update-game-banner.sh -w $(get-display-width) -h $HEIGHT -a $APPID
 SELECTION="$(list-icons | rofi -dmenu -theme game-splash-menu)"
 handle-option $SELECTION &
