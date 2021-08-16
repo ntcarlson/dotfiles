@@ -6,7 +6,7 @@
 SCRIPT_DIR=$(dirname $(realpath $0))
 
 STEAM_ROOT=$HOME/.local/share/Steam
-APP_PATH=$HOME/.local/share/applications/steam
+APP_PATH=$HOME/.cache/rofi-game-launcher/applications
 
 # Fetch all Steam library folders.
 steam-libraries() {
