@@ -14,9 +14,9 @@ steam-libraries() {
 
     # Additional library folders are recorded in libraryfolders.vdf
     libraryfolders=$STEAM_ROOT/steamapps/libraryfolders.vdf
-    if [ -e "$libraryfolders" ]; then
-        awk -F\" '/^[[:space:]]*"[[:digit:]]+"/ {print $4}' "$libraryfolders"
-    fi
+    # Match directories listed in libraryfolders.vdf (or at least all strings
+    # that look like directories)
+    grep -oP "(?<=\")/.*(?=\")" $libraryfolders
 }
 
 # Generate the contents of a .desktop file for a Steam game.
@@ -53,6 +53,11 @@ update-game-entries() {
     mkdir -p "$APP_PATH"
     for library in $(steam-libraries); do
         # All installed Steam games correspond with an appmanifest_<appid>.acf file
+        if [ -z "$(shopt -s nullglob; echo "$library"/steamapps/appmanifest_*.acf)" ]; then
+            # Skip empty library folders
+            continue
+        fi
+
         for manifest in "$library"/steamapps/appmanifest_*.acf; do
             appid=$(basename "$manifest" | tr -dc "[0-9]")
             entry=$APP_PATH/${appid}.desktop
