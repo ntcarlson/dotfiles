@@ -1,8 +1,9 @@
+
 configuration {
-    theme:                          "config";
     show-icons:                     false;
     font:                           "Fira Sans 20";
 }
+@import "colors.rasi"
 
 window {
     children:                       [mainbox];

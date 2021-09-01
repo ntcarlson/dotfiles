@@ -1,9 +1,10 @@
 configuration {
     show-icons:                     true;
     window-format:                  "{t}";
-    window-thumbnail:               true;
     window-match-fields:            "title";
 }
+
+@import "colors.rasi"
 
 window {
     height:                         calc(100% - 40px);
