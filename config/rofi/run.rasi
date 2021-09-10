@@ -1,9 +1,13 @@
+@import "launcher"
+
 listview {
     columns:                        6;
     padding:                        12px;
 }
 
-@import "launcher"
+element {
+    children:                       [element-text];
+}
 
 element-text {
     padding:                        4px 12px;

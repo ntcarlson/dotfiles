@@ -1,8 +1,4 @@
-configuration {
-    theme:                          "config";
-    show-icons:                     false;
-    font:                           "Fira Sans 16";
-}
+@import "colors.rasi"
 
 window {
     children:                       [message, listview];
@@ -52,6 +48,7 @@ element-text {
     border-radius:                  5;
     width:                          50px;
     expand:                         false;
+    font:                           "Font Awesome 18";
 }
 
 element-text selected {

@@ -1,0 +1,13 @@
+configuration {
+    font:                           "Fira Sans 13";
+}
+
+* {
+    background-color:               transparent;
+    background:                     #2E3440;
+    background-transparent:         #2E3440A0;
+    text-color:                     #D8DEE9;
+    primary:                        #B48EAD;
+    secondary:                      #3B4252;
+    urgent:                         #BF616A;
+}
