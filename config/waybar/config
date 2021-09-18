@@ -1,8 +1,9 @@
 {
     "position": "top",
+    "height": 60,
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["battery", "backlight", "pulseaudio", "tray", "clock"],
+    "modules-right": ["battery", "pulseaudio", "tray", "clock"],
     // Modules configuration
     "sway/workspaces": {
          "format": "<b>{name}</b>",
@@ -11,7 +12,7 @@
         "format": "<b>{}</b>"
     },
     "sway/window": {
-        "max-length": 80,
+        "max-length": 50,
         "tooltip": false
     },
     "tray": {
@@ -31,7 +32,7 @@
         "on-scroll-down": "brightnessctl set 10%-"
     },
     "pulseaudio": {
-        "scroll-step": 5, // %, can be a float
+        "scroll-step": 0.2, // %, can be a float
         "format": "{icon}  {volume}%",
         "format-muted": " {volume}%",
         "format-icons": {
