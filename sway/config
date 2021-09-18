@@ -14,10 +14,14 @@ set $options   ~/dotfiles/config/rofi/scripts/rofi-options-menu.sh
 set $lock      swaylock
 set $lock-slow swaylock --grace 15 --fade-in 10
 
-exec swayidle -w \
-    timeout 600 "brightnessctl set 0%" \
-        resume "brightnessctl set 100%" \
-    before-sleep "$lock"
+exec swayidle \
+    timeout 540 "$lock-slow" \
+    timeout 600 "brightnessctl --save set 0%" \
+        resume "brightnessctl --restore" \
+    timeout 30 "~/dotfiles/pixelbook/keyboard-backlight.sh set 0" \
+        resume "~/dotfiles/pixelbook/keyboard-backlight.sh set 20"
+
+exec swayidle -w before sleep "$lock"
 
 #=============================================================================#
 
@@ -51,10 +55,10 @@ set $urgent         $nord11
 
 #------------------------------ Desktop appearance ---------------------------#
 # Set scaling factor
-output eDP-1 res 2400x1600 scale 1.333333
+output eDP-1 res 2400x1600 scale 1
 
 # Set walllpaper
-output * bg ~/.config/sway/wallpapers/* fill
+output * bg ~/.config/sway/wallpapers/current/* fill
 
 # Set GTK theme
 set $gnome-schema org.gnome.desktop.interface
