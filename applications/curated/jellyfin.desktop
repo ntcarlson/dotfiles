@@ -1,9 +1,8 @@
-#!/usr/bin/env xdg-open
 [Desktop Entry]
+Name=Jellyfin
+Comment=Desktop client for Jellyfin
+Exec=jellyfinmediaplayer
+Icon=jellyfin
 Terminal=false
 Type=Application
-Name=Jellyfin
-Exec=env MOZ_USE_XINPUT2=1 MOZ_ENABLE_WAYLAND=1 firefox -P app --new-window "http://tau:8096/web/index.html"
-Icon=jellyfin
-StartupWMClass=jellyfin
-Categories=Network;WebBrowser;Curated;
+Categories=AudioVideo;Video;Player;TV;Curated;

@@ -2,7 +2,7 @@
 Name=Transmission
 GenericName=BitTorrent Client
 X-GNOME-FullName=Transmission BitTorrent Client
-Exec=transmission-gtk %U
+Exec=transmission-remote-gtk %U
 Icon=transmission
 Terminal=false
 TryExec=transmission-gtk
