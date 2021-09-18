@@ -1,0 +1,136 @@
+[global]
+    # ============================= Appearance ============================== #
+    font = Fira Sans 12
+
+    transparency = 15
+
+    geometry = "400x50-20+20" # [{width}]x{height}[+/-{x}+/-{y}]
+    shrink = no
+
+    frame_width = 4
+    corner_radius = 8
+
+    # Separator between notifications
+    separator_height = 4
+    separator_color = frame
+
+    padding = 8
+    horizontal_padding = 8
+    text_icon_padding = 8
+
+    alignment = left
+    vertical_alignment = center
+
+    icon_position = left
+    min_icon_size = 48
+    max_icon_size = 96
+    icon_path = /usr/share/icons/Numix/48/status:/usr/share/icons/Numix/devices
+
+    # The format of the message.  Possible variables are:
+    #   %a  appname
+    #   %s  summary
+    #   %b  body
+    #   %i  iconname (including its path)
+    #   %I  iconname (without its path)
+    #   %p  progress value if set ([  0%] to [100%]) or nothing
+    #   %n  progress value if set without any extra characters
+    #   %%  Literal %
+    markup = full
+    format = "<b>%s</b>\n%b"
+
+    # Progress bar appears when an integer hint is received, e.g.
+    # notify-send -h int:value:50 "Test"
+    progress_bar = true
+    progress_bar_height = 16
+    progress_bar_frame_width = 2
+    progress_bar_max_width = 400
+
+    # ============================== Behavior =============================== #
+
+    # Notification appears on the currently focused monitor
+    follow = keyboard
+
+    # Sort messages by urgency.
+    sort = yes
+
+    # Don't remove messages, if the user is idle (no mouse or keyboard input)
+    # for longer than idle_threshold seconds.
+    idle_threshold = 120
+
+    # Show age of message if message is older than show_age_threshold seconds
+    show_age_threshold = 30
+
+    # Split notifications into multiple lines if they don't fit into geometry.
+    word_wrap = yes
+
+    # When word_wrap is set to no, specify where to make an ellipsis in long lines.
+    # Possible values are "start", "middle" and "end".
+    ellipsize = middle
+
+    # Ignore newlines '\n' in notifications.
+    ignore_newline = no
+
+    # Stack together notifications with the same content
+    stack_duplicates = true
+
+    # Hide the count of stacked notifications with the same content
+    hide_duplicate_count = false
+
+    # Display indicators for URLs (U) and actions (A).
+    show_indicators = yes
+
+    # Should a notification popped up from history be sticky or timeout
+    # as if it would normally do.
+    sticky_history = yes
+
+    # Maximum amount of notifications kept in history
+    history_length = 20
+
+    # dmenu path.
+    dmenu = /usr/bin/dmenu -p dunst:
+
+    # Browser for opening urls in context menu.
+    browser = /usr/bin/firefox -new-tab
+
+    # Always run rule-defined scripts, even if the notification is suppressed
+    always_run_script = true
+
+    # Define the title of the windows spawned by dunst
+    title = Dunst
+
+    # Define the class of the windows spawned by dunst
+    class = Dunst
+
+    # Defines list of actions for each mouse event
+    # Possible values are:
+    # * none: Don't do anything.
+    # * do_action: If the notification has exactly one action, or one is marked as default,
+    #              invoke it. If there are multiple and no default, open the context menu.
+    # * close_current: Close current notification.
+    # * close_all: Close all notifications.
+    # These values can be strung together for each mouse event, and
+    # will be executed in sequence.
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[urgency_low]
+    background  = "#2E3440"
+    foreground  = "#ECEFF4"
+    frame_color = "#B48EAD"
+    highlight   = "#B48EAD"
+    timeout = 8
+
+[urgency_normal]
+    background  = "#2E3440"
+    foreground  = "#ECEFF4"
+    frame_color = "#B48EAD"
+    highlight   = "#B48EAD"
+    timeout = 12
+
+[urgency_critical]
+    background  = "#2E3440"
+    foreground  = "#ECEFF4"
+    frame_color = "#BF616A"
+    highlight   = "#BF616A"
+    timeout = 0
