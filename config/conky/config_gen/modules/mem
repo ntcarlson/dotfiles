@@ -3,7 +3,57 @@
 cd $(dirname $(realpath $0))
 source modules/common
 
-conky_mem() {
+conky_mem_bar() {
+    local OPTIND=1
+    local arg x y width height color
+    color=$PRIMARY
+
+    while getopts 'x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    local bar_height=$((height - 2*text_height))
+
+    conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "System memory"                                    \
+                  -x $x -y $((y + text_offset))                         \
+                  -w $width -a
+
+    conky_bar -b "memwithbuffersbar"                                    \
+                  -x $x -y $((y + text_height - 10))                    \
+                  -w $width -h $bar_height                              \
+                  -c $BLUE
+
+    conky_bar -b "membar"                                               \
+                  -x $x -y $((y + text_height - 10))                    \
+                  -w $width -h $bar_height                              \
+                  -c $PRIMARY
+
+    conky_element -e "Used: \${mem}"                                    \
+                  -x $((x + 10))                                        \
+                  -y $((y + height - text_height + text_offset))        \
+                  -c $color
+
+    conky_element -e "Buffers: \${memwithbuffers}"                      \
+                  -x $((x + width/2 - 48))                              \
+                  -y $((y + height - text_height + text_offset))        \
+                  -c $BLUE
+
+    conky_element -e "Available: \${memeasyfree}"                       \
+                  -x $((x + width - 130))                               \
+                  -y $((y + height - text_height + text_offset))
+}
+
+conky_mem_graph() {
     local OPTIND=1
     local arg x y width height color
     color=$PRIMARY

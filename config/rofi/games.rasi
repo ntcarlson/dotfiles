@@ -30,6 +30,7 @@ listview {
 
 element-icon {
     padding:                        0px -40px;
+    horizontal-align:               0.5;
     border:                         4px 4px solid 4px 4px;
     border-color:                   transparent;
     border-radius:                  16;

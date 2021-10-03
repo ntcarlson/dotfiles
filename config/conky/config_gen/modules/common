@@ -38,7 +38,7 @@ conky_graph() {
         esac
     done
    
-    echo -n "\${voffset $y}"
+    echo -n "\${voffset $((y-10))}"
     echo -n "\${goto $x}"
     echo -n "\${color $color}" 
     echo -n "\${$graph $height,$width $color $color $scale 0}"
@@ -47,6 +47,32 @@ conky_graph() {
     echo -n "\${voffset 16}"
     echo -n "$text"
     echo -n "\${voffset -16}"
+    echo -n "\${voffset -$((y-10))}"
+}
+
+conky_bar() {
+    local OPTIND=1
+    local arg bar x y width height text color
+    color=$PRIMARY
+
+    while getopts 'b:x:y:w:h:c:' arg
+    do
+        case ${arg} in
+            b) bar=${OPTARG};;
+            x) x=${OPTARG};;
+            y) y=${OPTARG};;
+            w) width=${OPTARG};;
+            h) height=${OPTARG};;
+            c) color=${OPTARG};;
+            *) return 1 # illegal option
+        esac
+    done
+
+    echo -n "\${voffset $y}"
+    echo -n "\${goto $x}"
+    echo -n "\${color $color}"
+    echo -n "\${$bar $height,$width}"
+    echo -n "\${color $TEXT}"
     echo -n "\${voffset -$y}"
 }
 
@@ -96,7 +122,7 @@ conky_element() {
     echo -n "\${voffset $y}"
     if [[ $align -eq 1 ]]; then
         nchar=$(expr length "$element")
-        text_len=$((nchar * 6))
+        text_len=$((nchar * 7))
         offset=$(( (width - text_len)/2 ))
         echo -n "\${goto $((x + offset))}"
     else

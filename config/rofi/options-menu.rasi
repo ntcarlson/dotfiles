@@ -1,0 +1,67 @@
+
+configuration {
+    show-icons:                     false;
+    font:                           "Fira Sans 20";
+}
+@import "colors.rasi"
+
+window {
+    children:                       [mainbox];
+    height:                         calc(100% - 40px);
+    location:                       southeast;
+    anchor:                         southeast;
+    width:                          480;
+    transparency:                   "real";
+    background-color:               @background-transparent;
+    border:                         5px 0px 0px 5px;
+    border-color:                   @primary;
+}
+
+mainbox {
+    children:                       [message, listview];
+    expand:                         false;
+    background-color:               @primary;
+    border:                         0px 5px 5px 0px;
+    border-color:                   @primary;
+}
+
+textbox {
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    text-color:                     @background;
+}
+
+listview {
+    layout:                         vertical;
+    lines:                          1;
+    columns:                        10;
+    background-color:               @background;
+    border:                         5px;
+    border-color:                   @background;
+    border-radius:                  5;
+    expand:                         false;
+}
+
+element {
+    children:                       [dummy, element-text, dummy];
+    padding:                        0px;
+    orientation:                    horizontal;
+    border:                         0;
+    border-color:                   transparent;
+}
+
+element-text {
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    padding:                        6px 6px;
+    border:                         0px;
+    border-radius:                  5;
+    width:                          50px;
+    background-color:               @background-alt;
+    expand:                         false;
+}
+
+element-text selected {
+    background-color:               @primary;
+    text-color:                     @background;
+}

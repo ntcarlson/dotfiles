@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(dirname $(realpath $0))
 
 LOCK=""
 SLEEP=""
@@ -20,28 +22,36 @@ handle_option() {
             multilockscreen --lock blur
             ;;
         "$SLEEP")
-            if $(rofi_confirm $SLEEP); then
+            if $($SCRIPT_DIR/rofi-confirm.sh "Confirm suspend"); then
                 multilockscreen --lock blur &
                 systemctl suspend
             fi
             ;;
         "$LOGOUT")
-            if $(rofi_confirm $LOGOUT); then
+            if $($SCRIPT_DIR/rofi-confirm.sh "Confirm logout"); then
                 i3-msg exit
             fi
             ;;
         "$RESTART")
-            if $(rofi_confirm $RESTART); then
+            if $($SCRIPT_DIR/rofi-confirm.sh "Confirm reboot"); then
                 reboot
             fi
             ;;
         "$SHUTDOWN")
-            if $(rofi_confirm $SHUTDOWN); then
+            if $($SCRIPT_DIR/rofi-confirm.sh "Confirm shutdown"); then
                 shutdown now
             fi
             ;;
     esac
 }
 
-SELECTION="$(list_icons | rofi -dmenu -theme options_menu)"
-handle_option $SELECTION &
+{
+    SELECTION="$(list_icons | rofi -dmenu -theme options-menu)"
+    handle_option $SELECTION &
+    sleep 0.05
+    ~/.config/conky/conky-wrapper.sh show
+    wait $!
+    ~/.config/conky/conky-wrapper.sh hide
+} &
+sleep 0.05
+~/.config/conky/conky-wrapper.sh show

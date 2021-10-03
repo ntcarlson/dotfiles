@@ -19,25 +19,38 @@ conky_gpu_core() {
         esac
     done
 
-    local text_height=30
     conky_frame -x $x -y $y -w $width -h $height -c $color
 
-    conky_element -e "Performance"                                      \
-                  -x $x -y $((y + text_offset))                         \
-                  -w $width -a
+    local spacing=0
+    local graph_y=$((y + text_height))
+    local graph_width=$(( (width - 3*spacing)/2 ))
+    local graph_height=$((height - 2*text_height))
 
-    conky_graph -g "nvidiagraph gpuutil"                                \
-                -x $x                                                   \
-                -y $((y + text_height - 10))                            \
-                -t "Utilization: \${nvidia gpuutil 0}%"                 \
-                -w $((width/2)) -h $((height - text_height))            \
-                -c $color
+    conky_element -e "Frequency" -x $x -y $((y + text_offset)) -w $width -a
+
     conky_graph -g "nvidiagraph gpufreq"                                \
-                -x $((x + width/2))                                     \
-                -y $((y + text_height - 10))                            \
-                -t "Core clock: \${nvidia gpufreq 0} MHz"               \
-                -w $((width/2)) -h $((height - text_height))            \
+                -x $((x + spacing)) -y $graph_y                         \
+                -w $graph_width -h $graph_height                        \
                 -c $color
+
+    conky_graph -g "nvidiagraph memfreq"                                \
+                -x $((x + graph_width + 2*spacing)) -y $graph_y         \
+                -w $graph_width -h $graph_height                        \
+                -c $BLUE
+
+    conky_frame -x $((x + graph_width + 2*spacing)) -y $graph_y         \
+                -w $graph_width -h $graph_height                        \
+                -c $color
+
+    conky_element -e "Graphics clock: \${nvidia gpufreq} MHz"           \
+                  -x $((x + 10))                                        \
+                  -y $((y + height - text_height + text_offset))        \
+                  -c $color
+
+    conky_element -e "Memory clock: \${nvidia memfreq} MHz"             \
+                  -x $((x + width - 165))                               \
+                  -y $((y + height - text_height + text_offset))        \
+                  -c $BLUE
 }
 conky_gpu_mem() {
     local OPTIND=1
@@ -55,26 +68,27 @@ conky_gpu_mem() {
         esac
     done
 
-    local text_height=30
+    local bar_height=$((height - 2*text_height))
+
     conky_frame -x $x -y $y -w $width -h $height -c $color
+
+    conky_element -e "\${nvidiabar $bar_height,$width memutil}"         \
+                  -x $x -y $((y + text_height-10))                      \
+                  -c $color
 
     conky_element -e "Video memory"                                     \
                   -x $x -y $((y + text_offset))                         \
                   -w $width -a
 
-    conky_graph -g "nvidiagraph memutil"                                \
-                -x $x                                                   \
-                -y $((y + text_height - 10))                            \
-                -t "Used: \${nvidia memused 0}/\${nvidia memmax 0} MiB" \
-                -w $((width/2)) -h $((height - text_height))            \
-                -c $color
+    conky_element -e "Used: \${nvidia memused} MB"                      \
+                  -x $((x + 10))                                        \
+                  -y $((y + height - text_height + text_offset))        \
+                  -c $color
 
-    conky_graph -g "nvidiagraph memfreq"                                \
-                -x $((x + width/2))                                     \
-                -y $((y + text_height - 10))                            \
-                -t "Frequency: \${nvidia memfreq 0} MHz"                \
-                -w $((width/2)) -h $((height - text_height))            \
-                -c $color
+    conky_element -e "Available: \${nvidia memfree} MB"                 \
+                  -x $((x + width - 130))                               \
+                  -y $((y + height - text_height + text_offset))
+
 }
 
 conky_gpu_thermals() {
@@ -93,25 +107,35 @@ conky_gpu_thermals() {
         esac
     done
 
-    local text_height=30
+    local graph_height=$((height - 2*text_height))
+
     conky_frame -x $x -y $y -w $width -h $height -c $color
 
     conky_element -e "Thermals"                                     \
                   -x $x -y $((y + text_offset))                     \
                   -w $width -a
 
+    conky_graph -g "nvidiagraph gputemp"                            \
+                -x $x                                               \
+                -y $((y + text_height))                             \
+                -w $width -h $graph_height                          \
+                -c $BLUE
+
     conky_graph -g "nvidiagraph fanlevel"                           \
                 -x $x                                               \
-                -y $((y + text_height - 10))                        \
-                -t "Fan speed: \${nvidia fanspeed 0} RPM"           \
-                -w $((width/2)) -h $((height - text_height))        \
+                -y $((y + text_height))                             \
+                -w $width -h $graph_height                          \
                 -c $color
-    conky_graph -g "nvidiagraph gputemp"                            \
-                -x $((x + width/2))                                 \
-                -y $((y + text_height - 10))                        \
-                -t "Temperature: \${nvidia gputemp 0} C"            \
-                -w $((width/2)) -h $((height - text_height))        \
-                -c $color
+
+    conky_element -e "Fan speed: \${nvidia fanspeed} RPM"           \
+                  -x $((x + 10))                                    \
+                  -y $((y + height - text_height + text_offset))    \
+                  -c $color
+
+    conky_element -e "Temperature: \${nvidia gputemp} °C"           \
+                  -x $((x + width - 140))                           \
+                  -y $((y + height - text_height + text_offset))    \
+                  -c $BLUE
 }
 conky_gpu() {
     local OPTIND=1
@@ -132,11 +156,12 @@ conky_gpu() {
         esac
     done
     
-    local text_height=30
-
     local subframe_spacing=10
     local subframe_width=$((width - 2*subframe_spacing))
-    local subframe_height=$(( (height - 4*subframe_spacing - text_height)/3))
+    local subframe_total_height=$(( (height - 4*subframe_spacing - text_height)))
+    local memory_height=$((2*text_height + 20))
+    local frequency_height=$(( (subframe_total_height - memory_height)/2 ))
+    local thermals_height=$(( (subframe_total_height - memory_height)/2 ))
     local subframe_x=$((x + subframe_spacing))
     local subframe_y=$((y + subframe_spacing + text_height))
 
@@ -145,22 +170,20 @@ conky_gpu() {
 
     conky_frame -x $x -y $y -w $width -h $height -c $color
     
-    cpu_model=$(cat /proc/cpuinfo | awk -F: '/model name/ {print $2}' | head -n 1)
-
     conky_element -e "\${nvidia modelname 1}"   \
                   -x $((x + width/2 - 50))      \
                   -y $((y + text_offset))
 
     conky_gpu_core -x $subframe_x -y $subframe_y \
-                   -w $subframe_width -h $subframe_height
+                   -w $subframe_width -h $frequency_height
 
-    subframe_y=$((subframe_y + subframe_height + subframe_spacing))
+    subframe_y=$((subframe_y + frequency_height + subframe_spacing))
 
     conky_gpu_mem -x $subframe_x -y $subframe_y \
-                  -w $subframe_width -h $subframe_height
+                  -w $subframe_width -h $memory_height
 
-    subframe_y=$((subframe_y + subframe_height + subframe_spacing))
+    subframe_y=$((subframe_y + memory_height + subframe_spacing))
 
     conky_gpu_thermals -x $subframe_x -y $subframe_y \
-                       -w $subframe_width -h $subframe_height
+                       -w $subframe_width -h $thermals_height
 }

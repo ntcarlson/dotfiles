@@ -1,25 +1,33 @@
-#============================= Launch settings ===============================#
-# Applications to be launched when i3 starts
+#=============================== Applications ================================#
+#--------------------------- Default applications ----------------------------#
+set $terminal       kitty
+set $statusbar      $HOME/.config/polybar/polybar-wrapper.sh
+set $compositor     picom --experimental-backend
+set $lockscreen     multilockscreen --lock blur
+set $applauncher    $HOME/.config/rofi/scripts/rofi-wrapper.sh drun
+set $gamelauncher   $HOME/.config/rofi/scripts/rofi-wrapper.sh games
+set $scriptlauncher $HOME/.config/rofi/scripts/rofi-wrapper.sh run
+set $windowsearch   $HOME/.config/rofi/scripts/rofi-wrapper.sh windows
+set $optionsmenu    $HOME/.config/rofi/scripts/rofi-wrapper.sh options
+set $conky          $HOME/.config/conky/conky-wrapper.sh launch
+#-----------------------------------------------------------------------------#
 
-exec --no-startup-id dropbox start  # Dropbox daemon
-
-# Swap Esc and capslock
-exec --no-startup-id setxkbmap -option "caps:swapescape"
-
-# Compositor to fix screen tearing and allow transparent windows
-# --experimental-backend switch required for dual_kawase blurring
-exec --no-startup-id picom --experimental-backend
-
-# Set a random background every time i3 is launched or reset
+#----------------------------- Startup applications --------------------------#
+exec        --no-startup-id dropbox start
+exec        --no-startup-id dunst
+exec        --no-startup-id nm-applet
+exec        --no-startup-id $compositor
+exec_always --no-startup-id $statusbar
+exec_always --no-startup-id $conky
 exec_always --no-startup-id multilockscreen --wall
-
-# Polybar is used instead of i3bar
-exec_always --no-startup-id polybar_wrapper
+#-----------------------------------------------------------------------------#
 #=============================================================================#
 
 
 #================================= Appearance ================================#
-#----------------------------------- Colors ----------------------------------#
+#------------------------------- Colors & font -------------------------------#
+set $font_family Fira Sans
+
 # Colors are set from .Xresources. Fallback is dark Nord color scheme
 set_from_resource $backgr background        #2E3440
 set_from_resource $bg_alt background_alt    #3B4252
@@ -39,18 +47,15 @@ client.background $backgr   # default background color
 
 # class                 bar border  win border  text        indicator
 client.focused          $primar     $primar     $backgr     $primar
-client.focused_inactive $bg_alt     $bg_alt     $backgr     $bg_alt
+client.focused_inactive $bg_alt     $bg_alt     $foregr     $bg_alt
 client.unfocused        $backgr     $backgr     $foregr     $backgr
 client.urgent           $backgr     $urgent     $backgr     $urgent
 
 # Windows have a border of 4 pixels; replace pixel with normal to show titlebar
 new_window pixel 4
 
-# Don't show window borders if there is only one window open
-hide_edge_borders smart
-
 # Font used by i3; controls size of title bar
-font pango:Fira Sans 12
+font pango:$font_family 12
 
 # Show gaps between open windows; requires i3-gaps fork
 gaps inner 32
@@ -58,7 +63,7 @@ gaps inner 32
 # Large horizontal spacing that only appears when a single window is open
 # for better behavior on ultrawide monitors
 smart_gaps inverse_outer
-gaps horizontal 200
+gaps horizontal 480
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
@@ -71,21 +76,21 @@ set $mod Mod4
 
 #------------------------------- Applications --------------------------------#
 # Launch a terminal
-bindsym $mod+Return    exec --no-startup-id kitty
+bindsym $mod+Return    exec --no-startup-id $terminal
 
 # Open launcher
-bindsym $mod+d         exec --no-startup-id rofi_wrapper applications
-bindsym $mod+shift+d   exec --no-startup-id rofi_wrapper run
-bindsym $mod+g         exec --no-startup-id rofi_wrapper games
+bindsym $mod+d         exec --no-startup-id $applauncher
+bindsym $mod+shift+d   exec --no-startup-id $scriptlauncher
+bindsym $mod+g         exec --no-startup-id $gamelauncher
 
 # Search open windows
-bindsym $mod+grave     exec --no-startup-id rofi_wrapper window
+bindsym $mod+grave     exec --no-startup-id $windowsearch
 
 # Open options menu (lock screen, logout, shutdown, etc.)
-bindsym $mod+BackSpace exec --no-startup-id rofi_wrapper options
+bindsym $mod+BackSpace exec --no-startup-id $optionsmenu
 
 # Lock screen
-bindsym $mod+Pause     exec --no-startup-id multilockscreen --lock blur
+bindsym $mod+Pause     exec --no-startup-id $lockscreen
 
 # Volume controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
@@ -93,9 +98,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
 bindsym XF86AudioMute        exec --no-startup-id amixer -q sset Master toggle
 
 # Music player controls
-bindsym XF86AudioPlay        exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext        exec --no-startup-id playerctl next
-bindsym XF86AudioPrev        exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl -p spotify play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl -p spotify next
+bindsym XF86AudioPrev exec --no-startup-id playerctl -p spotify previous
 
 # Screenshot of entire desktop
 bindsym $mod+F4       exec --no-startup-id scrot -e 'feh $f -x' -d 2
@@ -261,6 +266,7 @@ for_window [window_type="menu"] floating enable
 
 for_window [class="feh"] floating enable
 for_window [instance="origin.exe"] floating enable
+for_window [instance="steam_app_*"] floating enable
 for_window [class="Steam"] floating enable
 for_window [class="Steam" title="^Steam$"] floating disable
 assign [class="Steam"] $steam

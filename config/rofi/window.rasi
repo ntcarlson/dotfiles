@@ -1,13 +1,14 @@
 configuration {
     show-icons:                     true;
     window-format:                  "{t}";
-    window-thumbnail:               true;
     window-match-fields:            "title";
 }
 
+@import "colors.rasi"
+
 window {
     height:                         calc(100% - 40px);
-    width:                          400;
+    width:                          480;
     location:                       southwest;
     anchor:                         southwest;
     transparency:                   "real";
@@ -29,7 +30,7 @@ listview {
 inputbar {
     children:                       [textbox-prompt, entry];
     background-color:               @primary;
-    padding:                        0px 30px;
+    padding:                        0px 50px 0px 30px;
 }
 
 textbox-prompt {
