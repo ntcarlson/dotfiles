@@ -1,12 +1,12 @@
-
 configuration {
     show-icons:                     false;
-    font:                           "Fira Sans 20";
 }
+
 @import "colors.rasi"
 
 window {
-    children:                       [mainbox];
+    children:                       [mainbox-side, mainbox];
+    orientation:                    vertical;
     height:                         calc(100% - 40px);
     location:                       southeast;
     anchor:                         southeast;
@@ -17,12 +17,27 @@ window {
     border-color:                   @primary;
 }
 
+mainbox-side {
+    expand:                         false;
+    border:                         5px 0px 0px 0px;
+    border-color:                   @primary;
+    margin:                         40px 0px -30px 0px;
+    
+}
+
 mainbox {
     children:                       [message, listview];
+    orientation:                    horizontal;
     expand:                         false;
+    margin:                         0px 40px 0px 40px;
     background-color:               @primary;
-    border:                         0px 5px 5px 0px;
+    border:                         5px;
     border-color:                   @primary;
+    border-radius:                  8;
+}
+
+message {
+    expand:                         true;
 }
 
 textbox {
@@ -39,7 +54,7 @@ listview {
     border:                         5px;
     border-color:                   @background;
     border-radius:                  5;
-    expand:                         false;
+    expand:                         true;
 }
 
 element {
@@ -51,12 +66,13 @@ element {
 }
 
 element-text {
+    font:                           "Fira Sans 16";
     horizontal-align:               0.5;
     vertical-align:                 0.5;
-    padding:                        6px 6px;
+    padding:                        4px 0px;
     border:                         0px;
     border-radius:                  5;
-    width:                          50px;
+    width:                          36px;
     background-color:               @background-alt;
     expand:                         false;
 }

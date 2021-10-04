@@ -1,0 +1,50 @@
+configuration {
+    show-icons:                     true;
+    window-format:                  "{t}";
+    window-match-fields:            "title";
+}
+
+@import "launcher.rasi"
+
+window {
+    height:                         calc(100% - 40px);
+    width:                          480;
+    location:                       southwest;
+    anchor:                         southwest;
+    transparency:                   "real";
+    background-color:               @background-transparent;
+    border:                         5px 5px 0px 0px;
+    border-color:                   @primary;
+}
+
+element {
+    children:                       [element-icon, element-text];
+    padding:                        0px;
+    margin:                         8px 24px;
+    orientation:                    horizontal;
+    border:                         5px;
+    border-color:                   transparent;
+    border-radius:                  8;
+}
+
+element selected {
+    border-color:                   @primary;
+}
+
+element normal.urgent, element alternate.urgent {
+    border-color:                   @urgent;
+}
+
+element normal.active, element alternate.active {
+    border-color:                   @secondary;
+}
+
+element-icon {
+    padding:                        0px;
+    size:                           32;
+}
+
+element-text {
+    horizontal-align:               0;
+    vertical-align:                 0.5;
+}

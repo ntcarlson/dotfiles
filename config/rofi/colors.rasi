@@ -1,5 +1,8 @@
 configuration {
     font:                           "Fira Sans 13";
+    hover-select:                   true;
+    me-select-entry:                "";
+    me-accept-entry:                "MousePrimary";
 }
 
 * {

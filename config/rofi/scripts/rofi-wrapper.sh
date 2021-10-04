@@ -6,8 +6,8 @@ GAME_LAUNCHER_CACHE=$HOME/.cache/rofi-game-launcher
 
 case "$1" in
     drun)     rofi -show drun -theme drun -drun-categories Curated;;
-    run)      rofi -show run -theme run;;
-    windows)  rofi -show window -theme window;;
+    run)      rofi -show run -theme sidebar;;
+    windows)  rofi -show window -theme sidebar;;
     options)  ./rofi-options-menu.sh;;
     games)
         ./update-game-entries.sh -q &
