@@ -13,7 +13,6 @@ call vundle#begin()
     Plugin 'Xuyuanp/nerdtree-git-plugin'        " Show git status in NERDtree
     Plugin 'airblade/vim-gitgutter'             " Show lines changed or added
     Plugin 'majutsushi/tagbar'                  " File outline viewer
-    Plugin 'tpope/vim-fugitive'                 " Git utilities inside Vim
     Plugin 'SirVer/ultisnips'                   " Insert code snippets
     Plugin 'moll/vim-bbye'                      " Better buffer close behavior
     Plugin 'lervag/vimtex'                      " Modern LaTeX plugin
