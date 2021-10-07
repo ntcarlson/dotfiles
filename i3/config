@@ -3,7 +3,8 @@
 set $terminal       kitty
 set $statusbar      $HOME/.config/polybar/scripts/polybar-wrapper.sh
 set $compositor     picom --experimental-backend
-set $lockscreen     multilockscreen --lock blur
+set $lockscreen     light-locker-command --lock
+set $wallpaper      feh --no-fehbg --bg-fill ~/.config/i3/wallpapers/current/*
 set $applauncher    $HOME/.config/rofi/scripts/rofi-wrapper.sh drun
 set $gamelauncher   $HOME/.config/rofi/scripts/rofi-wrapper.sh games
 set $scriptlauncher $HOME/.config/rofi/scripts/rofi-wrapper.sh run
@@ -16,10 +17,11 @@ set $conky          $HOME/.config/conky/conky-wrapper.sh launch
 exec        --no-startup-id dropbox start
 exec        --no-startup-id dunst
 exec        --no-startup-id nm-applet
+exec        --no-startup-id light-locker
 exec        --no-startup-id $compositor
 exec_always --no-startup-id $statusbar
 exec_always --no-startup-id $conky
-exec_always --no-startup-id multilockscreen --wall
+exec_always --no-startup-id $wallpaper
 #-----------------------------------------------------------------------------#
 #=============================================================================#
 
