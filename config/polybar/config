@@ -44,7 +44,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=18;3"
 
 modules-left = i3
 modules-center = xwindow
-modules-right = volume date
+modules-right = volume date vpn
 padding-right = 2
 padding-left = 1
 
@@ -107,6 +107,12 @@ type = internal/xwindow
 label = %{T2}%title:0:50:...%%{T-}
 
 #-----------------------------=- Right modules -------------------------------#
+[module/vpn]
+type = custom/script
+exec = .config/polybar/scripts/vpn.sh status
+click-left = .config/polybar/scripts/vpn.sh toggle
+interval = 5
+format = "  <label>"
 
 [module/date]
 type = internal/date
@@ -119,5 +125,7 @@ label = "  %date%     %time%"
 [module/volume]
 type = internal/pulseaudio
 format-volume = "  <label-volume>"
+click-right = pavucontrol
+
 label-muted = "  muted"
 label-muted-foreground = ${colors.background-alt}

@@ -1,7 +1,7 @@
 #=============================== Applications ================================#
 #--------------------------- Default applications ----------------------------#
 set $terminal       kitty
-set $statusbar      $HOME/.config/polybar/polybar-wrapper.sh
+set $statusbar      $HOME/.config/polybar/scripts/polybar-wrapper.sh
 set $compositor     picom --experimental-backend
 set $lockscreen     multilockscreen --lock blur
 set $applauncher    $HOME/.config/rofi/scripts/rofi-wrapper.sh drun
