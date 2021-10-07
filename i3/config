@@ -95,9 +95,9 @@ bindsym $mod+BackSpace exec --no-startup-id $optionsmenu
 bindsym $mod+Pause     exec --no-startup-id $lockscreen
 
 # Volume controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
-bindsym XF86AudioMute        exec --no-startup-id amixer -q sset Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5
+bindsym XF86AudioMute        exec --no-startup-id pamixer -t
 
 # Music player controls
 bindsym XF86AudioPlay exec --no-startup-id playerctl -p spotify play-pause
