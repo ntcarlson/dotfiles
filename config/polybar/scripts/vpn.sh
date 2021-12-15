@@ -1,31 +1,66 @@
 #!/usr/bin/env bash
 
+OPENVPN_CONF=us.protonvpn
+
+message-box() {
+    notify-send -i /usr/share/icons/Numix-Square/48/apps/qopenvpn.svg \
+                -u low \
+                -t 2000 \
+                "OpenVPN" "$1"
+}
+
 vpn-status() {
-    SERVER=$(protonvpn-cli status | awk '/^Server:/ {print $2}')
-    if [ -z "$SERVER" ]; then
-        echo "No VPN"
+    if vpn-is-connected; then
+        vpn-server
     else
-        echo "$SERVER"
+        echo "Not connected"
     fi
 }
 
 vpn-connect() {
-    notify-send -i none -u low -t 2000 "VPN Login Message" "Establishing VPN connection"
-    protonvpn-cli connect --fastest
+    message-box "Starting OpenVPN"
+    sudo systemctl start openvpn-client@us.protonvpn.service
+
+    start=$(date +"%s")
+    while true; do
+        sleep 0.1
+        entry="$(journalctl /usr/bin/openvpn -r --output=short-unix | grep -m 1 -e "Initialization Sequence Completed")"
+        timestamp=$(awk -F. '{print $1}' <<< $entry)
+        now=$(date +"%s")
+        if (( timestamp + 1 > now )); then
+            message-box "Connected to \n$(vpn-server)"
+            break
+        fi
+        if (( now > start + 10 )); then
+            message-box "Connection timed out"
+            sudo systemctl stop openvpn-client@us.protonvpn.service
+            break
+        fi
+    done
 }
 
 vpn-disconnect() {
-    SERVER=$(vpn-status)
-    notify-send -i none -u low -t 2000 "VPN Logout Message" "Disconnecting from $SERVER"
-    protonvpn-cli disconnect
+    message-box "Disconnecting from \n$(vpn-server)"
+    sudo systemctl stop openvpn-client@us.protonvpn.service
+    for pid in $(pgrep -f "bash $0"); do
+        if [ ! $pid == $$ ]; then
+            kill -9 $pid
+        fi
+    done
 }
 
 vpn-is-connected() {
-    if [ "$(vpn-status)" == "No VPN" ]; then
-        return 1
-    else
+    local status="$(systemctl show openvpn-client@us.protonvpn.service | awk -F= '/^StatusText=/ {print $2}')"
+    local active="$(systemctl show openvpn-client@us.protonvpn.service | awk -F= '/^ActiveState=/ {print $2}')"
+    if [ "$status" == "Initialization Sequence Completed" ] && [ "$active" == "active" ]; then
         return 0
+    else
+        return 1
     fi
+}
+
+vpn-server() {
+    journalctl /usr/bin/openvpn -r | grep -m 1 -Poe "([[:alnum:]]|-)*.protonvpn.com"
 }
 
 vpn-toggle() {
