@@ -7,6 +7,7 @@ get-windows() {
     swaymsg -t get_tree | \
         jq -r 'recurse(.nodes[]?) | recurse(.floating_nodes[]?) 
                 | select(.type=="con"),select(.type=="floating_con")
+                | select(.name!=null)
                 | "ID=" + (.id|tostring) 
                 + "\tAPPID=\"" + .app_id + "\""
                 + "\tTITLE=\"" + .name + "\""
@@ -47,6 +48,7 @@ get-icon() {
 
 # Rofi initially calls the script with no options
 if [ -z "$@" ]; then
+    i=0
     while read -r window; do
         # Set the ID, APPID, TITLE, and FOCUSED variables defined in the 
         # window string
@@ -58,6 +60,10 @@ if [ -z "$@" ]; then
         else
             echo -e "${TITLE}\0icon\x1f${ICON}\x1finfo\x1f${ID}"
         fi  
+        if [ "$FOCUSED" == "true" ]; then
+            echo -e "\0active\x1f$i"
+        fi
+        i=$((i + 1))
     done <<< $(get-windows)
 else
     # When an entry is selected, Rofi calls the script again with the selected
