@@ -3,7 +3,7 @@
     "height": 60,
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["battery", "pulseaudio", "tray", "clock"],
+    "modules-right": ["battery", "pulseaudio", "tray", "custom/vpn", "clock"],
     // Modules configuration
     "sway/workspaces": {
          "format": "<b>{name}</b>",
@@ -56,5 +56,14 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-icons": ["", "", "", "", ""]
+    },
+    "custom/vpn": {
+        "format": "{icon} {}",
+        "format-icons": "",
+        "exec": "~/.config/waybar/scripts/vpn.sh status",
+        "signal": 1,
+        "interval": 120,
+        "on-click": "~/.config/waybar/scripts/vpn.sh toggle",
+        "tooltip": false,
     },
 }
