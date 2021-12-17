@@ -86,14 +86,19 @@ client.background $background # default background color
 # indicator     - Color of border edge where new window will be created
 
 # class                 bar border  win border  text        indicator
-client.focused          $primary    $primary    $background $primary
-client.focused_inactive $bg_alt     $bg_alt     $background $bg_alt
+client.focused          $background $primary    $background $primary
+client.focused_inactive $background $bg_alt     $background $bg_alt
 client.unfocused        $background $background $foreground $background
 client.urgent           $background $urgent     $background $urgent
 
-# Tiled and floating findows have a border of 4 pixels
-default_border pixel 4
-default_floating_border pixel 4
+# Tiled and floating windows have a titlebar and no border
+default_border normal 0
+default_floating_border normal 0
+
+title_align center
+
+# Workspaces use a tabbed layout by default (works well for small screens)
+workspace_layout tabbed
 
 # Font used by Sway; controls size of title bar
 font pango:$font_family Bold 12

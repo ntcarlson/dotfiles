@@ -2,7 +2,6 @@
     "position": "top",
     "height": 60,
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
-    "modules-center": ["sway/window"],
     "modules-right": ["battery", "pulseaudio", "tray", "custom/vpn", "clock"],
     // Modules configuration
     "sway/workspaces": {
