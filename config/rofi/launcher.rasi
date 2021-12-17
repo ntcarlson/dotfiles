@@ -6,9 +6,7 @@ window {
     location:                       south;
     anchor:                         south;
     transparency:                   "real";
-    background-color:               @background-transparent;
-    border:                         5px 0px 0px 0px;
-    border-color:                   @primary;
+    background-color:               transparent;
 }
 
 mainbox {
@@ -17,21 +15,30 @@ mainbox {
 }
 
 listview {
+    background-color:               @background-transparent;
     padding:                        0px;
     dynamic:                        true;
 }
 
 inputbar-box {
-    children:                       [dummy, inputbar, dummy];
+    children:                       [inputbar-side, inputbar, dummy];
+    margin:                         0px 0px -2px 0px;
     orientation:                    horizontal;
     expand:                         false;
+}
+
+inputbar-side {
+    margin:                         29px -100% 0px 0px;
+    border:                         5px 0px 0px 0px;
+    border-color:                   @primary;
+    background-color:               @background-transparent;
 }
 
 inputbar {
     children:                       [textbox-prompt, entry];
     margin:                         12px 0px 0px 0px;
     background-color:               @primary;
-    border:                         4px;
+    border:                         5px;
     border-color:                   @primary;
     border-radius:                  8px;
 }
@@ -73,7 +80,7 @@ element-box {
 }
 
 element-icon {
-    padding:                        8px;
+    padding:                        0px 2px 2px 0px;
     border:                         4px;
     border-color:                   transparent;
     border-radius:                  8;

@@ -2,6 +2,7 @@ configuration {
     show-icons:                     true;
     drun-display-format:            "{name}";
     drun-match-fields:              "name";
+    hover-select:                   true;
 }
 
 @import "launcher"
@@ -14,11 +15,10 @@ listview {
 
 element-icon selected {
     border-color:                   @primary;
-    background-color:               rgba(0, 0, 0, 0.2);
 }
 
 element-text {
     horizontal-align:               0.5;
     horizontal-align:               0.5;
-    width:                          120px;
+    width:                          100px;
 }
