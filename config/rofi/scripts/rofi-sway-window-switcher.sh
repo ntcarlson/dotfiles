@@ -5,10 +5,12 @@
 # Sway window id, application name, window title, and focused status 
 get-windows() {
     swaymsg -t get_tree | \
-        jq -r '.nodes[].nodes[].nodes[] | "ID=" + (.id|tostring) 
-                                        + "\tAPPID=\"" + .app_id + "\""
-                                        + "\tTITLE=\"" + .name + "\""
-                                        + "\tFOCUSED=" + (.focused|tostring)'
+        jq -r 'recurse(.nodes[]?) | recurse(.floating_nodes[]?) 
+                | select(.type=="con"),select(.type=="floating_con")
+                | "ID=" + (.id|tostring) 
+                + "\tAPPID=\"" + .app_id + "\""
+                + "\tTITLE=\"" + .name + "\""
+                + "\tFOCUSED=" + (.focused|tostring)'
 }
 
 desktop-entries() {
