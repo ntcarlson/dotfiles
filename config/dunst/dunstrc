@@ -4,7 +4,11 @@
 
     transparency = 15
 
-    geometry = "400x50-20+20" # [{width}]x{height}[+/-{x}+/-{y}]
+    width = 400
+    height = 80
+    origin = top-right
+    offset = 24x24
+
     shrink = no
 
     frame_width = 4
