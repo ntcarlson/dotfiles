@@ -27,12 +27,12 @@ vpn-connect() {
         entry="$(journalctl /usr/bin/openvpn -r --output=short-unix | grep -m 1 -e "Initialization Sequence Completed")"
         timestamp=$(awk -F. '{print $1}' <<< $entry)
         now=$(date +"%s")
-        if (( timestamp + 1 > now )); then
+        if (( timestamp > start )); then
             message-box "Connected to \n$(vpn-server)"
             kill -35 $(pgrep waybar)
             break
         fi
-        if (( now > start + 10 )); then
+        if (( now > start + 30 )); then
             message-box "Connection timed out"
             sudo systemctl stop openvpn-client@us.protonvpn.service
             break
