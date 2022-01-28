@@ -2,7 +2,7 @@
     "position": "top",
     "height": 60,
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
-    "modules-right": ["battery", "pulseaudio", "tray", "custom/vpn", "clock"],
+    "modules-right": ["backlight", "battery", "pulseaudio", "tray", "custom/vpn", "clock"],
     // Modules configuration
     "sway/workspaces": {
          "format": "<b>{name}</b>",
@@ -27,11 +27,13 @@
         // "device": "acpi_video1",
         "format": "{icon} {percent}%",
         "format-icons": ["", ""],
-        "on-scroll-up": "brightnessctl set +10%",
-        "on-scroll-down": "brightnessctl set 10%-"
+        "smooth-scrolling-threshold": 5.0,
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
     },
     "pulseaudio": {
-        "scroll-step": 0.2, // %, can be a float
+        "smooth-scrolling-threshold": 5.0,
+        "scroll-step": 5.0,
         "format": "{icon}  {volume}%",
         "format-muted": " {volume}%",
         "format-icons": {
