@@ -38,9 +38,9 @@ foreground = ${colors.foreground}
 
 font-0 = "Fira Sans:style=Bold:pixelsize=16;3"
 font-1 = "Fira Sans:pixelsize=16;3"
-font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=18;3"
-font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=18;3"
-font-4 = "Font Awesome 5 Brands:pixelsize=18;3"
+font-2 = "Font Awesome 6 Free:style=Solid:pixelsize=17;4"
+font-3 = "Font Awesome 6 Free:style=Regular:pixelsize=17;4"
+font-4 = "Font Awesome 6 Brands:pixelsize=17;4"
 
 modules-left = i3
 modules-center = xwindow
@@ -104,7 +104,7 @@ label-mode-overline   = ${colors.background}
 
 [module/xwindow]
 type = internal/xwindow
-label = %{T2}%title:0:50:...%%{T-}
+label = %{T2}%title:0:160:...%%{T-}
 
 #-----------------------------=- Right modules -------------------------------#
 [module/vpn]

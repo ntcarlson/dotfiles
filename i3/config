@@ -16,7 +16,6 @@ set $conky          $HOME/.config/conky/conky-wrapper.sh launch
 #----------------------------- Startup applications --------------------------#
 exec        --no-startup-id dropbox start
 exec        --no-startup-id dunst
-exec        --no-startup-id nm-applet
 exec        --no-startup-id light-locker
 exec        --no-startup-id $compositor
 exec_always --no-startup-id $statusbar
@@ -196,7 +195,7 @@ bindsym $mod+r mode "resize"
 
 # Special workspaces
 set $steam 11:
-set $music 12:
+set $music 12:
 
 # Switch to workspace
 bindsym $mod+1 workspace 1
