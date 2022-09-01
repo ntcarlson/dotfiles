@@ -2,9 +2,9 @@
 
 # Generates a banner image for the given Steam appid with the given dimensions
 
-# .tiff format was chosen since it appears to be the most performant format
+# .bmp format was chosen since it appears to be the most performant format
 # for ImageMagick to work with when generating the banner image
-EXT=tiff
+EXT=bmp
 CACHE_DIR=/tmp/rofi-game-launcher/
 BANNER=$CACHE_DIR/banner.$EXT
 TITLE=$CACHE_DIR/title.png
@@ -56,10 +56,10 @@ update-banner() {
         # (typically 1920x620) and stretching and blurring the horizontal
         # edges to reach the desired width. The variable blend determines the
         # how much of the edges are used in this operation.
-        local gradient=$CACHE_DIR/gradient.tiff
-        local left=$CACHE_DIR/left.tiff
-        local right=$CACHE_DIR/right.tiff
-        local center=$CACHE_DIR/center.tiff
+        local gradient=$CACHE_DIR/gradient.$EXT
+        local left=$CACHE_DIR/left.$EXT
+        local right=$CACHE_DIR/right.$EXT
+        local center=$CACHE_DIR/center.$EXT
 
 
         convert $src -resize ${width}x${height} $center

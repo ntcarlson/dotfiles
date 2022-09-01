@@ -71,6 +71,11 @@ update-game-entries() {
             title=$(awk -F\" '/"name"/ {print $4}' "$manifest" | tr -d "™®")
             boxart=$STEAM_ROOT/appcache/librarycache/${appid}_library_600x900.jpg
 
+            # Search for custom boxart set through the Steam library
+            for boxart_custom in $STEAM_ROOT/userdata/*/config/grid/${appid}p.{png,jpg}; do
+                [ -e $boxart_custom ] && boxart=$boxart_custom
+            done
+
             # Filter out non-game entries (e.g. Proton versions or soundtracks) by
             # checking for boxart and other criteria
             if [ ! -f "$boxart" ]; then
