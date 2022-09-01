@@ -1,6 +1,6 @@
 #=============================== Applications ================================#
 #--------------------------- Default applications ----------------------------#
-set $terminal       kitty
+set $terminal       kitty --single-instance
 set $statusbar      $HOME/.config/polybar/scripts/polybar-wrapper.sh
 set $compositor     picom --experimental-backend
 set $lockscreen     light-locker-command --lock
