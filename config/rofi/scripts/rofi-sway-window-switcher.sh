@@ -5,13 +5,13 @@
 # Sway window id, application name, window title, and focused status 
 get-windows() {
     swaymsg -t get_tree | \
-        jq -r 'recurse(.nodes[]?) | recurse(.floating_nodes[]?) 
-                | select(.type=="con"),select(.type=="floating_con")
+        jq -r 'recurse(.nodes[]?, .floating_nodes[]?)
+                | select(.type=="con" or .type=="floating_con")
                 | select(.name!=null)
                 | "ID=" + (.id|tostring) 
-                + "\tAPPID=\"" + .app_id + "\""
-                + "\tTITLE=\"" + .name + "\""
-                + "\tFOCUSED=" + (.focused|tostring)'
+                + " APPID=\"" + .app_id + "\""
+                + " TITLE=\"" + .name + "\""
+                + " FOCUSED=" + (.focused|tostring)'
 }
 
 desktop-entries() {
@@ -30,7 +30,7 @@ get-icon() {
         SEARCH=$(tr -d "-" <<< "$APPID")
         APP=$(desktop-entries | fzf -i -f "$SEARCH" | head -n 1)
         if [ -n "$APP" ]; then 
-            grep -Poe '(?<=Icon=).*' $APP
+            grep -m 1 -Poe '(?<=Icon=).*' $APP
             return
         fi
     fi
@@ -38,10 +38,10 @@ get-icon() {
     # If that fails, try to guess the application based on window title based
     # on the title convention where the application name is separated by a -
     # e.g. <page title> - Mozilla Firefox or <file name> - GVim
-    SEARCH=$(awk -F"-" '{print $NF}' <<< "$TITLE")
+    SEARCH=${TITLE##*-}
     APP=$(desktop-entries | fzf -i -f "$SEARCH" | head -n 1)
     if [ -n "$APP" ]; then 
-        grep -Poe '(?<=Icon=).*' $APP
+        grep -m 1 -Poe '(?<=Icon=).*' $APP
     fi
 
 }
@@ -49,10 +49,10 @@ get-icon() {
 # Rofi initially calls the script with no options
 if [ -z "$@" ]; then
     i=0
-    while read -r window; do
+    get-windows | while read -r window; do
         # Set the ID, APPID, TITLE, and FOCUSED variables defined in the 
         # window string
-        eval $(tr "\t" "\n" <<< "$window")
+        eval "$window"
 
         ICON=$(get-icon "$APPID" "$TITLE")
         if [ -z "$ICON" ]; then
@@ -64,7 +64,7 @@ if [ -z "$@" ]; then
             echo -e "\0active\x1f$i"
         fi
         i=$((i + 1))
-    done <<< $(get-windows)
+    done
 else
     # When an entry is selected, Rofi calls the script again with the selected
     # entry as an argument (in this case, the window title). All we care about
