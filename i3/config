@@ -47,18 +47,21 @@ client.background $backgr   # default background color
 # indicator     - Color of border edge where new window will be created
 
 # class                 bar border  win border  text        indicator
-client.focused          $primar     $primar     $backgr     $primar
+client.focused          $bg_alt     $primar     $backgr     $primar
 client.focused_inactive $bg_alt     $bg_alt     $foregr     $bg_alt
-client.unfocused        $backgr     $backgr     $foregr     $backgr
-client.urgent           $backgr     $urgent     $backgr     $urgent
+client.unfocused        $bg_alt     $backgr     $foregr     $backgr
+client.urgent           $bg_alt     $urgent     $backgr     $urgent
 
 # Windows have a border of 4 pixels; replace pixel with normal to show titlebar
 new_window pixel 4
 
-# Font used by i3; controls size of title bar
-font pango:$font_family 12
+# Titlebar appearance. Font size controls size of titlebar
+font pango:$font_family 13
+title_align center
+for_window [all] title_window_icon yes;
+for_window [all] title_window_icon padding 8px;
 
-# Show gaps between open windows; requires i3-gaps fork
+# Show gaps between open windows
 gaps inner 32
 
 # Large horizontal spacing that only appears when a single window is open
