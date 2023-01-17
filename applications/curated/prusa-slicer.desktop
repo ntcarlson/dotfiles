@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=PrusaSlicer
 Exec=/usr/bin/prusa-slicer
-Icon=prusa-slicer
+Icon=PrusaSlicer
 Terminal=false
 Type=Application
 StartupNotify=false
