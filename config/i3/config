@@ -2,7 +2,7 @@
 #--------------------------- Default applications ----------------------------#
 set $terminal       kitty --single-instance
 set $statusbar      $HOME/.config/polybar/scripts/polybar-wrapper.sh
-set $compositor     picom --experimental-backend
+set $compositor     picom
 set $lockscreen     light-locker-command --lock
 set $wallpaper      feh --no-fehbg --bg-fill ~/.config/i3/wallpapers/current/*
 set $applauncher    $HOME/.config/rofi/scripts/rofi-wrapper.sh drun
@@ -53,7 +53,8 @@ client.unfocused        $bg_alt     $backgr     $foregr     $backgr
 client.urgent           $bg_alt     $urgent     $backgr     $urgent
 
 # Windows have a border of 4 pixels; replace pixel with normal to show titlebar
-new_window pixel 4
+default_border pixel 4
+default_floating_border pixel 4
 
 # Titlebar appearance. Font size controls size of titlebar
 font pango:$font_family 13
@@ -231,9 +232,6 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+p move container to workspace $steam
 
-# Move to next free workspace
-bindsym $mod+equal exec --no-startup-id next_workspace
-
 # Move focus/window/workspace between monitors
 bindsym $mod+Tab focus output left
 bindsym $mod+Shift+Tab move container to output left
@@ -275,8 +273,6 @@ for_window [class="Steam"] floating enable
 for_window [class="Steam" title="^Steam$"] floating disable
 assign [class="Steam"] $steam
 
-for_window [class="Gnome-calculator"] floating enable
-
 # For some reason assign does not work with the spotify client
-for_window [class="(Spotify|spotify)"] move to workspace $music
+for_window [class="Spotify"] move --no-auto-back-and-forth workspace $music
 #=============================================================================#
