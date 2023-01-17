@@ -84,22 +84,28 @@ conky_disk_compact() {
     done
 
     local bar_height=20
+    local bar_width=$((width - 110))
 
-    conky_element -e "\${fs_bar $bar_height,$width $mnt}"           \
-                  -x $x -y $y                                       \
+    conky_element -e "\${fs_bar $bar_height,$bar_width $mnt}"   \
+        -x $((x + 55)) -y $y                                    \
                   -c $color
 
-    conky_element -e "$mnt"                                         \
-                  -x $x -y $((y + text_offset + 4))                 \
+    conky_element -e "$mnt"                                     \
+        -x $((x + 1)) -y $((y + text_offset + 5))               \
+                  -w $width -a \
+                  -c $BG_ALT
+
+    conky_element -e "$mnt"                                     \
+                  -x $x -y $((y + text_offset + 4))             \
                   -w $width -a
 
-    conky_element -e "Used: \${fs_used $mnt}"                       \
-                  -x $x -y $((y + bar_height + text_offset + 4))    \
+    conky_element -e "\${fs_used $mnt}"                         \
+                  -x $x -y $((y + text_offset + 4))             \
                   -c $color
     
-    conky_element -e "Available: \${fs_free $mnt}"                  \
-                  -x $((x + width - 120))                           \
-                  -y $((y + bar_height + text_offset + 4))
+    conky_element -e "\${fs_free $mnt}"                         \
+                  -x $((x + width - 45))                        \
+                  -y $((y + text_offset + 4))
 }
 
 conky_fs() {
@@ -124,15 +130,22 @@ conky_fs() {
 
     local subframe_spacing=10
     local subframe_width=$((width - 2*subframe_spacing))
-    local subframe_height=$(( (height - (ndrives+1)*subframe_spacing - text_height)/ndrives ))
+    local subframe_height=$(( (height - ndrives*subframe_spacing - text_height)/ndrives ))
     local subframe_x=$((x + subframe_spacing))
-    local subframe_y=$((y + text_height))
+    local subframe_y=$((y + text_height - subframe_spacing))
 
     conky_frame -x $x -y $y -w $width -h $height -c $color
 
     conky_element -e "Filesystem"                   \
                   -x $x -y $((y + text_offset))     \
                   -w $width -a
+
+    conky_element -e "Free"                         \
+                  -x 35 -y $((y + text_offset))     \
+                  -c $color
+
+    conky_element -e "Avail"                        \
+                  -x $((width - 30)) -y $((y + text_offset))
 
     for device in $devices; do
         dev=$(echo $device | awk -F: '{print $1}')

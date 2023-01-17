@@ -44,7 +44,7 @@ draw_col() {
 
 # Geometry of panel
 width=470
-height=1300
+height=1320
 gap_y=$((1440 - height))
 ncol=1
 spacing=20
@@ -55,10 +55,11 @@ spacing=20
     conky_header
 
     #           element         height %
-    draw_col 1  "conky_cpu"     34 \
-                "conky_gpu"     38 \
+    draw_col 1  "conky_cpu"     33 \
+                "conky_gpu"     33 \
                 "conky_mem_bar" 7  \
-                "conky_fs"
+                "conky_fs"      12 \
+                "conky_top"
 
     conky_footer
 } > ../conky.conf

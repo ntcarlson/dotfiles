@@ -58,24 +58,24 @@ conky_top() {
                   -y $((y + text_offset))
 
     for proc in $(seq 1 $n_rows); do
-        conky_element -e "\${top name $proc}"           \
+        conky_element -e "\${top_mem name $proc}"       \
                       -x $((x + 10))                    \
                       -y $row_y
 
 
-        conky_element -e "\${top cpu $proc}"            \
+        conky_element -e "\${top_mem cpu $proc}"        \
                       -x $column_x                      \
                       -y $row_y
 
-        conky_element -e "\${top mem_res $proc}"        \
+        conky_element -e "\${top_mem mem_res $proc}"    \
                       -x $((column_x + column_width))   \
                       -y $row_y
 
-        conky_element -e "\${top io_read $proc}"        \
+        conky_element -e "\${top_mem io_read $proc}"    \
                       -x $((column_x + 2*column_width)) \
                       -y $row_y
 
-        conky_element -e "\${top io_write $proc}"       \
+        conky_element -e "\${top_mem io_write $proc}"   \
                       -x $((column_x + 3*column_width)) \
                       -y $row_y
 

@@ -163,15 +163,15 @@ conky_gpu() {
     local frequency_height=$(( (subframe_total_height - memory_height)/2 ))
     local thermals_height=$(( (subframe_total_height - memory_height)/2 ))
     local subframe_x=$((x + subframe_spacing))
-    local subframe_y=$((y + subframe_spacing + text_height))
+    local subframe_y=$((y + text_height))
 
 
     local graph_height=$((subframe_height - text_height))
 
     conky_frame -x $x -y $y -w $width -h $height -c $color
     
-    conky_element -e "\${nvidia modelname 1}"   \
-                  -x $((x + width/2 - 50))      \
+    conky_element -e "\${nvidia modelname 0}"   \
+                  -x $((x + width/2 - 90))      \
                   -y $((y + text_offset))
 
     conky_gpu_core -x $subframe_x -y $subframe_y \
