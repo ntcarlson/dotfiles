@@ -181,8 +181,8 @@ bindsym $mod+Shift+Right  move right
 # Controls to manipulate layout, location, and appearance for window containers
 
 # Split focused container horizontally or vertically
-bindsym $mod+b split h  
-bindsym $mod+v split v 
+bindsym $mod+b split h
+bindsym $mod+v split v
 
 # Toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -275,7 +275,7 @@ bindsym $mod+Shift+p move container to workspace $steam
 # Move to next free workspace
 bindsym $mod+equal exec ~/.config/i3/scripts/next_workspace
 
-# Move focus/window to open workspace on secondary monitor    
+# Move focus/window to open workspace on secondary monitor
 bindsym $mod+Tab focus output left
 bindsym $mod+Shift+Tab move container to output left
 
@@ -304,10 +304,7 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-for_window [class="Gnome-calculator"] floating enable
 
 for_window [class="feh"] floating enable
-for_window [class="Steam"] floating enable
-assign [class="Steam"] $steam
-for_window [class="Spotify"] move --no-auto-back-and-forth container to workspace $music
+for_window [class="Spotify"] move --no-auto-back-and-forth workspace $music
 #=============================================================================#
