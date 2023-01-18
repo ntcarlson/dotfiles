@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-OPENVPN_CONF=us.protonvpn
+OPENVPN_CONF=co.us.protonvpn
 
 message-box() {
     notify-send -i /usr/share/icons/Numix-Square/48/apps/qopenvpn.svg \
@@ -11,7 +11,7 @@ message-box() {
 
 vpn-status() {
     if vpn-is-connected; then
-        vpn-server | tr "a-z" "A-Z" | awk -F. '{print $1}'
+        vpn-server | awk -F. '{print $1}'
     else
         echo "No VPN"
     fi
@@ -19,7 +19,7 @@ vpn-status() {
 
 vpn-connect() {
     message-box "Starting OpenVPN"
-    sudo systemctl start openvpn-client@us.protonvpn.service
+    sudo systemctl start openvpn-client@${OPENVPN_CONF}.service
 
     start=$(date +"%s")
     while true; do
@@ -34,7 +34,7 @@ vpn-connect() {
         fi
         if (( now > start + 30 )); then
             message-box "Connection timed out"
-            sudo systemctl stop openvpn-client@us.protonvpn.service
+            sudo systemctl stop openvpn-client@${OPENVPN_CONF}.service
             break
         fi
     done
@@ -42,7 +42,7 @@ vpn-connect() {
 
 vpn-disconnect() {
     message-box "Disconnecting from \n$(vpn-server)"
-    sudo systemctl stop openvpn-client@us.protonvpn.service
+    sudo systemctl stop openvpn-client@${OPENVPN_CONF}.service
     for pid in $(pgrep -f "bash $0"); do
         if [ ! $pid == $$ ]; then
             kill -9 $pid
@@ -52,8 +52,8 @@ vpn-disconnect() {
 }
 
 vpn-is-connected() {
-    local status="$(systemctl show openvpn-client@us.protonvpn.service | awk -F= '/^StatusText=/ {print $2}')"
-    local active="$(systemctl show openvpn-client@us.protonvpn.service | awk -F= '/^ActiveState=/ {print $2}')"
+    local status="$(systemctl show openvpn-client@${OPENVPN_CONF}.service | awk -F= '/^StatusText=/ {print $2}')"
+    local active="$(systemctl show openvpn-client@${OPENVPN_CONF}.service | awk -F= '/^ActiveState=/ {print $2}')"
     if [ "$status" == "Initialization Sequence Completed" ] && [ "$active" == "active" ]; then
         return 0
     else
@@ -62,7 +62,7 @@ vpn-is-connected() {
 }
 
 vpn-server() {
-    journalctl /usr/bin/openvpn -r | grep -m 1 -Poe "([[:alnum:]]|-)*.protonvpn.com"
+    journalctl /usr/bin/openvpn -r | grep -m 1 -Poe "([[:alnum:]]|-)*.protonvpn.(com|net)"
 }
 
 vpn-toggle() {
