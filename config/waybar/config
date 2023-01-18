@@ -45,7 +45,7 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pactl set-sink-mute 0 toggle",
+        "on-click": "~/dotfiles/pixelbook/audio-switch.sh swap",
         "on-click-right": "pavucontrol"
     },
     "battery": {
