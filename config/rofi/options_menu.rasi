@@ -5,7 +5,7 @@ window {
     orientation:                    horizontal;
     location:                       northeast;
     anchor:                         northeast;
-    y-offset:                       48px;
+    y-offset:                       0px;
     width:                          400px;
     transparency:                   "real";
     background-color:               @background-transparent;
