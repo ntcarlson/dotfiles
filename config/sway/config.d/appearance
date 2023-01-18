@@ -1,0 +1,76 @@
+#------------------------------- Colors & font -------------------------------#
+set $font_family Fira Sans
+
+set $nord0  #2E3440
+set $nord1  #3B4252
+set $nord2  #434C5E
+set $nord3  #4C566A
+set $nord4  #D8DEE9
+set $nord5  #E5E9F0
+set $nord6  #ECEFF4
+set $nord7  #8FBCBB
+set $nord8  #88C0D0
+set $nord9  #81A1C1
+set $nord10 #5E81AC
+set $nord11 #BF616A
+set $nord12 #D08770
+set $nord13 #EBCB8B
+set $nord14 #A3BE8C
+set $nord15 #B48EAD
+
+set $background0    $nord0
+set $background1    $nord1
+set $background2    $nord3
+set $text_light     $nord4
+set $text_dark      $nord0
+set $accent         $nord15
+set $urgent         $nord11
+#-----------------------------------------------------------------------------#
+
+#------------------------------ Desktop appearance ---------------------------#
+# Set walllpaper
+output * bg ~/.config/sway/wallpapers/current/* fill
+
+# Set GTK theme
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme Nordic
+    gsettings set $gnome-schema icon-theme Numix-Circle
+    gsettings set $gnome-schema font-name "Fira Sans Semi-Light 11"
+}
+
+# Waybar is used as the status bar instead of the default swaybar
+bar {
+    swaybar_command waybar
+}
+
+# Show gaps between open windows
+gaps inner 16
+gaps outer 0
+#-----------------------------------------------------------------------------#
+
+#----------------------------- Window appearance -----------------------------#
+# Window colors
+client.background $background # default background color
+
+# bar border    - Border color around title bar (used in tabbed windows)
+# window border - Border color around window
+# text          - Text color for the title bar
+# indicator     - Color of border edge where new window will be created
+
+# class                 bar border    window border  text         indicator
+client.focused          $background0  $accent        $text_dark   $accent
+client.focused_inactive $background0  $background2   $text_light  $background0
+client.unfocused        $background0  $background1   $text_light  $background0
+client.urgent           $background0  $background1   $text_dark   $urgent
+
+# Tiled and floating windows have a titlebar and no border
+default_border normal 0
+default_floating_border normal 0
+
+# Titlebar appearance. Font size controls the size of the bar
+font pango:$font_family Bold 12
+title_align center
+titlebar_padding 12
+titlebar_border_thickness 6
+#-----------------------------------------------------------------------------#

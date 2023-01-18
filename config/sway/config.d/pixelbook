@@ -1,0 +1,40 @@
+#--------------------------- Pixelbook specific tweaks -----------------------#
+set $scripts "~/dotfiles/pixelbook"
+
+# Set scaling factor. Note that fractional scaling causes bluriness in Xwayland
+output eDP-1 res 2400x1600 scale 1.33333333
+
+# Improve touchpad behavior
+input "type:touchpad" {
+    accel_profile adaptive
+    pointer_accel 0
+    dwt disabled
+}
+
+# Idle behavior
+exec swayidle \
+    timeout 540 "$lock-slow" \
+    timeout 600 "brightnessctl --save set 0%" \
+        resume "brightnessctl --restore" \
+    timeout 30 "$scripts/keyboard-backlight.sh dim" \
+        resume "$scripts/keyboard-backlight.sh restore"
+
+# Pixelbook's hamburger menu button is mapped to XF86Tools
+bindsym XF86Tools      exec $optionsmenu
+bindsym $mod+XF86Tools exec $lock
+
+# /etc/systemd/logind.conf is edited to add HandlePowerKey=ignore so Sway
+# can handle the XF86PowerOff button instead
+bindsym XF86PowerOff   exec $lock
+
+# Volume control
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+
+# Backlight control
+bindsym XF86MonBrightnessUp   exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym $mod+XF86MonBrightnessUp   exec $scripts/keyboard-backlight.sh up
+bindsym $mod+XF86MonBrightnessDown exec $scripts/keyboard-backlight.sh down
+#-----------------------------------------------------------------------------#

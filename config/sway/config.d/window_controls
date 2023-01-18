@@ -1,0 +1,80 @@
+#-----------------------------  Window navigation ----------------------------#
+# Controls to navigate inside a workspace
+
+# Change focus; both Vim style h,j,k,l and arrow keys work
+bindsym $mod+h      focus left
+bindsym $mod+Left   focus left
+bindsym $mod+j      focus down
+bindsym $mod+Down   focus down
+bindsym $mod+k      focus up
+bindsym $mod+Up     focus up
+bindsym $mod+l      focus right
+bindsym $mod+Right  focus right
+
+# Move focused container; both Vim style h,j,k,l and arrow keys work
+bindsym $mod+Shift+h      move left
+bindsym $mod+Shift+Left   move left
+bindsym $mod+Shift+j      move down
+bindsym $mod+Shift+Down   move down
+bindsym $mod+Shift+k      move up
+bindsym $mod+Shift+Up     move up
+bindsym $mod+Shift+l      move right
+bindsym $mod+Shift+Right  move right
+#-----------------------------------------------------------------------------#
+
+#--------------------------- Container manipulation --------------------------#
+# Controls to manipulate layout and location for window containers
+
+# Split focused container horizontally or vertically
+bindsym $mod+b split h
+bindsym $mod+v split v
+
+# Toggle fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change container layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Focus the parent container which allows manipulating an entire container
+# and all the children at once
+bindsym $mod+a focus parent
+# Return focus to the child container
+bindsym $mod+z focus child
+
+# Toggle tiling/floating for a container
+bindsym $mod+Shift+space floating toggle
+# Change focus between tiling/floating containers
+bindsym $mod+space focus mode_toggle
+# Hold the mod key to drag and resize floating container
+floating_modifier $mod
+
+# Move the currently focused container to the scratchpad which contains
+# floating containers available on all workspaces
+bindsym $mod+shift+minus move scratchpad
+# Show/hide the scratchpad
+bindsym $mod+minus scratchpad show
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Special mode to resize window (mouse drag also works)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        # Grow/shrink the window size using typical vim navigation or arrows
+        bindsym h     resize shrink width  10 px or 10 ppt
+        bindsym Left  resize shrink width  10 px or 10 ppt
+        bindsym j     resize grow   height 10 px or 10 ppt
+        bindsym Down  resize grow   height 10 px or 10 ppt
+        bindsym k     resize shrink height 10 px or 10 ppt
+        bindsym Up    resize shrink height 10 px or 10 ppt
+        bindsym l     resize grow   width  10 px or 10 ppt
+        bindsym Right resize grow   width  10 px or 10 ppt
+
+        # Return to normal mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+#-----------------------------------------------------------------------------#
