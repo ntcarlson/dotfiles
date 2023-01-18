@@ -1,17 +1,28 @@
+#------------------------------ Sway controls --------------------------------#
 # Mod4 = super key, Mod1 = Alt
 set $mod Mod4
 
-include "config.d/applications"
-include "config.d/appearance"
-include "config.d/window_controls"
-include "config.d/workspaces"
-include "config.d/pixelbook"
-
-#------------------------------ Miscellaneous --------------------------------#
 # Reload the configuration file
 bindsym $mod+Shift+r reload
 
 # Exit Sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec "swaynag -t warning -m 'Exit Sway?' \
                                                      -b 'Exit' 'swaymsg exit'"
+#-----------------------------------------------------------------------------#
+
+#--------------------------------- Sections ----------------------------------#
+# Startup applications and default programs
+include "config.d/applications"
+
+# Cosmetic settings for windows and workspaces
+include "config.d/appearance"
+
+# Controls for manipulating windows and containers within workspaces
+include "config.d/window_controls"
+
+# Workspace settings and controls for manipulating workspaces
+include "config.d/workspaces"
+
+# Hardware specific tweaks for the Google Pixelbook
+include "config.d/pixelbook"
 #-----------------------------------------------------------------------------#

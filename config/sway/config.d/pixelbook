@@ -35,6 +35,6 @@ bindsym XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
 # Backlight control
 bindsym XF86MonBrightnessUp   exec brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym $mod+XF86MonBrightnessUp   exec $scripts/keyboard-backlight.sh up
-bindsym $mod+XF86MonBrightnessDown exec $scripts/keyboard-backlight.sh down
+bindsym $mod+XF86MonBrightnessUp   exec "$scripts/keyboard-backlight.sh up"
+bindsym $mod+XF86MonBrightnessDown exec "$scripts/keyboard-backlight.sh down"
 #-----------------------------------------------------------------------------#
