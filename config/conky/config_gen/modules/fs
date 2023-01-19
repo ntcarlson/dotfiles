@@ -140,11 +140,11 @@ conky_fs() {
                   -x $x -y $((y + text_offset))     \
                   -w $width -a
 
-    conky_element -e "Free"                         \
+    conky_element -e "Used"                         \
                   -x 35 -y $((y + text_offset))     \
                   -c $color
 
-    conky_element -e "Avail"                        \
+    conky_element -e "Free"                         \
                   -x $((width - 30)) -y $((y + text_offset))
 
     for device in $devices; do
