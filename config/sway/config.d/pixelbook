@@ -11,6 +11,12 @@ input "type:touchpad" {
     dwt disabled
 }
 
+# Make the touchscreen input transform with the screen when rotated
+set $touchscreen "11551:20803:WCOM50C1:00_2D1F:5143"
+set $stylus "11551:20803:WCOM50C1:00_2D1F:5143_Stylus"
+input "$touchscreen" map_to_output eDP-1
+input "$stylus"      map_to_output eDP-1
+
 # Idle behavior
 exec swayidle \
     timeout 540 "$lock-slow" \
