@@ -2,27 +2,31 @@
 # Mod4 = super key, Mod1 = Alt
 set $mod Mod4
 
-# Reload the configuration file
-bindsym $mod+Shift+r reload
+bindsym {
+    # Reload the configuration file
+    $mod+Shift+r reload
 
-# Exit Sway (logs you out of your Wayland session)
-bindsym $mod+Shift+e exec "swaynag -t warning -m 'Exit Sway?' \
+    # Exit Sway (logs you out of your Wayland session)
+    $mod+Shift+e exec "swaynag -t warning -m 'Exit Sway?' \
                                                      -b 'Exit' 'swaymsg exit'"
+}
 #-----------------------------------------------------------------------------#
 
 #--------------------------------- Sections ----------------------------------#
-# Startup applications and default programs
-include "config.d/applications"
+include {
+    # Startup applications and default programs
+    "config.d/applications"
 
-# Cosmetic settings for windows and workspaces
-include "config.d/appearance"
+    # Cosmetic settings for windows and workspaces
+    "config.d/appearance"
 
-# Controls for manipulating windows and containers within workspaces
-include "config.d/window_controls"
+    # Controls for manipulating windows and containers within workspaces
+    "config.d/window_controls"
 
-# Workspace settings and controls for manipulating workspaces
-include "config.d/workspaces"
+    # Workspace settings and controls for manipulating workspaces
+    "config.d/workspaces"
 
-# Hardware specific tweaks for the Google Pixelbook
-include "config.d/pixelbook"
+    # Hardware specific tweaks for the Google Pixelbook
+    "config.d/pixelbook"
+}
 #-----------------------------------------------------------------------------#

@@ -1,46 +1,51 @@
 #----------------------- Startup and default programs ------------------------#
 # Applications to be launched when Sway starts
+exec --no-startup-id {
+    nm-applet --indicator
+    dunst
+    wlsunset -l 35 -L -107 -t 4000
+}
 
-exec --no-startup-id nm-applet --indicator
-exec --no-startup-id dunst # Notification daemon
-exec --no-startup-id wlsunset -l 35 -L -107 -t 4000
+# Applications used by Sway
+set {
+    $term           kitty --single-instance
 
-set $term kitty --single-instance
+    $rofi           "~/.config/rofi/scripts/rofi-wrapper.sh"
+    $applauncher    "$rofi drun"
+    $scriptlauncher "$rofi run"
+    $windowsearch   "$rofi windows"
+    $optionsmenu    "$rofi options"
 
-set $rofi "~/.config/rofi/scripts/rofi-wrapper.sh"
-set $applauncher    "$rofi drun"
-set $scriptlauncher "$rofi run"
-set $windowsearch   "$rofi windows"
-set $optionsmenu    "$rofi options"
-
-# Swaylock branch from swaylock-effects-git in AUR
-set $lock      swaylock
-set $lock-slow swaylock --grace 15 --fade-in 10
+    $lock           swaylock
+    $lock-slow      swaylock --grace 15 --fade-in 10
+}
 #-----------------------------------------------------------------------------#
 
 #--------------------------------- Bindings ----------------------------------#
-# Launch a terminal
-bindsym $mod+Return exec $term
+bindsym {
+    $mod+Return exec $term
 
-# Bring up launcher
-bindsym $mod+d       exec $applauncher
-bindsym $mod+shift+d exec $scriptlauncher
+    # Bring up launcher
+    $mod+d       exec $applauncher
+    $mod+shift+d exec $scriptlauncher
 
-# Search open windows
-bindsym $mod+grave   exec --no-startup-id $windowsearch
+    # Search open windows
+    $mod+grave   exec --no-startup-id $windowsearch
+}
 #-----------------------------------------------------------------------------#
 
 #---------------------------- Window preferences -----------------------------#
 # Define special properties for certain classes of windows
+for_window {
+    # Floating mode for dialog windows
+    [window_role="pop-up"] floating enable
+    [window_role="bubble"] floating enable
+    [window_role="task_dialog"] floating enable
+    [window_role="Preferences"] floating enable
+    [window_type="dialog"] floating enable
+    [window_type="menu"] floating enable
 
-# Floating mode for dialog windows
-for_window [window_role="pop-up"] floating enable
-for_window [window_role="bubble"] floating enable
-for_window [window_role="task_dialog"] floating enable
-for_window [window_role="Preferences"] floating enable
-for_window [window_type="dialog"] floating enable
-for_window [window_type="menu"] floating enable
-
-for_window [class="feh"] floating enable
-for_window [class="Spotify"] move --no-auto-back-and-forth workspace $music
+    [class="feh"] floating enable
+    [class="Spotify"] move --no-auto-back-and-forth workspace $music
+}
 #-----------------------------------------------------------------------------#

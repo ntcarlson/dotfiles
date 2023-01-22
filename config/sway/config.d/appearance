@@ -1,30 +1,36 @@
 #------------------------------- Colors & font -------------------------------#
 set $font_family Fira Sans
 
-set $nord0  #2E3440
-set $nord1  #3B4252
-set $nord2  #434C5E
-set $nord3  #4C566A
-set $nord4  #D8DEE9
-set $nord5  #E5E9F0
-set $nord6  #ECEFF4
-set $nord7  #8FBCBB
-set $nord8  #88C0D0
-set $nord9  #81A1C1
-set $nord10 #5E81AC
-set $nord11 #BF616A
-set $nord12 #D08770
-set $nord13 #EBCB8B
-set $nord14 #A3BE8C
-set $nord15 #B48EAD
+# Nord color scheme
+set {
+    $nord0  #2E3440
+    $nord1  #3B4252
+    $nord2  #434C5E
+    $nord3  #4C566A
+    $nord4  #D8DEE9
+    $nord5  #E5E9F0
+    $nord6  #ECEFF4
+    $nord7  #8FBCBB
+    $nord8  #88C0D0
+    $nord9  #81A1C1
+    $nord10 #5E81AC
+    $nord11 #BF616A
+    $nord12 #D08770
+    $nord13 #EBCB8B
+    $nord14 #A3BE8C
+    $nord15 #B48EAD
+}
 
-set $background0    $nord0
-set $background1    $nord1
-set $background2    $nord3
-set $text_light     $nord4
-set $text_dark      $nord0
-set $accent         $nord15
-set $urgent         $nord11
+# Window colors set from the above color scheme
+set {
+    $background0    $nord0
+    $background1    $nord1
+    $background2    $nord3
+    $text_light     $nord4
+    $text_dark      $nord0
+    $accent         $nord15
+    $urgent         $nord11
+}
 #-----------------------------------------------------------------------------#
 
 #------------------------------ Desktop appearance ---------------------------#
@@ -36,7 +42,7 @@ set $gnome-schema org.gnome.desktop.interface
 exec_always {
     gsettings set $gnome-schema gtk-theme Nordic
     gsettings set $gnome-schema icon-theme Numix-Circle
-    gsettings set $gnome-schema font-name "Fira Sans Semi-Light 11"
+    gsettings set $gnome-schema font-name "$font_family Semi-Light 11"
 }
 
 # Waybar is used as the status bar instead of the default swaybar
@@ -45,14 +51,13 @@ bar {
 }
 
 # Show gaps between open windows
-gaps inner 16
-gaps outer 0
+gaps {
+    inner 16
+    outer 0
+}
 #-----------------------------------------------------------------------------#
 
 #----------------------------- Window appearance -----------------------------#
-# Window colors
-client.background $background # default background color
-
 # bar border    - Border color around title bar (used in tabbed windows)
 # window border - Border color around window
 # text          - Text color for the title bar

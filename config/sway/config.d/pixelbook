@@ -12,10 +12,10 @@ input "type:touchpad" {
 }
 
 # Make the touchscreen input transform with the screen when rotated
-set $touchscreen "11551:20803:WCOM50C1:00_2D1F:5143"
-set $stylus "11551:20803:WCOM50C1:00_2D1F:5143_Stylus"
-input "$touchscreen" map_to_output eDP-1
-input "$stylus"      map_to_output eDP-1
+input {
+    "type:touch"       map_to_output eDP-1
+    "type:tablet_tool" map_to_output eDP-1
+}
 
 # Idle behavior
 exec swayidle \
@@ -25,22 +25,24 @@ exec swayidle \
     timeout 30 "$scripts/keyboard-backlight.sh dim" \
         resume "$scripts/keyboard-backlight.sh restore"
 
-# Pixelbook's hamburger menu button is mapped to XF86Tools
-bindsym XF86Tools      exec $optionsmenu
-bindsym $mod+XF86Tools exec $lock
+bindsym {
+    # Pixelbook's hamburger menu button is mapped to XF86Tools
+    XF86Tools      exec $optionsmenu
+    $mod+XF86Tools exec $lock
 
-# /etc/systemd/logind.conf is edited to add HandlePowerKey=ignore so Sway
-# can handle the XF86PowerOff button instead
-bindsym XF86PowerOff   exec $lock
+    # /etc/systemd/logind.conf is edited to add HandlePowerKey=ignore so Sway
+    # can handle the XF86PowerOff button instead
+    XF86PowerOff   exec $lock
 
-# Volume control
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+    # Volume control
+    XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
 
-# Backlight control
-bindsym XF86MonBrightnessUp   exec brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym $mod+XF86MonBrightnessUp   exec "$scripts/keyboard-backlight.sh up"
-bindsym $mod+XF86MonBrightnessDown exec "$scripts/keyboard-backlight.sh down"
+    # Backlight control
+    XF86MonBrightnessUp        exec brightnessctl set +5%
+    XF86MonBrightnessDown      exec brightnessctl set 5%-
+    $mod+XF86MonBrightnessUp   exec "$scripts/keyboard-backlight.sh up"
+    $mod+XF86MonBrightnessDown exec "$scripts/keyboard-backlight.sh down"
+}
 #-----------------------------------------------------------------------------#

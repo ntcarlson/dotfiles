@@ -1,63 +1,68 @@
 #-----------------------------  Window navigation ----------------------------#
 # Controls to navigate inside a workspace
+bindsym {
+    # Change focus; both Vim style h,j,k,l and arrow keys work
+    $mod+h      focus left
+    $mod+Left   focus left
+    $mod+j      focus down
+    $mod+Down   focus down
+    $mod+k      focus up
+    $mod+Up     focus up
+    $mod+l      focus right
+    $mod+Right  focus right
 
-# Change focus; both Vim style h,j,k,l and arrow keys work
-bindsym $mod+h      focus left
-bindsym $mod+Left   focus left
-bindsym $mod+j      focus down
-bindsym $mod+Down   focus down
-bindsym $mod+k      focus up
-bindsym $mod+Up     focus up
-bindsym $mod+l      focus right
-bindsym $mod+Right  focus right
-
-# Move focused container; both Vim style h,j,k,l and arrow keys work
-bindsym $mod+Shift+h      move left
-bindsym $mod+Shift+Left   move left
-bindsym $mod+Shift+j      move down
-bindsym $mod+Shift+Down   move down
-bindsym $mod+Shift+k      move up
-bindsym $mod+Shift+Up     move up
-bindsym $mod+Shift+l      move right
-bindsym $mod+Shift+Right  move right
+    # Move focused container; both Vim style h,j,k,l and arrow keys work
+    $mod+Shift+h      move left
+    $mod+Shift+Left   move left
+    $mod+Shift+j      move down
+    $mod+Shift+Down   move down
+    $mod+Shift+k      move up
+    $mod+Shift+Up     move up
+    $mod+Shift+l      move right
+    $mod+Shift+Right  move right
+}
 #-----------------------------------------------------------------------------#
 
 #--------------------------- Container manipulation --------------------------#
 # Controls to manipulate layout and location for window containers
+bindsym {
+    # Split focused container horizontally or vertically
+    $mod+b split h
+    $mod+v split v
 
-# Split focused container horizontally or vertically
-bindsym $mod+b split h
-bindsym $mod+v split v
+    # Toggle fullscreen mode for the focused container
+    $mod+f fullscreen toggle
 
-# Toggle fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+    # Change container layout
+    $mod+s layout stacking
+    $mod+w layout tabbed
+    $mod+e layout toggle split
 
-# Change container layout
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+    # Focus the parent container which allows manipulating an entire container
+    # and all the children at once
+    $mod+a focus parent
+    # Return focus to the child container
+    $mod+z focus child
 
-# Focus the parent container which allows manipulating an entire container
-# and all the children at once
-bindsym $mod+a focus parent
-# Return focus to the child container
-bindsym $mod+z focus child
+    # Toggle tiling/floating for a container
+    $mod+Shift+space floating toggle
+    # Change focus between tiling/floating containers
+    $mod+space focus mode_toggle
 
-# Toggle tiling/floating for a container
-bindsym $mod+Shift+space floating toggle
-# Change focus between tiling/floating containers
-bindsym $mod+space focus mode_toggle
-# Hold the mod key to drag and resize floating container
+    # Move the currently focused container to the scratchpad which contains
+    # floating containers available on all workspaces
+    $mod+shift+minus move scratchpad
+    # Show/hide the scratchpad
+    $mod+minus scratchpad show
+
+    # Kill focused window
+    $mod+Shift+q kill
+}
+
+
+# Hold the mod key to drag and resize floating containers as well as drag
+# and drop tiling windows to change their layout
 floating_modifier $mod
-
-# Move the currently focused container to the scratchpad which contains
-# floating containers available on all workspaces
-bindsym $mod+shift+minus move scratchpad
-# Show/hide the scratchpad
-bindsym $mod+minus scratchpad show
-
-# Kill focused window
-bindsym $mod+Shift+q kill
 
 # Special mode to resize window (mouse drag also works)
 mode "resize" {
