@@ -3,7 +3,10 @@
 # Gets a list of windows in a format ready to feed into Rofi. The output
 # consists of headers listing the active window and urgent windows (if any).
 # Then, it lists the window names with the con_id in the info field (accessed
-# via $ROFI_INFO variable on selection).
+# via $ROFI_INFO variable on selection). The icon is guessed from the app_id
+# field (for Wayland-native windows) and window_properties.instance (for 
+# XWayland windows). This icon matching is a simple heuristic that seems to
+# work for most applications but not all.
 window-list() {
     swaymsg -t get_tree | jq -r '
     def active: 
@@ -18,8 +21,21 @@ window-list() {
         )
     ;
 
+    def icon_name:
+        (.app_id | rindex(".")) as $i
+        | (
+            if $i != null
+                then .app_id | .[($i+1):]
+                else .app_id
+            end
+            | ascii_downcase
+        ) + .window_properties.instance
+    ;
+
     def entries:
-        .[] | .name + "\u0000" + "info" + "\u001f" + (.id | tostring)
+        .[] | .name
+        + "\u0000info\u001f" + (.id | tostring)
+        + "\u001ficon\u001f" + icon_name
     ;
 
     [
