@@ -3,7 +3,11 @@
 set $scripts "~/dotfiles/pixelbook"
 
 # Set scaling factor. Note that fractional scaling causes bluriness in Xwayland
-output eDP-1 res 2400x1600 scale 1.33333333
+output eDP-1 {
+    res 2400x1600
+    scale 1.33333333
+    scale_filter smart
+}
 
 # Use a tabbed layout by default (works well for the small Pixelbook screen)
 workspace_layout tabbed
@@ -15,11 +19,26 @@ input "type:touchpad" {
     dwt disabled
 }
 
+# Touchpad gestures for Sway navigation
+bindgesture swipe:3:left workspace prev
+bindgesture swipe:3:right workspace next
+
 # Make the touchscreen input transform with the screen when rotated
 input {
     "type:touch"       map_to_output eDP-1
     "type:tablet_tool" map_to_output eDP-1
 }
+
+# Transform display in tablet mode
+bindswitch tablet:on  output eDP-1 transform 90 clockwise;   \
+                      output eDP-1 transform 90 scale 2;     \
+                      input "type:touchpad" events disabled; \
+                      input "type:keyboard" events disabled;
+
+bindswitch tablet:off output eDP-1 transform normal;         \
+                      output eDP-1 scale 1.3333333;          \
+                      input "type:touchpad" events enabled;  \
+                      input "type:keyboard" events enabled;
 
 # Idle behavior
 exec swayidle \
