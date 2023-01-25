@@ -1,6 +1,4 @@
 #-------------------------------- Workspaces ---------------------------------#
-# Workspaces use a tabbed layout by default (works well for small screens)
-workspace_layout tabbed
 
 # Special workspaces
 set {

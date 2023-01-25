@@ -1,8 +1,12 @@
-#--------------------------- Pixelbook specific tweaks -----------------------#
+#---------------------------- Machine specific tweaks ------------------------#
+# eta is a Pixelbook, a 13' 2-in-1 that requires hardware specific workarounds
 set $scripts "~/dotfiles/pixelbook"
 
 # Set scaling factor. Note that fractional scaling causes bluriness in Xwayland
 output eDP-1 res 2400x1600 scale 1.33333333
+
+# Use a tabbed layout by default (works well for the small Pixelbook screen)
+workspace_layout tabbed
 
 # Improve touchpad behavior
 input "type:touchpad" {
