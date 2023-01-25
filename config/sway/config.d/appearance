@@ -23,13 +23,13 @@ set {
 
 # Window colors set from the above color scheme
 set {
-    $background0    $nord0
-    $background1    $nord1
-    $background2    $nord3
-    $text_light     $nord4
-    $text_dark      $nord0
-    $accent         $nord15
-    $urgent         $nord11
+    $bg0        $nord0
+    $bg1        $nord1
+    $bg2        $nord3
+    $text_light $nord4
+    $text_dark  $nord0
+    $accent     $nord15
+    $urgent     $nord11
 }
 #-----------------------------------------------------------------------------#
 
@@ -58,24 +58,27 @@ gaps {
 #-----------------------------------------------------------------------------#
 
 #----------------------------- Window appearance -----------------------------#
-# bar border    - Border color around title bar (used in tabbed windows)
-# window border - Border color around window
-# text          - Text color for the title bar
+# border        - Border color around titlebar
+# background    - Background of titlebar
+# text          - Text color for the titlebar
 # indicator     - Color of border edge where new window will be created
+# child_border  - Border color of container
 
-# class                 bar border    window border  text         indicator
-client.focused          $background0  $accent        $text_dark   $accent
-client.focused_inactive $background0  $background2   $text_light  $background0
-client.unfocused        $background0  $background1   $text_light  $background0
-client.urgent           $background0  $background1   $text_dark   $urgent
+# Window type           border background text        indicator child_border
+client.focused          $bg0   $accent    $text_dark  $bg0      $bg0
+client.focused_inactive $bg0   $bg2       $text_light $bg0      $bg0
+client.unfocused        $bg0   $bg1       $text_light $bg0      $bg0
+client.urgent           $bg0   $urgent    $text_dark  $urgent   $urgent
+
+set $border_width 4
 
 # Tiled and floating windows have a titlebar and no border
-default_border normal 0
-default_floating_border normal 0
+default_border normal          $border_width
+default_floating_border normal $border_width
 
 # Titlebar appearance. Font size controls the size of the bar
 font pango:$font_family Bold 12
 title_align center
 titlebar_padding 12
-titlebar_border_thickness 6
+titlebar_border_thickness $border_width
 #-----------------------------------------------------------------------------#
