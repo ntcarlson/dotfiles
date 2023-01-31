@@ -20,10 +20,6 @@ input "type:touchpad" {
     dwt disabled
 }
 
-# Touchpad gestures for Sway navigation
-bindgesture swipe:3:left workspace prev
-bindgesture swipe:3:right workspace next
-
 # Idle behavior
 exec swayidle -w \
     timeout 540 "$lock-slow" \

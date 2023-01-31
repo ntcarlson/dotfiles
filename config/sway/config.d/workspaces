@@ -47,6 +47,13 @@ bindsym {
     $mod+Shift+Tab move container to output left
 }
 
+# Touchpad gestures to scroll through workspaces
+bindgesture {
+    swipe:3:up workspace prev_on_output
+    swipe:3:down workspace next_on_output
+}
+
+
 # The hotkey to move to the current workspace will instead move to the previous
 workspace_auto_back_and_forth yes
 #-----------------------------------------------------------------------------#
