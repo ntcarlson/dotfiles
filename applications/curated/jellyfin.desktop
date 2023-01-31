@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Jellyfin
-Comment=Desktop client for Jellyfin
-Exec=jellyfinmediaplayer
-Icon=jellyfin
-Terminal=false
-Type=Application
-Categories=AudioVideo;Video;Player;TV;Curated;
