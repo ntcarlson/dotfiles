@@ -6,8 +6,8 @@
 
     width = 400
     height = 80
-    origin = top-right
-    offset = 24x24
+    origin = bottom-right
+    offset = 8x8
 
     shrink = no
 
@@ -119,21 +119,21 @@
     mouse_right_click = close_all
 
 [urgency_low]
-    background  = "#2E3440"
+    background  = "#2E3440F0"
     foreground  = "#ECEFF4"
     frame_color = "#B48EAD"
     highlight   = "#B48EAD"
     timeout = 8
 
 [urgency_normal]
-    background  = "#2E3440"
+    background  = "#2E3440F0"
     foreground  = "#ECEFF4"
     frame_color = "#B48EAD"
     highlight   = "#B48EAD"
     timeout = 12
 
 [urgency_critical]
-    background  = "#2E3440"
+    background  = "#2E3440F0"
     foreground  = "#ECEFF4"
     frame_color = "#BF616A"
     highlight   = "#BF616A"

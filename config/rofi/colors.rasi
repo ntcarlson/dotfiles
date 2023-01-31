@@ -5,7 +5,7 @@ configuration {
 * {
     background-color:               transparent;
     background:                     #2E3440;
-    background-transparent:         #2E3440E6;
+    background-transparent:         #2E3440F0;
     text-color:                     #D8DEE9;
     primary:                        #B48EAD;
     secondary:                      #3B4252;
