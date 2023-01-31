@@ -19,11 +19,11 @@
         "custom/rofi-options",
     ],
     "modules-right": [
-        "tray",
         "battery#glyph",    "battery",
         "backlight#glyph",  "backlight",
         "pulseaudio#glyph", "pulseaudio",
         "clock#time-glyph", "clock#time",
         "clock#date-glyph", "clock#date",
+        "tray",
     ],
 }
