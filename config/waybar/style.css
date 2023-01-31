@@ -91,6 +91,16 @@ window#waybar {
     border-radius: 8;
 }
 
-#custom-bar-expand {
-    color: #D8DEE9;
+#custom-rofi-drun,
+#custom-rofi-run,
+#custom-rofi-windows,
+#custom-rofi-options {
+    padding: 8px 0px;
+}
+
+#custom-rofi-drun.open,
+#custom-rofi-run.open,
+#custom-rofi-windows.open,
+#custom-rofi-options.open {
+    color: #B48EAD;
 }

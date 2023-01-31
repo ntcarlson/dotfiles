@@ -12,7 +12,7 @@ window {
     location:                       east;
     anchor:                         east;
     transparency:                   "real";
-    background-color:               transparent;
+    background-color:               @background-transparent;
     border:                         0px 0px 0px 4px;
     border-color:                   @primary;
 }

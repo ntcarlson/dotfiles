@@ -2,16 +2,21 @@
     "position": "right",
     "width": 60,
     "exclusive": true,
-    "mode": "hide",
+    "mode": "dock",
     "passthrough": false,
 
-    "include": ["~/.config/waybar/modules"],
+    "include": [
+        "~/.config/waybar/modules",
+        "~/.config/waybar/rofi-modules",
+    ],
     "modules-left": [
         "sway/workspaces",
         "sway/mode"
     ],
     "modules-center": [
-        "custom/bar-expand"
+        "custom/rofi-drun",
+        "custom/rofi-windows",
+        "custom/rofi-options",
     ],
     "modules-right": [
         "tray",

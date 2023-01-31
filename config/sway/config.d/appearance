@@ -45,6 +45,10 @@ exec_always {
     gsettings set $gnome-schema font-name "$font_family Semi-Light 11"
 }
 
+bar {
+    swaybar_command waybar
+}
+
 # Show gaps between open windows
 gaps {
     inner 16

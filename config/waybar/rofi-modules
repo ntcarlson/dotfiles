@@ -1,0 +1,38 @@
+{
+    "custom/rofi-drun": {
+        "format": "{}",
+        "return-type": "json",
+        "interval": "once",
+        "signal": 1,
+
+        "exec":     "$HOME/.config/rofi/scripts/rofi-wrapper.sh icon drun",
+        "on-click": "$HOME/.config/rofi/scripts/rofi-wrapper.sh drun",
+    },
+    "custom/rofi-run": {
+        "format": "{}",
+        "return-type": "json",
+        "interval": "once",
+        "signal": 1,
+
+        "exec":     "$HOME/.config/rofi/scripts/rofi-wrapper.sh icon run",
+        "on-click": "$HOME/.config/rofi/scripts/rofi-wrapper.sh run",
+    },
+    "custom/rofi-windows": {
+        "format": "{}",
+        "return-type": "json",
+        "interval": "once",
+        "signal": 1,
+
+        "exec":     "$HOME/.config/rofi/scripts/rofi-wrapper.sh icon windows",
+        "on-click": "$HOME/.config/rofi/scripts/rofi-wrapper.sh windows",
+    },
+    "custom/rofi-options": {
+        "format": "{}",
+        "return-type": "json",
+        "interval": "once",
+        "signal": 1,
+
+        "exec":     "$HOME/.config/rofi/scripts/rofi-wrapper.sh icon options",
+        "on-click": "$HOME/.config/rofi/scripts/rofi-wrapper.sh options",
+    }
+}
