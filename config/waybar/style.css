@@ -90,3 +90,7 @@ window#waybar {
     border: 4px solid #B48EAD;
     border-radius: 8;
 }
+
+#custom-bar-expand {
+    color: #D8DEE9;
+}

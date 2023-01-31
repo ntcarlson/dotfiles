@@ -1,6 +1,14 @@
 {
+    "sway/workspaces": {
+        "format": "<b>{name}</b>"
+    },
+
+    "sway/mode": {
+        "rotate": 270
+    },
+
     "custom/bar-expand": {
-        "format": "",
+        "format": "",
         "on-click": "$HOME/.config/rofi/scripts/rofi-wrapper.sh toggle",
         "tooltip": false,
     },

@@ -18,6 +18,13 @@ box.vertical.modules-right {
     margin: 0px $1px 0px 0px;
 }
 EOF
+    if [ "$1" != "0" ]; then
+        cat << EOF >> "$STYLE_OUT"
+#custom-bar-expand {
+    color: #B48EAD;
+}
+EOF
+    fi
     killall waybar -SIGUSR2
 }
 
