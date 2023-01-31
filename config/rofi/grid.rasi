@@ -9,13 +9,17 @@ configuration {
 
 listview {
     padding:                        0px;
-    dynamic:                        true;
+    dynamic:                        false;
+    cycle:                          false;
     columns:                        2;
+    layout:                         vertical;
+    flow:                           horizontal;
 }
 
 element {
     children:                       [dummy, element-box, dummy];
     padding:                        0px;
+    margin:                         5px 0px;
     orientation:                    horizontal;
     border:                         0;
     border-color:                   transparent;
@@ -29,6 +33,7 @@ element-box {
 
 element-icon {
     padding:                        0px 2px 2px 0px;
+    margin:                         0px 40px;
     border:                         4px;
     border-color:                   transparent;
     border-radius:                  8;
@@ -42,5 +47,5 @@ element-icon selected {
 element-text {
     horizontal-align:               0.5;
     horizontal-align:               0.5;
-    width:                          100px;
+    width:                          180px;
 }

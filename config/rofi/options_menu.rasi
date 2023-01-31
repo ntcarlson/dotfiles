@@ -13,6 +13,7 @@ window {
     transparency:                   "real";
     background-color:               @background-transparent;
     border:                         4px 0px solid 4px 4px;
+    border-radius:                  12px 0px 0px 12px;
     border-color:                   @primary;
 }
 
