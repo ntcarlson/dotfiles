@@ -1,0 +1,47 @@
+#---------------------------- Machine specific tweaks ------------------------#
+# gamma is an ordinary laptop with a 1920x1080 internal display
+
+# Set scaling factor. Note that fractional scaling causes bluriness in Xwayland
+output eDP-1 {
+    res 1920x1080
+    scale 1
+    scale_filter smart
+}
+
+# Tiling layout by default works best for this screen size
+workspace_layout default
+
+# Improve touchpad behavior
+input "type:touchpad" {
+    accel_profile flat
+    click_method clickfinger
+    scroll_method two_finger
+    pointer_accel 0.2
+    dwt disabled
+}
+
+# Touchpad gestures for Sway navigation
+bindgesture swipe:3:left workspace prev
+bindgesture swipe:3:right workspace next
+
+# Idle behavior
+exec swayidle -w \
+    timeout 540 "$lock-slow" \
+    timeout 600 "brightnessctl --save set 0%" \
+         resume "brightnessctl --restore" \
+    before-sleep "$lock"
+
+bindsym {
+    $mod+BackSpace exec $optionsmenu
+    $mod+Pause     exec $lock
+
+    # Volume control
+    XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+
+    # Backlight control
+    XF86MonBrightnessUp        exec brightnessctl set +5%
+    XF86MonBrightnessDown      exec brightnessctl set 5%-
+}
+#-----------------------------------------------------------------------------#
