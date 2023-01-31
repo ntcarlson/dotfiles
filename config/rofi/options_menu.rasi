@@ -1,57 +1,51 @@
+configuration {
+    show-icons:                     false;
+    font:                           "Fira Sans 20";
+}
+
 @import "colors.rasi"
 
 window {
-    children:                       [message, listview];
-    orientation:                    horizontal;
-    location:                       northeast;
-    anchor:                         northeast;
-    y-offset:                       0px;
-    width:                          400px;
+    height:                         270;
+    width:                          200;
+    location:                       east;
+    anchor:                         east;
     transparency:                   "real";
     background-color:               @background-transparent;
-    border:                         0px 4px 4px 4px;
+    border:                         4px 0px solid 4px 4px;
     border-color:                   @primary;
 }
 
-message {
-    expand:                         true;
-    padding:                        0px -15px 0px 0px;
+mainbox {
+    children:                       [message, listview];
+    padding:                        0px 0px;
 }
+
 
 textbox {
     horizontal-align:               0.5;
-    vertical-align:                 0.5;
+    border:                         0px 0px 2px;
+    border-color:                   @primary;
+    margin:                         12px;
+    padding:                        12px;
 }
 
 listview {
-    layout:                         vertical;
-    lines:                          1;
-    columns:                        10;
-    border:                         5px;
-    expand:                         true;
-    border-color:                   transparent;
+    padding:                        8px 16px;
 }
 
 element {
-    children:                       [dummy, element-text, dummy];
-    padding:                        0px;
-    orientation:                    horizontal;
-    border:                         0;
-    border-color:                   transparent;
+    padding:                        8px;
+    orientation:                    vertical;
+}
+
+element selected {
+    border:                         4px 4px solid 4px 4px;
+    border-radius:                  8;
+    border-color:                   @primary;
 }
 
 element-text {
-    horizontal-align:               0.5;
-    vertical-align:                 0.5;
-    padding:                        4px 2px;
-    border:                         4px;
-    border-radius:                  5;
-    width:                          50px;
-    expand:                         false;
-    font:                           "Font Awesome 18";
-}
-
-element-text selected {
-    background-color:               rgba(0, 0, 0, 0.2);
-    border-color:                   @primary;
+    horizontal-align:               0;
+    padding:                        0px 8px;
 }

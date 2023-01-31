@@ -6,15 +6,25 @@ rofi-show() {
     local mode="$1"
     local theme="$2"
 
-    local rofi_pid
+    local matching_rofi="rofi -show $mode"
+    if [ "$mode" == "options" ]; then
+        matching_rofi="rofi -dmenu"
+    fi
+
     pkill -SIGRTMIN+1 waybar
-    rofi_pid="$(pgrep -f "rofi -show $mode")"
+
+    local rofi_pid
+    rofi_pid="$(pgrep -f "$matching_rofi")"
+
     if [ -n "$rofi_pid" ]; then
-        kill -9 $rofi_pid
+        kill $rofi_pid
     else
-        rofi_pid="$(pgrep rofi)"
-        [ -n "$rofi_pid" ] && kill -9 $rofi_pid
-        rofi -show "$mode" -theme "$theme"
+        killall rofi
+        if [ "$mode" == "options" ]; then
+            $SCRIPT_DIR/rofi-options-menu.sh
+        else
+            rofi -show "$mode" -theme "$theme"
+        fi
     fi
     pkill -SIGRTMIN+1 waybar
 }
@@ -63,7 +73,7 @@ case "$1" in
     drun)    rofi-show drun grid;;
     run)     rofi-show run list;;
     windows) rofi-show window list;;
-    options) $SCRIPT_DIR/rofi-options-menu.sh;;
+    options) rofi-show options;;
     icon)    waybar-icon "$2";;
     *)       usage;;
 esac
