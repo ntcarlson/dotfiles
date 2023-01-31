@@ -13,6 +13,7 @@ waybar-resize() {
     cat "$STYLE_SRC" > "$STYLE_OUT"
     cat << EOF >> "$STYLE_OUT"
 box.vertical.modules-left,
+box.vertical.modules-center,
 box.vertical.modules-right {
     margin: 0px $1px 0px 0px;
 }

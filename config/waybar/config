@@ -1,20 +1,24 @@
 {
     "position": "right",
     "width": 60,
-    "exclusive": false,
-    "mode": "overlay",
+    "exclusive": true,
+    "mode": "hide",
+    "passthrough": false,
 
     "include": ["~/.config/waybar/modules"],
     "modules-left": [
         "sway/workspaces",
         "sway/mode"
     ],
+    "modules-center": [
+        "custom/bar-expand"
+    ],
     "modules-right": [
+        "tray",
         "battery#glyph",    "battery",
         "backlight#glyph",  "backlight",
         "pulseaudio#glyph", "pulseaudio",
         "clock#time-glyph", "clock#time",
         "clock#date-glyph", "clock#date",
-        "tray",
     ],
 }

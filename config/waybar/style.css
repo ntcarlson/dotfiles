@@ -7,7 +7,7 @@
 
 window#waybar {
     margin: 0px 0px 0px 0px;
-    background-color: rgba(46, 52, 64, 0.8);
+    background-color: rgba(46, 52, 64, 0.9);
     border-left: 4px solid #B48EAD;
     color: #D8DEE9;
     transition-property: background-color;
@@ -79,7 +79,7 @@ window#waybar {
 
 #tray {
     background: rgba(0, 0, 0, 0.2);
-    margin:  0px 0px 0px 4px;
+    margin:  0px 0px 12px 4px;
     padding: 8px 0px;
 }
 

@@ -1,4 +1,10 @@
 {
+    "custom/bar-expand": {
+        "format": "",
+        "on-click": "$HOME/.config/rofi/scripts/rofi-wrapper.sh toggle",
+        "tooltip": false,
+    },
+
     "battery": {
         "format": "{capacity}%",
 
