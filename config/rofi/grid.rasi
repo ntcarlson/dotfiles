@@ -1,0 +1,46 @@
+configuration {
+    show-icons:                     true;
+    drun-display-format:            "{name}";
+    drun-match-fields:              "name";
+    hover-select:                   true;
+}
+
+@import "list"
+
+listview {
+    padding:                        0px;
+    dynamic:                        true;
+    columns:                        2;
+}
+
+element {
+    children:                       [dummy, element-box, dummy];
+    padding:                        0px;
+    orientation:                    horizontal;
+    border:                         0;
+    border-color:                   transparent;
+}
+
+element-box {
+    children:                       [element-icon, element-text];
+    orientation:                    vertical;
+    expand:                         false;
+}
+
+element-icon {
+    padding:                        0px 2px 2px 0px;
+    border:                         4px;
+    border-color:                   transparent;
+    border-radius:                  8;
+    size:                           96;
+}
+
+element-icon selected {
+    border-color:                   @primary;
+}
+
+element-text {
+    horizontal-align:               0.5;
+    horizontal-align:               0.5;
+    width:                          100px;
+}

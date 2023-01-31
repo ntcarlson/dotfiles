@@ -45,11 +45,6 @@ exec_always {
     gsettings set $gnome-schema font-name "$font_family Semi-Light 11"
 }
 
-# Waybar is used as the status bar instead of the default swaybar
-bar {
-    swaybar_command waybar
-}
-
 # Show gaps between open windows
 gaps {
     inner 16

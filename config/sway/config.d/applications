@@ -10,15 +10,20 @@ exec --no-startup-id {
 set {
     $term           kitty --single-instance
 
-    $rofi           "~/.config/rofi/scripts/rofi-wrapper.sh"
+    $rofi           "$HOME/.config/rofi/scripts/rofi-wrapper.sh"
     $applauncher    "$rofi drun"
     $scriptlauncher "$rofi run"
     $windowsearch   "$rofi windows"
     $optionsmenu    "$rofi options"
 
+    $bar            "$HOME/.config/waybar/scripts/waybar-wrapper.sh"
+
     $lock           swaylock
     $lock-slow      swaylock --grace 15 --fade-in 10
 }
+
+gaps right 60
+exec_always $bar launch
 #-----------------------------------------------------------------------------#
 
 #--------------------------------- Bindings ----------------------------------#

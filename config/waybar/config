@@ -1,6 +1,8 @@
 {
     "position": "right",
-    "ipc": true,
+    "width": 60,
+    "exclusive": false,
+    "mode": "overlay",
 
     "include": ["~/.config/waybar/modules"],
     "modules-left": [

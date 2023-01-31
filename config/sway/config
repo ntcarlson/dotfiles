@@ -14,11 +14,11 @@ bindsym {
 
 #--------------------------------- Sections ----------------------------------#
 include {
-    # Startup applications and default programs
-    "config.d/applications"
-
     # Cosmetic settings for windows and workspaces
     "config.d/appearance"
+
+    # Startup applications and default programs
+    "config.d/applications"
 
     # Controls for manipulating windows and containers within workspaces
     "config.d/window_controls"
