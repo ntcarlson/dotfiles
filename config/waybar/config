@@ -1,70 +1,18 @@
 {
-    "position": "top",
-    "height": 60,
-    "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
-    "modules-right": ["backlight", "battery", "pulseaudio", "tray", "custom/vpn", "clock"],
-    // Modules configuration
-    "sway/workspaces": {
-         "format": "<b>{name}</b>",
-    },
-    "sway/mode": {
-        "format": "<b>{}</b>"
-    },
-    "sway/window": {
-        "max-length": 50,
-        "tooltip": false
-    },
-    "tray": {
-        "icon-size": 32,
-        "spacing": 10
-    },
-    "clock": {
-        "format": "{: %m/%d   %H:%M}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "today-format": "<b><span color=\"#B48EAD\">{}</span></b>",
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{icon} {percent}%",
-        "format-icons": ["", ""],
-        "smooth-scrolling-threshold": 5.0,
-        "on-scroll-up": "brightnessctl set +5%",
-        "on-scroll-down": "brightnessctl set 5%-"
-    },
-    "pulseaudio": {
-        "smooth-scrolling-threshold": 5.0,
-        "scroll-step": 5.0,
-        "format": "{icon}  {volume}%",
-        "format-muted": " {volume}%",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "~/dotfiles/pixelbook/audio-switch.sh swap",
-        "on-click-right": "pavucontrol"
-    },
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "custom/vpn": {
-        "format": "{icon} {}",
-        "format-icons": "",
-        "exec": "~/.config/waybar/scripts/vpn.sh status",
-        "signal": 1,
-        "interval": 120,
-        "on-click": "~/.config/waybar/scripts/vpn.sh toggle",
-        "tooltip": false,
-    },
+    "position": "right",
+    "ipc": true,
+
+    "include": ["~/.config/waybar/modules"],
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode"
+    ],
+    "modules-right": [
+        "battery#glyph",    "battery",
+        "backlight#glyph",  "backlight",
+        "pulseaudio#glyph", "pulseaudio",
+        "clock#time-glyph", "clock#time",
+        "clock#date-glyph", "clock#date",
+        "tray",
+    ],
 }

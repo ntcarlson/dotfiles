@@ -1,0 +1,81 @@
+{
+    "battery": {
+        "format": "{capacity}%",
+
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+    },
+    "battery#glyph": {
+        "format-charging": " ",
+        "format-plugged": "",
+        "format-icons": ["", "", "", "", ""],
+        "format": "{icon}",
+
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+    },
+
+    "backlight": {
+        "format": "{percent}%",
+
+        "smooth-scrolling-threshold": 5.0,
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+    "backlight#glyph": {
+        "format": "",
+
+        "smooth-scrolling-threshold": 5.0,
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+
+    "pulseaudio": {
+        "format": "{volume}%",
+
+        "smooth-scrolling-threshold": 5.0,
+        "scroll-step": 5.0,
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol"
+    },
+    "pulseaudio#glyph": {
+        "format-icons": {
+            "default": ["", "", ""],
+            "headphone": "",
+        },
+        "format": "{icon}",
+        "format-muted": "",
+
+        "smooth-scrolling-threshold": 5.0,
+        "scroll-step": 5.0,
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol"
+    },
+
+    "clock#time": {
+        "format": "{:%H:%M}",
+    },
+    "clock#time-glyph": {
+        "format": ""
+    },
+
+    "clock#date": {
+        "format": "{:%m/%d}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "today-format": "<b><span color=\"#B48EAD\">{}</span></b>",
+    },
+    "clock#date-glyph": {
+        "format": "",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "today-format": "<b><span color=\"#B48EAD\">{}</span></b>",
+    },
+
+    "tray": {
+        "icon-size": 24,
+        "spacing": 8,
+    },
+}

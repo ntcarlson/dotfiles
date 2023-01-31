@@ -6,21 +6,22 @@
 }
 
 window#waybar {
-    background-color: rgba(46, 52, 64, 0.5);
-    border-bottom: 4px solid #B48EAD;
+    margin: 0px 0px 0px 0px;
+    background-color: rgba(46, 52, 64, 0.8);
+    border-left: 4px solid #B48EAD;
     color: #D8DEE9;
     transition-property: background-color;
     transition-duration: .5s;
 }
 
 #workspaces {
-    margin: 8px 8px 12px 8px;
+    margin: 2px 2px 2px 6px;
     background-color: transparent;
 }
 
 #workspaces button {
-    padding: 2px 8px;
-    margin: 0px 2px;
+    padding: 2px 0px;
+    margin: 0px 6px;
     color: #D8DEE9;
     border: 4px solid transparent;
     border-radius: 8;
@@ -47,21 +48,23 @@ window#waybar {
     border: 4px solid #BF616A;
 }
 
-#clock,
-#backlight,
-#network,
-#pulseaudio,
 #battery,
-#custom-media,
-#tray,
-#custom-vpn,
-#mode {
-    padding: 0 10px;
-    margin: 8px 8px 12px 8px;
-    color: #D8DEE9;
+#backlight,
+#pulseaudio,
+#clock {
     background: rgba(0, 0, 0, 0.2);
-    border: 4px solid transparent;
-    border-radius: 8px;
+    padding: 0px 0px 6px 0px;
+    margin:  0px 0px 12px 4px;
+    color: #D8DEE9;
+}
+
+#battery.glyph,
+#backlight.glyph,
+#pulseaudio.glyph,
+#clock.time-glyph,
+#clock.date-glyph {
+    padding: 8px 0px 0px 0px;
+    margin:  0px 0px 0px 4px;
 }
 
 #battery.warning:not(.charging) {
@@ -72,4 +75,18 @@ window#waybar {
 #battery.critical:not(.charging) {
     background-color: #BF616A;
     color: #2E3440;
+}
+
+#tray {
+    background: rgba(0, 0, 0, 0.2);
+    margin:  0px 0px 0px 4px;
+    padding: 8px 0px;
+}
+
+#mode {
+    background: rgba(0, 0, 0, 0.2);
+    margin: 2px 8px 2px 12px;
+    padding: 6px 0px;
+    border: 4px solid #B48EAD;
+    border-radius: 8;
 }
