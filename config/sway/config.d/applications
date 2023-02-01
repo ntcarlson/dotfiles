@@ -47,5 +47,7 @@ for_window {
 
     [class="feh"] floating enable
     [class="Spotify"] move --no-auto-back-and-forth workspace $music
+
+    [app_id="org.jellyfin.jellyfinmediaplayer"] inhibit_idle fullscreen
 }
 #-----------------------------------------------------------------------------#

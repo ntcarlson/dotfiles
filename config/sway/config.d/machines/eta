@@ -37,12 +37,13 @@ bindswitch tablet:off output eDP-1 transform normal;         \
                       input "type:keyboard" events enabled;
 
 # Idle behavior
-exec swayidle \
+exec swayidle -w \
     timeout 540 "$lock-slow" \
     timeout 600 "brightnessctl --save set 0%" \
         resume "brightnessctl --restore" \
     timeout 30 "$scripts/keyboard-backlight.sh dim" \
-        resume "$scripts/keyboard-backlight.sh restore"
+        resume "$scripts/keyboard-backlight.sh restore" \
+    before-sleep "$lock"
 
 bindsym {
     # Pixelbook's hamburger menu button is mapped to XF86Tools
