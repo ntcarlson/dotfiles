@@ -2,8 +2,9 @@
 
 # Special workspaces
 set {
-    $steam 11:
-    $music 12:
+    # Stop Waybar from bolding the Steam glyph
+    $steam 11:<span weight="normal"></span>
+    $music 12:
 }
 
 # Controls to navigate between workspaces
