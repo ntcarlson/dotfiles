@@ -16,6 +16,8 @@ set {
     $windowsearch   "$rofi windows"
     $optionsmenu    "$rofi options"
 
+    $screenshot     grim
+
     $lock           swaylock
     $lock-slow      swaylock --grace 15 --fade-in 10
 }
@@ -31,6 +33,8 @@ bindsym {
 
     # Search open windows
     $mod+grave   exec --no-startup-id $windowsearch
+
+    $mod+Print   exec --no-startup-id $screenshot
 }
 #-----------------------------------------------------------------------------#
 
