@@ -1,6 +1,6 @@
 #---------------------------- Machine specific tweaks ------------------------#
 # eta is a Pixelbook, a 13' 2-in-1 that requires hardware specific workarounds
-set $scripts "~/dotfiles/pixelbook"
+set $scripts "~/dotfiles/scripts/pixelbook"
 
 # Set scaling factor. Note that fractional scaling causes bluriness in Xwayland
 output eDP-1 {

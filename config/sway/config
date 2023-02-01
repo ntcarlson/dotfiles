@@ -27,6 +27,6 @@ include {
     "config.d/workspaces"
 
     # Machine specific settings
-    "config.d/$(cat /etc/hostname)"
+    "config.d/machines/$(cat /etc/hostname)"
 }
 #-----------------------------------------------------------------------------#
