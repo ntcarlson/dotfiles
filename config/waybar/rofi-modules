@@ -23,8 +23,8 @@
         "interval": "once",
         "signal": 1,
 
-        "exec":     "$HOME/.config/rofi/scripts/rofi-wrapper.sh icon windows",
-        "on-click": "$HOME/.config/rofi/scripts/rofi-wrapper.sh windows",
+        "exec":     "$HOME/.config/rofi/scripts/rofi-wrapper.sh icon window",
+        "on-click": "$HOME/.config/rofi/scripts/rofi-wrapper.sh window",
     },
     "custom/rofi-options": {
         "format": "{}",

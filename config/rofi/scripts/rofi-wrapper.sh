@@ -2,30 +2,38 @@
 
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
-rofi-show() {
+declare -A rofi_command
+rofi_command=(
+    [drun]="rofi -show drun -theme grid"
+    [run]="rofi -show run -theme list"
+    [window]="rofi -show window -theme list"
+    [options]="bash $SCRIPT_DIR/rofi-options-menu.sh"
+)
+
+rofi-toggle() {
     local mode="$1"
     local theme="$2"
 
-    local matching_rofi="rofi -show $mode"
-    if [ "$mode" == "options" ]; then
-        matching_rofi="rofi -dmenu"
-    fi
-
-    pkill -SIGRTMIN+1 waybar
-
-    local rofi_pid
-    rofi_pid="$(pgrep -f "$matching_rofi")"
-
-    if [ -n "$rofi_pid" ]; then
-        kill $rofi_pid
+    if rofi-is-open "$mode"; then
+        killall rofi
     else
         killall rofi
-        if [ "$mode" == "options" ]; then
-            $SCRIPT_DIR/rofi-options-menu.sh
-        else
-            rofi -show "$mode" -theme "$theme"
-        fi
+        eval "${rofi_command[$mode]}" &
+
+        waybar-signal
+        wait $!
+        waybar-signal
     fi
+}
+
+rofi-is-open() {
+    local mode="$1"
+    local rofi_pid
+    rofi_pid="$(pgrep -f "^${rofi_command[$mode]}")"
+    test -n "$rofi_pid"
+}
+
+waybar-signal() {
     pkill -SIGRTMIN+1 waybar
 }
 
@@ -41,7 +49,7 @@ waybar-icon() {
             icon=""
             tooltip="Run command"
             ;;
-        windows)
+        window)
             icon=""
             tooltip="Window list"
             ;;
@@ -52,8 +60,7 @@ waybar-icon() {
         *) usage;;
     esac
 
-    rofi_pid="$(pgrep -f "$0 $mode")"
-    if [ -n "$rofi_pid" ]; then
+    if rofi-is-open "$mode"; then
         class="open"
     else
         class="closed"
@@ -65,15 +72,15 @@ EOF
 }
 
 usage() {
-    echo "Usage: $0 [icon] {run,drun,windows,options}"
+    echo "Usage: $0 [icon] {run,drun,window,options}"
     exit 1
 }
 
 case "$1" in
-    drun)    rofi-show drun grid;;
-    run)     rofi-show run list;;
-    windows) rofi-show window list;;
-    options) rofi-show options;;
+    drun)    rofi-toggle drun;;
+    run)     rofi-toggle run;;
+    window)  rofi-toggle window;;
+    options) rofi-toggle options;;
     icon)    waybar-icon "$2";;
     *)       usage;;
 esac

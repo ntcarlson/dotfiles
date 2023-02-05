@@ -13,7 +13,7 @@ set {
     $rofi           "$HOME/.config/rofi/scripts/rofi-wrapper.sh"
     $applauncher    "$rofi drun"
     $scriptlauncher "$rofi run"
-    $windowsearch   "$rofi windows"
+    $windowsearch   "$rofi window"
     $optionsmenu    "$rofi options"
 
     $screenshot     grim
