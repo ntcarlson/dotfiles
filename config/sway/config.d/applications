@@ -9,6 +9,7 @@ exec --no-startup-id {
 # Applications used by Sway
 set {
     $term           kitty --single-instance
+    $browser        firefox
 
     $rofi           "$HOME/.config/rofi/scripts/rofi-wrapper.sh"
     $applauncher    "$rofi drun"
@@ -26,6 +27,7 @@ set {
 #--------------------------------- Bindings ----------------------------------#
 bindsym {
     $mod+Return exec $term
+    $mod+t      exec $browser
 
     # Bring up launcher
     $mod+d       exec $applauncher
@@ -51,6 +53,9 @@ for_window {
 
     [class="feh"] floating enable
     [class="Spotify"] move --no-auto-back-and-forth workspace $music
+
+    # Script to control the placement of new firefox windows into tabbed layout
+    [app_id=".*"] exec "$HOME/.config/sway/scripts/firefox-sway-tabs.sh"
 
     [app_id="org.jellyfin.jellyfinmediaplayer"] inhibit_idle fullscreen
 }

@@ -34,10 +34,8 @@ apply-defaults() {
     name="$1"
     width="$(workspace-width "$name")"
 
-    echo $width
     # Tabbed layout by default for small workspaces
     if [ "$width" -le "$tab_width_threshold" ]; then
-        echo test
         swaymsg "layout tabbed"
     fi
 
