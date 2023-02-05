@@ -28,10 +28,6 @@ bindsym {
     $mod+p workspace $steam
     $mod+m workspace $music
 
-    # Relative workspace motion
-    $mod+Ctrl+j workspace next_on_output
-    $mod+Ctrl+k workspace prev_on_output
-
     # Move focused container to workspace
     $mod+Shift+1 exec $ws_script move 1
     $mod+Shift+2 exec $ws_script move 2

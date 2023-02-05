@@ -1,4 +1,7 @@
 #-----------------------------  Window navigation ----------------------------#
+
+set $container_movement "$HOME/.config/sway/scripts/container-movement.sh"
+
 # Controls to navigate inside a workspace
 bindsym {
     # Change focus; both Vim style h,j,k,l and arrow keys work
@@ -20,6 +23,12 @@ bindsym {
     $mod+Shift+Up     move up
     $mod+Shift+l      move right
     $mod+Shift+Right  move right
+
+    # Movement controls that treat tabbed/stacked containers as a single unit
+    $mod+Control+h exec "$container_movement focus left"
+    $mod+Control+j exec "$container_movement focus down"
+    $mod+Control+k exec "$container_movement focus up"
+    $mod+Control+l exec "$container_movement focus right"
 }
 
 # Moving focus wraps to the opposite side within the current workspace
