@@ -13,9 +13,6 @@ output {
     "ICB HDMI1 Unknown" pos 0 -1440
 }
 
-# Use a tabbed layout by default (works well for the small Pixelbook screen)
-workspace_layout tabbed
-
 # Improve touchpad behavior
 input "type:touchpad" {
     accel_profile adaptive

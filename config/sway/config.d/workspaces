@@ -7,37 +7,42 @@ set {
     $music 12:
 }
 
+# Wrapper script that controlling workspaces. It allows for:
+# 1. Per workspace defaults for layout and smart_gap padding
+# 2. Unique set of workspaces per output accessed with the same key bindings
+set $ws_script "$HOME/.config/sway/scripts/per-output-workspace.sh"
+
 # Controls to navigate between workspaces
 bindsym {
     # Switch to workspace
-    $mod+1 workspace number 1
-    $mod+2 workspace number 2
-    $mod+3 workspace number 3
-    $mod+4 workspace number 4
-    $mod+5 workspace number 5
-    $mod+6 workspace number 6
-    $mod+7 workspace number 7
-    $mod+8 workspace number 8
-    $mod+9 workspace number 9
-    $mod+0 workspace number 10
+    $mod+1 exec $ws_script focus 1
+    $mod+2 exec $ws_script focus 2
+    $mod+3 exec $ws_script focus 3
+    $mod+4 exec $ws_script focus 4
+    $mod+5 exec $ws_script focus 5
+    $mod+6 exec $ws_script focus 6
+    $mod+7 exec $ws_script focus 7
+    $mod+8 exec $ws_script focus 8
+    $mod+9 exec $ws_script focus 9
+    $mod+0 exec $ws_script focus 10
     $mod+p workspace $steam
     $mod+m workspace $music
 
     # Relative workspace motion
-    $mod+Ctrl+l workspace next
-    $mod+Ctrl+h workspace prev
+    $mod+Ctrl+j workspace next_on_output
+    $mod+Ctrl+k workspace prev_on_output
 
     # Move focused container to workspace
-    $mod+Shift+1 move container to workspace number 1
-    $mod+Shift+2 move container to workspace number 2
-    $mod+Shift+3 move container to workspace number 3
-    $mod+Shift+4 move container to workspace number 4
-    $mod+Shift+5 move container to workspace number 5
-    $mod+Shift+6 move container to workspace number 6
-    $mod+Shift+7 move container to workspace number 7
-    $mod+Shift+8 move container to workspace number 8
-    $mod+Shift+9 move container to workspace number 9
-    $mod+Shift+0 move container to workspace number 10
+    $mod+Shift+1 exec $ws_script move 1
+    $mod+Shift+2 exec $ws_script move 2
+    $mod+Shift+3 exec $ws_script move 3
+    $mod+Shift+4 exec $ws_script move 4
+    $mod+Shift+5 exec $ws_script move 5
+    $mod+Shift+6 exec $ws_script move 6
+    $mod+Shift+7 exec $ws_script move 7
+    $mod+Shift+8 exec $ws_script move 8
+    $mod+Shift+9 exec $ws_script move 9
+    $mod+Shift+0 exec $ws_script move 10
     $mod+Shift+p move container to workspace $steam
 
     # Move to next free workspace

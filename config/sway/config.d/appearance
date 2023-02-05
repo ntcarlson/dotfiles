@@ -54,6 +54,10 @@ gaps {
     inner 16
     outer 0
 }
+
+# This setting is used to pad single windows on large displays so that they
+# don't occupy the entire width. See scripts/per-output-workspaces.sh
+smart_gaps inverse_outer
 #-----------------------------------------------------------------------------#
 
 #----------------------------- Window appearance -----------------------------#
@@ -80,4 +84,7 @@ font pango:$font_family Bold 12
 title_align center
 titlebar_padding 12
 titlebar_border_thickness $border_width
+
+# Briefly retain urgent border color after focus
+force_display_urgency_hint 1000ms
 #-----------------------------------------------------------------------------#

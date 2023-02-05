@@ -21,6 +21,9 @@ bindsym {
     $mod+Shift+l      move right
     $mod+Shift+Right  move right
 }
+
+# Moving focus wraps to the opposite side within the current workspace
+focus_wrapping workspace
 #-----------------------------------------------------------------------------#
 
 #--------------------------- Container manipulation --------------------------#
