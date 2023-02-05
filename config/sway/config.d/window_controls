@@ -59,11 +59,6 @@ bindsym {
     $mod+Shift+q kill
 }
 
-
-# Hold the mod key to drag and resize floating containers as well as drag
-# and drop tiling windows to change their layout
-floating_modifier $mod
-
 # Special mode to resize window (mouse drag also works)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -82,4 +77,22 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+#-----------------------------------------------------------------------------#
+
+#------------------------------ Mouse controls -------------------------------#
+# Rearrange tiling windows by dragging their titlebars
+tiling_drag enable
+
+# Hold the mod key to drag and resize floating containers as well as drag
+# and drop tiling windows to change their layout
+floating_modifier $mod
+
+# Touchpad gestures to scroll through containers
+bindgesture {
+    swipe:3:left  focus left
+    swipe:3:right focus right
+}
+
+# Close tabs with middle mouse click
+bindsym button2 kill
 #-----------------------------------------------------------------------------#
