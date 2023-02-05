@@ -43,9 +43,9 @@ bindsym {
     # Move to next free workspace
     $mod+equal exec ~/.config/sway/scripts/next_workspace
 
-    # Move focus/window to open workspace on secondary monitor
-    $mod+Tab focus output left
-    $mod+Shift+Tab move container to output left
+    # Move focus/window to secondary monitor regardless of monitor layout
+    $mod+Tab focus output left, focus output up
+    $mod+Shift+Tab move output left, move output up
 }
 
 # Touchpad gestures to scroll through workspaces
