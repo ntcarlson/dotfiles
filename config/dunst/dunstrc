@@ -5,7 +5,6 @@
     transparency = 15
 
     width = 400
-    height = 80
     origin = bottom-right
     offset = 8x8
 
