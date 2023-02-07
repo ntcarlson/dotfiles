@@ -8,6 +8,7 @@ rofi_command=(
     [run]="rofi -show run -theme list"
     [window]="rofi -show window -theme list"
     [options]="bash $SCRIPT_DIR/rofi-options-menu.sh"
+    [games]="bash $SCRIPT_DIR/rofi-game-launcher/open.sh"
 )
 
 rofi-toggle() {
@@ -53,6 +54,10 @@ waybar-icon() {
             icon=""
             tooltip="Window list"
             ;;
+        games)
+            icon=""
+            tooltip="Game launcher"
+            ;;
         options)
             icon=""
             tooltip="Options menu"
@@ -72,15 +77,16 @@ EOF
 }
 
 usage() {
-    echo "Usage: $0 [icon] {run,drun,window,options}"
+    echo "Usage: $0 [icon] {run,drun,window,games,options}"
     exit 1
 }
 
 case "$1" in
-    drun)    rofi-toggle drun;;
-    run)     rofi-toggle run;;
-    window)  rofi-toggle window;;
-    options) rofi-toggle options;;
+    drun)   ;&
+    run)    ;&
+    window) ;&
+    games)  ;&
+    options) rofi-toggle "$1";;
     icon)    waybar-icon "$2";;
     *)       usage;;
 esac
