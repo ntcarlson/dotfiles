@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Wrapper script invoke various Rofi menus with integration into Waybar
+
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 declare -A rofi_command
@@ -11,9 +13,9 @@ rofi_command=(
     [games]="bash $SCRIPT_DIR/rofi-game-launcher/open.sh"
 )
 
+# Toggle the given Rofi menu, first closing any other Rofi menus if necessary
 rofi-toggle() {
     local mode="$1"
-    local theme="$2"
 
     if rofi-is-open "$mode"; then
         killall rofi
@@ -27,6 +29,7 @@ rofi-toggle() {
     fi
 }
 
+# Check if the corresponding Rofi menu is already open
 rofi-is-open() {
     local mode="$1"
     local rofi_pid
@@ -34,10 +37,13 @@ rofi-is-open() {
     test -n "$rofi_pid"
 }
 
+# Signal Waybar to update its Rofi modules.
+# SIGRTMIN+1 corresponds to "signal": 1 in the Waybar config
 waybar-signal() {
     pkill -SIGRTMIN+1 waybar
 }
 
+# Output a JSON object that is used in the Waybar Rofi modules
 waybar-icon() {
     local mode="$1"
     local icon tooltip class
@@ -77,6 +83,7 @@ EOF
 }
 
 usage() {
+    echo "Open the specified Rofi menu"
     echo "Usage: $0 [icon] {run,drun,window,games,options}"
     exit 1
 }
