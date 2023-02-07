@@ -13,10 +13,10 @@ steam-libraries() {
     echo "$STEAM_ROOT"
 
     # Additional library folders are recorded in libraryfolders.vdf
-    libraryfolders=$STEAM_ROOT/steamapps/libraryfolders.vdf
+    local libraryfolders="$STEAM_ROOT/steamapps/libraryfolders.vdf"
     # Match directories listed in libraryfolders.vdf (or at least all strings
     # that look like directories)
-    grep -oP "(?<=\")/.*(?=\")" $libraryfolders
+    grep -oP "(?<=\")/.*(?=\")" "$libraryfolders"
 }
 
 # Generate the contents of a .desktop file for a Steam game.
@@ -59,7 +59,7 @@ update-game-entries() {
         fi
 
         for manifest in "$library"/steamapps/appmanifest_*.acf; do
-            appid=$(basename "$manifest" | tr -dc "[0-9]")
+            appid=$(basename "$manifest" | tr -dc "0-9")
             entry=$APP_PATH/${appid}.desktop
 
             # Don't update existing entries unless doing a full refresh
@@ -72,8 +72,9 @@ update-game-entries() {
             boxart=$STEAM_ROOT/appcache/librarycache/${appid}_library_600x900.jpg
 
             # Search for custom boxart set through the Steam library
-            for boxart_custom in $STEAM_ROOT/userdata/*/config/grid/${appid}p.{png,jpg}; do
-                [ -e $boxart_custom ] && boxart=$boxart_custom
+            boxart_custom_candidates=("$STEAM_ROOT"/userdata/*/config/grid/"${appid}"p.{png,jpg})
+            for boxart_custom in "${boxart_custom_candidates[@]}"; do
+                [ -e "$boxart_custom" ] && boxart="$boxart_custom"
             done
 
             # Filter out non-game entries (e.g. Proton versions or soundtracks) by
@@ -92,4 +93,4 @@ update-game-entries() {
     done
 }
 
-update-game-entries $@
+update-game-entries "$@"

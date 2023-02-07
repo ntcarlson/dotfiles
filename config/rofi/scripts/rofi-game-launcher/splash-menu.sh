@@ -12,9 +12,12 @@ usage() {
 
 appid="$1"
 
+# Populate arrays containing the menu information
 declare -a entries
 declare -A operation icon
 create-menu-entries() {
+    local entry_struct
+    # shellcheck disable=SC2016
     local menu=(
         # Entry              Icon Operation
         '("Play"             ""  "steam steam://rungameid/$appid")'
@@ -26,7 +29,7 @@ create-menu-entries() {
 
     # Create associative arrays out of the fake multidimensional array
     for entry in "${menu[@]}"; do
-        eval entry_struct=${entry[@]}
+        eval entry_struct="${entry[*]}"
         name="${entry_struct[0]}"
         entries+=("$name")
         icon[$name]="${entry_struct[1]}"
@@ -34,24 +37,28 @@ create-menu-entries() {
     done
 }
 
+# Open the Rofi game menu
 rofi-menu() {
     for entry in "${entries[@]}"; do
         echo -e "${icon[$entry]}\t$entry"
     done | rofi -dmenu -theme game-splash-menu
 }
 
+# Execute the command corresponding with the selected menu entry
 rofi-select() {
     local selection="${1#*$'\t'}"
     [ -z "$selection" ] && exit 1
     eval "${operation[$selection]}"
 }
 
+# Get the width of the current workspace
 workspace-width() {
     swaymsg -t get_outputs | jq '.[]
         | select(.focused == true).current_mode.width
     '
 }
 
+# Generate the banner image used as a backdrop in the Rofi menu
 update-banner-image() {
     "$SCRIPT_DIR/banner-image.sh" \
         -w "$(workspace-width)" \
@@ -61,5 +68,4 @@ update-banner-image() {
 
 update-banner-image
 create-menu-entries
-selection="$(rofi-menu)"
-rofi-select "$selection"
+rofi-select "$(rofi-menu)"

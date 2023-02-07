@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
+# Open a Rofi game menu whose entries are all installed Steam games
+
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 GAME_LAUNCHER_CACHE="$HOME/.cache/rofi-game-launcher"
 APP_PATH="$HOME/.local/share/applications/rofi-game-launcher"
 
-
 launcher-open() {
+    # Update entries in the background
     "$SCRIPT_DIR/update-entries.sh" -q &
 
     # Temporarily link then unlink the *.desktop files to the directory
