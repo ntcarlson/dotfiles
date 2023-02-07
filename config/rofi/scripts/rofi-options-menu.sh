@@ -1,38 +1,43 @@
 #!/usr/bin/env bash
 
-DIR=$(dirname $(realpath $0))
+# Open a Rofi options menu to lock the screen, logout, suspend, etc.
 
-items=(
-    # Entry        Icon Operation            Require confirmation
-    '("Lock"       ""  "swaylock"           "false")'
-    '("Logout"     ""  "swaymsg exit"       "true")'
-    '("Suspend"    ""  "systemctl suspend"  "true")'
-    '("Reboot"     ""  "reboot"             "true")'
-    '("Shutdown"   ""  "shutdown now"       "true")'
-    '("Screenshot" ""  "(sleep 0.1; grim)&" "false")'
-)
-
-declare -A operation icon confirm
+# Populate arrays containing the menu information
 declare -a entries
+declare -A operation icon confirm
+create-menu-entries() {
+    local entry_struct
+    local menu=(
+        # Entry        Icon Operation            Require confirmation
+        '("Lock"       ""  "swaylock"           "false")'
+        '("Logout"     ""  "swaymsg exit"       "true")'
+        '("Suspend"    ""  "systemctl suspend"  "true")'
+        '("Reboot"     ""  "reboot"             "true")'
+        '("Shutdown"   ""  "shutdown now"       "true")'
+        '("Screenshot" ""  "(sleep 0.1; grim)&" "false")'
+    )
 
-# Create associative arrays out of the fake multidimensional array
-for item in "${items[@]}"; do
-    eval list=${item[@]}
-    name="${list[0]}"
-    entries+=($name)
-    icon[$name]="${list[1]}"
-    operation[$name]="${list[2]}"
-    confirm[$name]="${list[3]}"
-done
-
-rofi-menu() {
-    for entry in ${entries[@]}; do
-        echo -e "${icon[$entry]}\t $entry"
+    # Create associative arrays out of the fake multidimensional array
+    for entry in "${menu[@]}"; do
+        eval entry_struct="${entry[*]}"
+        name="${entry_struct[0]}"
+        entries+=("$name")
+        icon[$name]="${entry_struct[1]}"
+        operation[$name]="${entry_struct[2]}"
+        confirm[$name]="${entry_struct[3]}"
     done
 }
 
+# Open the Rofi options menu
+rofi-menu() {
+    for entry in "${entries[@]}"; do
+        echo -e "${icon[$entry]}\t$entry"
+    done | rofi -dmenu -theme options_menu
+}
+
+# Execute the command corresponding with the selected menu entry
 rofi-select() {
-    local selection="${1##* }"
+    local selection="${1##*$'\t'}"
     [ -z "$selection" ] && exit 1
     if [ "${confirm[$selection]}" == "true" ]; then
         rofi-confirm "$selection" && eval "${operation[$selection]}"
@@ -41,12 +46,14 @@ rofi-select() {
     fi
 }
 
+# Open a Rofi menu to prompt for confirmation before executing a command
 rofi-confirm() {
     local message="Confirm $1?"
     local options="\t Cancel\n\t Confirm"
     local selection
 
-    selection="$(echo -e "$options" | rofi -dmenu -theme options_menu -mesg "$message" )"
+    selection="$(echo -e "$options" | \
+        rofi -dmenu -theme options_menu -mesg "$message" )"
     if [ "${selection##* }" == "Confirm" ]; then
         return 0
     else
@@ -54,5 +61,5 @@ rofi-confirm() {
     fi
 }
 
-selection="$(rofi-menu | rofi -dmenu -theme options_menu)"
-rofi-select "$selection"
+create-menu-entries
+rofi-select "$(rofi-menu)"
