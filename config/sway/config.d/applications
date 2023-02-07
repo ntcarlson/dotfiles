@@ -51,12 +51,16 @@ for_window {
     [window_type="dialog"] floating enable
     [window_type="menu"] floating enable
 
-    [class="feh"] floating enable
-    [class="Spotify"] move --no-auto-back-and-forth workspace $music
+    [class="Spotify"] border none
+
+    # All Steam windows except the main client are floating
+    [class="Steam"] floating enable, border none
+    [class="Steam" title="^Steam$"] floating disable
 
     # Script to control the placement of new firefox windows into tabbed layout
     [app_id=".*"] exec "$HOME/.config/sway/scripts/firefox-sway-tabs.sh"
 
+    # Idle inhibitors
     [app_id="org.jellyfin.jellyfinmediaplayer"] inhibit_idle fullscreen
 }
 #-----------------------------------------------------------------------------#

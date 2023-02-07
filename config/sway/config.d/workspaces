@@ -1,16 +1,23 @@
 #-------------------------------- Workspaces ---------------------------------#
 
-# Special workspaces
-set {
-    # Stop Waybar from bolding the Steam glyph
-    $steam 11:<span weight="normal"></span>
-    $music 12:
-}
-
 # Wrapper script that controlling workspaces. It allows for:
 # 1. Per workspace defaults for layout and smart_gap padding
 # 2. Unique set of workspaces per output accessed with the same key bindings
 set $ws_script "$HOME/.config/sway/scripts/per-output-workspace.sh"
+exec $ws_script focus 1
+
+# Special workspaces
+set {
+    # Pango markup to stop Waybar from bolding the Steam glyph
+    $steam_ws "<span weight='normal'></span>"
+    $music_ws ""
+}
+
+# Assign applications to their special workspaces
+for_window {
+    [class="Steam"]   exec $ws_script move $steam_ws
+    [class="Spotify"] exec $ws_script move $music_ws
+}
 
 # Controls to navigate between workspaces
 bindsym {
@@ -25,8 +32,8 @@ bindsym {
     $mod+8 exec $ws_script focus 8
     $mod+9 exec $ws_script focus 9
     $mod+0 exec $ws_script focus 10
-    $mod+p workspace $steam
-    $mod+m workspace $music
+    $mod+p exec $ws_script focus $steam_ws
+    $mod+m exec $ws_script focus $music_ws
 
     # Move focused container to workspace
     $mod+Shift+1 exec $ws_script move 1
@@ -39,7 +46,8 @@ bindsym {
     $mod+Shift+8 exec $ws_script move 8
     $mod+Shift+9 exec $ws_script move 9
     $mod+Shift+0 exec $ws_script move 10
-    $mod+Shift+p move container to workspace $steam
+    $mod+Shift+p exec $ws_script move $steam_ws
+    $mod+Shift+m exec $ws_script move $music_ws
 
     # Move to next free workspace
     $mod+equal exec ~/.config/sway/scripts/next_workspace

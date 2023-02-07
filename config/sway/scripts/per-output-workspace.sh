@@ -69,9 +69,9 @@ case "$1" in
         fi
         ;;
     "move")
-        swaymsg "move container to workspace $workspace"
-        swaymsg "workspace --no-auto-back-and-forth $workspace"
+        swaymsg "move --no-auto-back-and-forth workspace $workspace"
         if [ -n "$create_workspace" ]; then
+            swaymsg "workspace --no-auto-back-and-forth $workspace"
             apply-defaults "$workspace"
         fi
         ;;
