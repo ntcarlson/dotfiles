@@ -1,0 +1,36 @@
+#---------------------------- Machine specific tweaks ------------------------#
+# delta is a desktop with an ultrawide display
+
+output "ICB DP Unknown" {
+    mode 3440x1440@100Hz
+    max_render_time 1
+}
+
+gaps inner 32
+
+# Idle behavior
+exec swayidle -w \
+    timeout  600 '$lock-slow' \
+    timeout 1200 'swaymsg "output * power off"' \
+          resume 'swaymsg "output * power on"' \
+    timeout 1800 'systemctl suspend' \
+    before-sleep '$lock'
+
+bindsym {
+    $mod+BackSpace exec $optionsmenu
+    $mod+Pause     exec $lock
+}
+
+bindsym --locked {
+    # Volume control
+    XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+
+    # Media controls
+    XF86AudioPlay exec playerctl play-pause
+    XF86AudioNext exec playerctl next
+    XF86AudioPrev exec playerctl previous
+    XF86AudioStop exec playerctl stop
+}
+#-----------------------------------------------------------------------------#

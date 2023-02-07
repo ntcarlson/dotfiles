@@ -19,8 +19,8 @@ set {
 
     $screenshot     grim
 
-    $lock           swaylock
-    $lock-slow      swaylock --grace 15 --fade-in 10
+    $lock           swaylock --daemonize
+    $lock-slow      swaylock --daemonize --grace 15 --fade-in 10
 }
 #-----------------------------------------------------------------------------#
 
