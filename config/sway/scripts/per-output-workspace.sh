@@ -33,7 +33,7 @@ get-workspace-info() {
 # Gets the width of the current output
 get-output-width() {
     swaymsg -t get_outputs | jq '.[]
-        | select(.focused == true).current_mode.width
+        | select(.focused == true).rect.width
     '
 }
 
@@ -43,7 +43,7 @@ apply-defaults() {
 
     # Tabbed layout by default for small workspaces
     if [ "$width" -le "$tab_width_threshold" ]; then
-        swaymsg "focus parent; split v; layout tabbed; focus child"
+        swaymsg "focus parent; layout tabbed; focus child"
     else 
         swaymsg "focus parent; split h; layout splith; focus child"
     fi
@@ -66,6 +66,7 @@ usage() {
 
 eval "$(get-workspace-info "$2")"
 output_width="$(get-output-width)"
+echo $ws_new
 
 case "$1" in
     "focus")
@@ -77,11 +78,10 @@ case "$1" in
     "move")
         swaymsg "move workspace $ws_new"
         swaymsg "workspace $ws_new"
-        "$SCRIPT_DIR/firefox-sway-tabs.sh"
         if [ "$ws_exists" == "false" ]; then
             apply-defaults "$output_width"
         fi
-        swaymsg "workspace back_and_forth"
+        "$SCRIPT_DIR/firefox-sway-tabs.sh"
         ;;
     *) usage;;
 esac
