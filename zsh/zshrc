@@ -58,6 +58,8 @@ alias vim=nvim
 export MOZ_USE_XINPUT2=1
 export MOZ_ENABLE_WAYLAND=1
 
+alias cdrp='cd "$(realpath .)"'
+
 function zle-line-init zle-keymap-select {
     zle reset-prompt
 }
@@ -66,9 +68,12 @@ zle -N zle-keymap-select
 
 bindkey '^?' backward-delete-char # backspace work after returning from normal mode
 
-bindkey -v "^[[Z" history-substring-search-up
+bindkey -v "^[[Z" undo # Undo tab completion with Shift+Tab
+
 bindkey -v "^[[A" history-substring-search-up
 bindkey -v "^[[B" history-substring-search-down
+bindkey -a "k" history-substring-search-up
+bindkey -a "j" history-substring-search-down
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
