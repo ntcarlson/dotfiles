@@ -1,3 +1,7 @@
+if [ -f /etc/profile ]; then
+    . /etc/profile
+fi
+
 # Theme
 ZSH=/usr/share/oh-my-zsh
 ZSH_CUSTOM="$HOME/dotfiles/zsh"
@@ -45,9 +49,14 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v # vim mode
 export KEYTIMEOUT=1
 
-export VISUAL=vim
-export EDITOR=vim
-export GIT_EDITOR=vim
+export VISUAL=nvim
+export EDITOR=nvim
+export GIT_EDITOR=nvim
+alias vim=nvim
+
+# Set Firefox Wayland variables
+export MOZ_USE_XINPUT2=1
+export MOZ_ENABLE_WAYLAND=1
 
 function zle-line-init zle-keymap-select {
     zle reset-prompt
