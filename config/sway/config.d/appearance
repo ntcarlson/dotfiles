@@ -75,16 +75,55 @@ client.urgent           $bg0   $urgent    $text_dark  $urgent   $urgent
 
 set $border_width 4
 
-# Tiled and floating windows have a titlebar and no border
-default_border normal          $border_width
+# Tiled and floating windows have titlebars
+default_border          normal $border_width
 default_floating_border normal $border_width
-
-# Titlebar appearance. Font size controls the size of the bar
-font pango:$font_family Bold 12
-title_align center
-titlebar_padding 12
-titlebar_border_thickness $border_width
 
 # Briefly retain urgent border color after focus
 force_display_urgency_hint 1000ms
+
+# Titlebar appearance
+set {
+    $titlebar_icon_size 20
+    $titlebar_font_size 12pt
+
+    # Offset is (titlebar_icon_size - titlebar_font_size) / 2
+    $titlebar_font_offset 4pt
+}
+font pango:$font_family Bold $titlebar_icon_size
+title_align left
+titlebar_padding $border_width
+titlebar_border_thickness $border_width
+
+# Titlebar icons. Sway does not have the title_window_icon option from i3
+# so prepending glyphs to the titles of certain applications is used instead.
+# There are significant limitations with this since rules can only apply once
+# per window so dynamically changing the icon won't be possible.
+set {
+    $title <span rise='$titlebar_font_offset' \
+                 size='$titlebar_font_size'> %title</span>
+
+    $sep <span color='$nord0'></span>$title
+
+    $title_firefox     <span background='$nord0' color='$nord12'></span>$sep
+    $title_private     <span background='$nord0' color='$nord15'></span>$sep
+    $title_term        <span background='$nord0' color='$nord4' ></span>$sep
+    $title_thunar      <span background='$nord0' color='$nord13'></span>$sep
+    $title_libreoffice <span background='$nord0' color='$nord7' ></span>$sep
+    $title_pdf         <span background='$nord0' color='$nord14'></span>$sep
+    $title_xwayland    <span background='$nord0' color='$nord4' >X</span>$sep
+}
+
+for_window {
+    [app_id=".*"] title_format $title
+    [app_id="firefox"] {
+        title_format $title_firefox
+        [title="Private Browsing$"] title_format $title_private
+    }
+    [app_id="kitty"]       title_format $title_term
+    [app_id="thunar"]      title_format $title_file
+    [app_id="libreoffice"] title_format $title_libreoffice
+    [app_id="zathura"]     title_format $title_pdf
+    [shell="xwayland"]     title_format $title_xwayland
+}
 #-----------------------------------------------------------------------------#
