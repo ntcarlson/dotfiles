@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+
 # Script to control workspaces for multiple varied monitors
 # (e.g. an 11" internal display with a 34" external monitor)
 # Workspaces have different defaults depending on output geometry
@@ -12,31 +14,38 @@ tab_width_threshold=1800
 # Workspaces will get padded so that single windows do not exceed this width
 max_window_width=2000
 
-focused-output() {
-    swaymsg -t get_outputs | \
-        jq '.[] | select(.focused == true).name' --raw-output
+# Gets get the following workspace information:
+# ws_new: Name of the new workspace
+# ws_exists: Whether or not the new workspace already exists
+# ws_current: The name of the current workspace
+get-workspace-info() {
+    swaymsg -t get_workspaces | jq -r --arg name "$1" '
+        (.[] | select(.focused == true).output) as $ws_output
+        | ($name + "-" + $ws_output + ":" + $name) as $ws_new
+        | (
+            "ws_new=\""     + $ws_new + "\"",
+            "ws_exists=\""  + (contains([{name: $ws_new}]) | tostring) + "\"",
+            "ws_current=\"" + (.[] | select(.focused == true).name) + "\""
+        )
+    '
 }
 
-workspace-exists() {
-    name="$1"
-    swaymsg -t get_workspaces | \
-        jq ".[] | select(.name == \"$name\")" --exit-status \
-        > /dev/null
+# Gets the width of the current output
+get-output-width() {
+    swaymsg -t get_outputs | jq '.[]
+        | select(.focused == true).current_mode.width
+    '
 }
 
-workspace-width() {
-    name="$1"
-    swaymsg -t get_workspaces | \
-        jq ".[] | select(.name == \"$name\").rect.width"
-}
-
+# Apply default settings for a new workspace depending on its size
 apply-defaults() {
-    name="$1"
-    width="$(workspace-width "$name")"
+    width="$1"
 
     # Tabbed layout by default for small workspaces
     if [ "$width" -le "$tab_width_threshold" ]; then
-        swaymsg "layout tabbed"
+        swaymsg "focus parent; split v; layout tabbed; focus child"
+    else 
+        swaymsg "focus parent; split h; layout splith; focus child"
     fi
 
     # Use smart gaps to control the size of windows in large workspaces
@@ -47,6 +56,7 @@ apply-defaults() {
 }
 
 usage() {
+    echo "Wrapper script to control output specific workspaces"
     echo "$0: {focus,move} <workspace>"
     exit 1
 }
@@ -54,26 +64,24 @@ usage() {
 
 [ $# -ne 2 ] && usage
 
-output="$(focused-output)"
-workspace="$2-$output:$2"
-
-if ! workspace-exists "$workspace"; then
-    create_workspace=1
-fi
+eval "$(get-workspace-info "$2")"
+output_width="$(get-output-width)"
 
 case "$1" in
     "focus")
-        swaymsg "workspace $workspace"
-        if [ -n "$create_workspace" ]; then
-            apply-defaults "$workspace"
+        swaymsg "workspace $ws_new"
+        if [ "$ws_exists" == "false" ]; then
+            apply-defaults "$output_width"
         fi
         ;;
     "move")
-        swaymsg "move --no-auto-back-and-forth workspace $workspace"
-        if [ -n "$create_workspace" ]; then
-            swaymsg "workspace --no-auto-back-and-forth $workspace"
-            apply-defaults "$workspace"
+        swaymsg "move workspace $ws_new"
+        swaymsg "workspace $ws_new"
+        "$SCRIPT_DIR/firefox-sway-tabs.sh"
+        if [ "$ws_exists" == "false" ]; then
+            apply-defaults "$output_width"
         fi
+        swaymsg "workspace back_and_forth"
         ;;
     *) usage;;
 esac
