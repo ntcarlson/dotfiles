@@ -8,80 +8,85 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 # * Small screens will use a tabbed layout by default
 # * Large screens will be padded so single windows don't fill the entire output
 
-# Workspaces below this width will get a tabbed layout by default
-tab_width_threshold=1800
-
-# Workspaces will get padded so that single windows do not exceed this width
-max_window_width=2000
-
-# Gets get the following workspace information:
-# ws_new: Name of the new workspace
-# ws_exists: Whether or not the new workspace already exists
-# ws_current: The name of the current workspace
-get-workspace-info() {
-    swaymsg -t get_workspaces | jq -r --arg name "$1" '
-        (.[] | select(.focused == true).output) as $ws_output
-        | ($name + "-" + $ws_output + ":" + $name) as $ws_new
-        | (
-            "ws_new=\""     + $ws_new + "\"",
-            "ws_exists=\""  + (contains([{name: $ws_new}]) | tostring) + "\"",
-            "ws_current=\"" + (.[] | select(.focused == true).name) + "\""
-        )
-    '
-}
-
-# Gets the width of the current output
-get-output-width() {
-    swaymsg -t get_outputs | jq '.[]
-        | select(.focused == true).rect.width
-    '
-}
-
-# Apply default settings for a new workspace depending on its size
-apply-defaults() {
-    width="$1"
-
-    # Tabbed layout by default for small workspaces
-    if [ "$width" -le "$tab_width_threshold" ]; then
-        swaymsg "focus parent; layout tabbed; focus child"
-    else 
-        swaymsg "focus parent; split h; layout splith; focus child"
-    fi
-
-    # Use smart gaps to control the size of windows in large workspaces
-    if [ "$width" -gt "$max_window_width" ]; then
-        smart_gaps=$(( (width - max_window_width)/2 ))
-        swaymsg "gaps horizontal current set $smart_gaps"
-    fi
-}
-
 usage() {
     echo "Wrapper script to control output specific workspaces"
     echo "$0: {focus,move} <workspace>"
     exit 1
 }
 
-
 [ $# -ne 2 ] && usage
 
-eval "$(get-workspace-info "$2")"
-output_width="$(get-output-width)"
-echo $ws_new
+# Workspaces below this width will get a tabbed layout by default
+tab_width_threshold=1800
+
+# Workspaces will get padded so that single windows do not exceed this width
+max_window_width=2200
+
+# Parse the following workspace information:
+# ws_new:     Name of the new workspace
+# ws_current: Name of the current workspace
+# ws_exists:  Flag set if the new workspace already exists
+# ws_tabbed:  Flag set if the workspace should have a default tabbed layout
+# ws_padding: The padding to apply to the workspace
+# con_id:     Container ID of the selected container
+# con_layout: Layout of the currently selected container
+eval $(
+    cat <(swaymsg -t get_workspaces)                 \
+        <(swaymsg -t get_outputs)                    \
+        <(swaymsg -t get_tree)                       \
+        | jq --slurp --raw-output                    \
+            --arg name "$2"                          \
+            --arg _tab_thresh "$tab_width_threshold" \
+            --arg _max_width  "$max_window_width"    \
+    '
+    flatten(1)
+    | (.[] | select(.type == "output"    and .focused)) as $ws_output
+    | (.[] | select(.type == "workspace" and .focused)) as $ws_current
+    | ($name + "-" + $ws_output.name + ":" + $name)     as $ws_new
+    | (.[].nodes? | .. | select(.focused?))             as $focused_con
+    | (contains([{name: $ws_new}]))                     as $ws_exists
+    | ($ws_output.rect.width)                           as $ws_width
+    | ($_tab_thresh | tonumber)                         as $tab_thresh
+    | ($_max_width  | tonumber)                         as $max_width
+    | (
+        "ws_current=\"" + $ws_current.name + "\"",
+        "ws_new=\""     + $ws_new          + "\"",
+        "con_id="     + ($focused_con.id | tostring),
+        "con_layout=" + $focused_con.layout,
+        if $ws_exists               then "ws_exists=1" else empty end,
+        if $ws_width <= $tab_thresh then "ws_tabbed=1" else empty end,
+        if $ws_width > $max_width
+            then "ws_padding=" + (($ws_width - $max_width)/2 | tostring)
+            else "ws_padding=0"
+        end
+    )
+    '
+)
 
 case "$1" in
     "focus")
-        swaymsg "workspace $ws_new"
-        if [ "$ws_exists" == "false" ]; then
-            apply-defaults "$output_width"
+        swaymsg "gaps horizontal $ws_padding; workspace $ws_new"
+        if [ -z "$ws_exists" ] && [ -n "$ws_tabbed" ]; then
+            # Set layout of empty workspace to tabbed
+            swaymsg "focus parent; layout tabbed"
         fi
         ;;
     "move")
-        swaymsg "move workspace $ws_new"
-        swaymsg "workspace $ws_new"
-        if [ "$ws_exists" == "false" ]; then
-            apply-defaults "$output_width"
+        swaymsg "gaps horizontal $ws_padding"
+        if [ -z "$ws_exists" ]; then
+            # If the container we are moving is a single window, first create
+            # a tabbed parent container and the move the parent container.
+            # The new workspace will inherit this tabbed layout.
+            # If the container we are moving is more complicated (like a 
+            # horizontal split) we don't alter it.
+            if [ -n "$ws_tabbed" ] && [ "$con_layout" == "none" ]; then
+                swaymsg "split v; layout tabbed; focus parent"
+            elif [ -z "$ws_tabbed" ] && [ "$con_layout" == "tabbed" ]; then
+                swaymsg "split h; layout splith; focus parent"
+            fi
         fi
-        "$SCRIPT_DIR/firefox-sway-tabs.sh"
+        swaymsg "move workspace $ws_new"
+        "$SCRIPT_DIR/firefox-sway-tabs.sh" "$con_id"
         ;;
     *) usage;;
 esac
