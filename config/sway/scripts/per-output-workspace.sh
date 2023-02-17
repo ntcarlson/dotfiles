@@ -85,7 +85,7 @@ case "$1" in
                 swaymsg "split h; layout splith; focus parent"
             fi
         fi
-        swaymsg "move workspace $ws_new"
+        swaymsg "move --no-auto-back-and-forth workspace $ws_new"
         "$SCRIPT_DIR/firefox-sway-tabs.sh" "$con_id"
         ;;
     *) usage;;

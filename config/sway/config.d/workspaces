@@ -15,8 +15,12 @@ set {
 
 # Assign applications to their special workspaces
 for_window {
-    [class="Steam"]   exec $ws_script move $steam_ws
-    [class="Spotify"] exec $ws_script move $music_ws
+    [class="Steam"]       exec $ws_script move $steam_ws
+    [class="steam_app_*"] exec $ws_script move $steam_ws
+
+    # Spotify using experimental Wayland-native version does not set app_id
+    [title="^Spotify$" app_id="^$"] exec $ws_script move $music_ws
+    [class="Spotify"]               exec $ws_script move $music_ws
 }
 
 # Controls to navigate between workspaces
