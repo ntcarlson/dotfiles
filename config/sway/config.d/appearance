@@ -106,24 +106,34 @@ set {
     $sep <span color='$nord0'></span>$title
 
     $title_firefox     <span background='$nord0' color='$nord12'></span>$sep
-    $title_private     <span background='$nord0' color='$nord15'></span>$sep
+    $title_private     <span background='$nord0' color='$nord15'>󰗹</span>$sep
+    $title_video       <span background='$nord0' color='$nord11'></span>$sep
     $title_term        <span background='$nord0' color='$nord4' ></span>$sep
     $title_thunar      <span background='$nord0' color='$nord13'></span>$sep
     $title_libreoffice <span background='$nord0' color='$nord7' ></span>$sep
     $title_pdf         <span background='$nord0' color='$nord14'></span>$sep
+    $title_ebook       <span background='$nord0' color='$nord8' >󱓷</span>$sep
+    $title_xournal     <span background='$nord0' color='$nord10'></span>$sep
+    $title_spotify     <span background='$nord0' color='$nord14'></span>$sep
+    $title_steam       <span background='$nord0' color='$nord5' ></span>$sep
     $title_xwayland    <span background='$nord0' color='$nord4' >X</span>$sep
 }
 
 for_window {
-    [app_id=".*"] title_format $title
-    [app_id="firefox"] {
-        title_format $title_firefox
-        [title="Private Browsing$"] title_format $title_private
-    }
-    [app_id="kitty"]       title_format $title_term
-    [app_id="thunar"]      title_format $title_file
-    [app_id="libreoffice"] title_format $title_libreoffice
-    [app_id="zathura"]     title_format $title_pdf
-    [shell="xwayland"]     title_format $title_xwayland
+    # Default titles unless otherwise specified
+    [app_id=".*"]      title_format $title
+    [shell="xwayland"] title_format $title_xwayland
+
+    [app_id="firefox" title="Mozilla Firefox$"]    title_format $title_firefox
+    [app_id="firefox" title="Private Browsing$"]   title_format $title_private
+    [app_id="firefox" title="Picture-in-Picture$"] title_format $title_video
+    [app_id="kitty"]              title_format $title_term
+    [app_id="thunar"]             title_format $title_thunar
+    [app_id="libreoffice"]        title_format $title_libreoffice
+    [app_id="zathura"]            title_format $title_pdf
+    [app_id="Foliate"]            title_format $title_ebook
+    [app_id="xournalpp"]          title_format $title_xournal
+    [app_id="^$" title="Spotify"] title_format $title_spotify
+    [class="Steam"]               title_format $title_steam
 }
 #-----------------------------------------------------------------------------#
