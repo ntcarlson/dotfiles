@@ -1,13 +1,19 @@
 #----------------------- Startup and default programs ------------------------#
-# Applications to be launched when Sway starts
-exec --no-startup-id {
-    nm-applet --indicator
-    dunst
-    wlsunset -l 35 -L -107 -t 4000
-}
-
 # Applications used by Sway
 set {
+    # Notification daemon
+    $mako mako --font="$font_family 14" \
+               --text-color="$text_light" \
+               --background-color="$bg0" \
+               --border-color="$accent" \
+               --border-size="$border_width" \
+               --border-radius=12 \
+               --anchor="bottom-right" \
+               --width=400 \
+               --default-timeout=8000 \
+               --layer="overlay" \
+               --max-icon-size=128
+
     $term           kitty --single-instance
     $browser        firefox
 
@@ -21,6 +27,12 @@ set {
 
     $lock           swaylock --daemonize
     $lock-slow      swaylock --daemonize --grace 15 --fade-in 10
+}
+
+# Startup applications
+exec {
+    $mako
+    nm-applet --indicator
 }
 #-----------------------------------------------------------------------------#
 
@@ -62,5 +74,6 @@ for_window {
 
     # Idle inhibitors
     [app_id="org.jellyfin.jellyfinmediaplayer"] inhibit_idle fullscreen
+    [instance="jellyfinmediaplayer"] inhibit_idle fullscreen
 }
 #-----------------------------------------------------------------------------#
