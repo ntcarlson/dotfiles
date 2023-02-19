@@ -84,9 +84,34 @@ EOF
 
 usage() {
     echo "Open the specified Rofi menu"
-    echo "Usage: $0 [icon] {run,drun,window,games,options}"
+    echo "Usage: $0 [options] [icon] {run,drun,window,games,options}"
     exit 1
 }
+
+while getopts "f:b:o:t:a:u:-:" OPT; do
+    if [ "$OPT" == "-" ]; then
+        # Split long argument on = into argument name and value
+        OPT="${OPTARG%%=*}"
+        OPTARG="${OPTARG#*=}"
+    fi
+    case "$OPT" in
+        f | font)               export ROFI_FONT="\"$OPTARG\"";;
+        b | background-color)   export ROFI_BACKGROUND_COLOR="$OPTARG";;
+        o | background-opacity) opacity="$OPTARG";;
+        t | text-color)         export ROFI_TEXT_COLOR="$OPTARG";;
+        a | accent-color)       export ROFI_ACCENT_COLOR="$OPTARG";;
+        u | urgent-color)       export ROFI_URGENT_COLOR="$OPTARG";;
+        ??*) echo "Unknown option --$OPT"; usage;;
+        ?) usage;;
+  esac
+done
+shift $((OPTIND-1))
+
+if [ -n "$opacity" ] && [ -n "$ROFI_BACKGROUND_COLOR" ]; then
+    # Convert opacity as a percentage to the alpha component of RGBA
+    hex_opacity="$(printf "%x" $(echo "255 * ${opacity%\%} / 100" | bc))"
+    export ROFI_BACKGROUND_TRANSPARENT="${ROFI_BACKGROUND_COLOR}${hex_opacity}"
+fi
 
 case "$1" in
     drun)   ;&

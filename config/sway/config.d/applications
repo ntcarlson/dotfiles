@@ -2,7 +2,7 @@
 # Applications used by Sway
 set {
     # Notification daemon
-    $mako mako --font="$font_family 14" \
+    $mako mako --font="$font_family 13" \
                --text-color="$text_light" \
                --background-color="$bg0" \
                --border-color="$accent" \
@@ -14,41 +14,41 @@ set {
                --layer="overlay" \
                --max-icon-size=128
 
+    # Launcher
+    $rofi $HOME/.config/rofi/scripts/rofi-wrapper.sh \
+               --font="$font_family 13" \
+               --text-color="$text_light" \
+               --background-color="$bg0" \
+               --accent-color="$accent" \
+               --urgent-color="$urgent" \
+               --background-opacity="90%"
+
     $term           kitty --single-instance
     $browser        firefox
-
-    $rofi           "$HOME/.config/rofi/scripts/rofi-wrapper.sh"
-    $applauncher    "$rofi drun"
-    $scriptlauncher "$rofi run"
-    $windowsearch   "$rofi window"
-    $optionsmenu    "$rofi options"
-
     $screenshot     grim
-
     $lock           swaylock --daemonize
     $lock-slow      swaylock --daemonize --grace 15 --fade-in 10
 }
 
 # Startup applications
-exec {
-    $mako
+exec_always {
+    killall mako && $mako
     nm-applet --indicator
 }
 #-----------------------------------------------------------------------------#
 
 #--------------------------------- Bindings ----------------------------------#
 bindsym {
-    $mod+Return exec $term
-    $mod+t      exec $browser
+    $mod+Return     exec $term
+    $mod+t          exec $browser
 
-    # Bring up launcher
-    $mod+d       exec $applauncher
-    $mod+shift+d exec $scriptlauncher
+    $mod+d          exec $rofi drun
+    $mod+shift+d    exec $rofi run
+    $mod+grave      exec $rofi window
+    $mod+Backspace  exec $rofi options
 
-    # Search open windows
-    $mod+grave   exec --no-startup-id $windowsearch
-
-    $mod+Print   exec --no-startup-id $screenshot
+    $mod+Pause      exec $lock
+    $mod+Print      exec $screenshot
 }
 #-----------------------------------------------------------------------------#
 

@@ -1,13 +1,17 @@
+// Set colors and font from enviroment variables, with Nord color fallbacks.
+// These environment variables are set when Rofi is invoked through the
+// script scripts/rofi-wrapper.sh
+
 configuration {
-    font:                           "Fira Sans 13";
+    font:                   env(ROFI_FONT, "Fira Sans 13");
 }
 
 * {
-    background-color:               transparent;
-    background:                     #2E3440;
-    background-transparent:         #2E3440F0;
-    text-color:                     #D8DEE9;
-    primary:                        #B48EAD;
-    secondary:                      #3B4252;
-    urgent:                         #BF616A;
+    background-color:       transparent;
+    background:             env(ROFI_BACKGROUND_COLOR,          #2E3440);
+    background-transparent: env(ROFI_BACKGROUND_TRANSPARENT,    #2E3440F0);
+    text-color:             env(ROFI_TEXT_COLOR,                #D8DEE9);
+    primary:                env(ROFI_ACCENT_COLOR,              #B48EAD);
+    secondary:              env(ROFI_SECONDARY_COLOR,           #3B4252);
+    urgent:                 env(ROFI_URGENT_COLOR,              #BF616A);
 }

@@ -48,7 +48,7 @@ exec swayidle -w \
 
 bindsym {
     # Pixelbook's hamburger menu button is mapped to XF86Tools
-    XF86Tools      exec $optionsmenu
+    XF86Tools      exec $rofi options
     $mod+XF86Tools exec $lock
 
     # /etc/systemd/logind.conf is edited to add HandlePowerKey=ignore so Sway

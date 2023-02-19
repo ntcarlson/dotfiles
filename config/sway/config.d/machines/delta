@@ -17,8 +17,6 @@ exec swayidle -w \
     before-sleep '$lock'
 
 bindsym {
-    $mod+BackSpace exec $optionsmenu
-    $mod+Pause     exec $lock
     $mod+g         exec $rofi games
 }
 
