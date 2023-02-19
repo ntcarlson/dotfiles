@@ -23,11 +23,25 @@ set {
                --urgent-color="$urgent" \
                --background-opacity="90%"
 
+    # Lock screen (uses swaylock-effects fork)
+    $swaylock swaylock --daemonize --clock \
+        --font='$font_family' \
+        --indicator --indicator-radius=90 --indicator-thickness=10 \
+        --screenshot --effect-blur="20x3" \
+        --ring{,-ver,-wrong,-clear,-caps-lock}-color="$bg0" \
+        --text{,-ver,-wrong,-clear,-caps-lock}-color="$text_light" \
+        --inside{,-ver,-wrong,-clear,-caps-lock}-color="$bg0" \
+        --line-color="$accent"       --key-hl-color="$accent" \
+        --line-ver-color="$blue1"    --ring-ver-color="$blue1" \
+        --line-wrong-color="$red"    --ring-wrong-color="$red" \
+        --line-clear-color="$orange" --bs-hl-color="$orange" \
+        --separator-color=#00000000
+
+    $lock           "$swaylock"
+    $lock-slow      "$swaylock --grace 15 --fade-in 10"
     $term           kitty --single-instance
     $browser        firefox
     $screenshot     grim
-    $lock           swaylock --daemonize
-    $lock-slow      swaylock --daemonize --grace 15 --fade-in 10
 }
 
 # Startup applications

@@ -8,13 +8,13 @@ declare -A operation icon confirm
 create-menu-entries() {
     local entry_struct
     local menu=(
-        # Entry        Icon Operation            Require confirmation
-        '("Lock"       ""  "swaylock"           "false")'
-        '("Logout"     ""  "swaymsg exit"       "true")'
-        '("Suspend"    ""  "systemctl suspend"  "true")'
-        '("Reboot"     ""  "reboot"             "true")'
-        '("Shutdown"   ""  "shutdown now"       "true")'
-        '("Screenshot" ""  "(sleep 0.1; grim)&" "false")'
+        # Entry        Icon Operation                   Require confirmation
+        '("Lock"       ""  "swaymsg exec \$lock"       "false")'
+        '("Logout"     "󰍃"  "swaymsg exit"              "true")'
+        '("Suspend"    ""  "systemctl suspend"         "true")'
+        '("Reboot"     ""  "reboot"                    "true")'
+        '("Shutdown"   ""  "shutdown now"              "true")'
+        '("Screenshot" ""  "swaymsg exec \$screenshot" "false")'
     )
 
     # Create associative arrays out of the fake multidimensional array
@@ -42,7 +42,7 @@ rofi-select() {
     if [ "${confirm[$selection]}" == "true" ]; then
         rofi-confirm "$selection" && eval "${operation[$selection]}"
     else
-        eval "${operation[$selection]}"
+        eval '${operation[$selection]}'
     fi
 }
 
