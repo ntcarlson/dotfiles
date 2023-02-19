@@ -6,10 +6,10 @@
 }
 
 window#waybar {
-    margin: 0px 0px 0px 0px;
-    background-color: rgba(46, 52, 64, 0.94);
-    border-left: 4px solid #B48EAD;
-    color: #D8DEE9;
+    margin: 0px;
+    background-color: alpha(@theme_bg_color, 0.80);
+    border-left: 4px solid @theme_selected_bg_color;
+    color: @theme_text_color;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -22,7 +22,7 @@ window#waybar {
 #workspaces button {
     padding: 2px 0px;
     margin: 0px 6px;
-    color: #D8DEE9;
+    color: @theme_text_color;
     border: 4px solid transparent;
     border-radius: 8;
 }
@@ -30,12 +30,12 @@ window#waybar {
 /* Visible but not focused workspace (i.e active workspace on unfocused monitor */
 #workspaces button.visible {
     background: rgba(0, 0, 0, 0.2);
-    border: 4px solid #D8DEE9;
+    border: 4px solid @theme_fg_color;
 }
 
 #workspaces button.focused {
     background: rgba(0, 0, 0, 0.2);
-    border: 4px solid #B48EAD;
+    border: 4px solid @theme_selected_bg_color;
 }
 
 #workspaces button:hover {
@@ -45,7 +45,7 @@ window#waybar {
 }
 
 #workspaces button.urgent {
-    border: 4px solid #BF616A;
+    border: 4px solid @warning_color;
 }
 
 #battery,
@@ -58,7 +58,7 @@ window#waybar {
     margin:  0px 0px 12px 4px;
     border-bottom-left-radius: 12;
     border-bottom-right-radius: 12;
-    color: #D8DEE9;
+    color: @theme_text_color;
 }
 
 #battery.glyph,
@@ -75,13 +75,13 @@ window#waybar {
 }
 
 #battery.warning:not(.charging) {
-    background-color: #D08770;
-    color: #2E3440;
+    background-color: @warning_color;
+    color: @theme_selected_fg_color;
 }
 
 #battery.critical:not(.charging) {
-    background-color: #BF616A;
-    color: #2E3440;
+    background-color: @error_color;
+    color: @theme_selected_fg_color;
 }
 
 #tray {
@@ -96,7 +96,7 @@ window#waybar {
     background: rgba(0, 0, 0, 0.2);
     margin: 2px 8px 2px 12px;
     padding: 6px 0px;
-    border: 4px solid #B48EAD;
+    border: 4px solid @theme_selected_bg_color;
     border-radius: 8;
 }
 
@@ -111,7 +111,7 @@ window#waybar {
 #custom-rofi-run.open,
 #custom-rofi-windows.open,
 #custom-rofi-options.open {
-    color: #B48EAD;
+    color: @theme_selected_bg_color;
 }
 
 box.vertical.modules-center {
@@ -119,6 +119,6 @@ box.vertical.modules-center {
     border: 0px solid transparent;
     border-radius: 12;
     margin: 2px 8px 2px 12px;
-    border: 4px solid #B48EAD;
+    border: 4px solid @theme_selected_bg_color;
     border-radius: 8;
 }

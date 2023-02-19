@@ -40,6 +40,7 @@ output * bg ~/.config/sway/wallpapers/current/* fill
 # Set GTK theme
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
+    # Modify GTK theme based on the colors set above
     $HOME/.config/sway/scripts/gtk-theme.sh "$bg0" "$bg1" "$bg2" \
                                             "$text_light" "$text_dark" \
                                             "$accent" "$urgent"
