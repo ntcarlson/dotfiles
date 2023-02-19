@@ -8,9 +8,9 @@ exec $ws_script focus 1
 
 # Special workspaces
 set {
-    # Pango markup to stop Waybar from bolding the Steam glyph
-    $steam_ws "<span weight='normal'></span>"
-    $music_ws ""
+    # Pango markup to stop Waybar from bolding the glyphs
+    $steam_ws "<span weight='normal' size='large'></span>"
+    $music_ws "<span weight='normal' size='large'></span>"
 }
 
 # Assign applications to their special workspaces

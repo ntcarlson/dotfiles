@@ -49,15 +49,15 @@ waybar-icon() {
     local icon tooltip class
     case "$mode" in
         drun)
-            icon=""
+            icon="󰕰"
             tooltip="Application launcher"
             ;;
         run)
-            icon=""
+            icon=""
             tooltip="Run command"
             ;;
         window)
-            icon=""
+            icon=""
             tooltip="Window list"
             ;;
         games)

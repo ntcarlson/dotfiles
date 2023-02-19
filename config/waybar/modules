@@ -16,9 +16,9 @@
         },
     },
     "battery#glyph": {
-        "format-charging": " ",
+        "format-charging": "󰂄",
         "format-plugged": "",
-        "format-icons": ["", "", "", "", ""],
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "format": "{icon}",
 
         "states": {
@@ -35,7 +35,8 @@
         "on-scroll-down": "brightnessctl set 5%-"
     },
     "backlight#glyph": {
-        "format": "",
+        "format-icons": ["󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"],
+        "format": "{icon}",
 
         "smooth-scrolling-threshold": 5.0,
         "on-scroll-up": "brightnessctl set +5%",
@@ -52,11 +53,11 @@
     },
     "pulseaudio#glyph": {
         "format-icons": {
-            "default": ["", "", ""],
-            "headphone": "",
+            "default": ["󰕿", "󰖀", "󰕾", ""],
+            "headphone": "󰋋",
         },
         "format": "{icon}",
-        "format-muted": "",
+        "format-muted": "󰝟",
 
         "smooth-scrolling-threshold": 5.0,
         "scroll-step": 5.0,
@@ -77,7 +78,7 @@
         "today-format": "<b><span color=\"#B48EAD\">{}</span></b>",
     },
     "clock#date-glyph": {
-        "format": "",
+        "format": "",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "today-format": "<b><span color=\"#B48EAD\">{}</span></b>",
     },
