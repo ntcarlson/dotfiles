@@ -40,7 +40,11 @@ output * bg ~/.config/sway/wallpapers/current/* fill
 # Set GTK theme
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
-    gsettings set $gnome-schema gtk-theme Nordic
+    $HOME/.config/sway/scripts/gtk-theme.sh "$bg0" "$bg1" "$bg2" \
+                                            "$text_light" "$text_dark" \
+                                            "$accent" "$urgent"
+
+    gsettings set $gnome-schema gtk-theme Sway
     gsettings set $gnome-schema icon-theme Numix-Circle
     gsettings set $gnome-schema font-name "$font_family Semi-Light 11"
 }
