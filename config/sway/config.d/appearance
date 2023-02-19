@@ -3,33 +3,33 @@ set $font_family Fira Sans
 
 # Nord color scheme
 set {
-    $nord0  #2E3440
-    $nord1  #3B4252
-    $nord2  #434C5E
-    $nord3  #4C566A
-    $nord4  #D8DEE9
-    $nord5  #E5E9F0
-    $nord6  #ECEFF4
-    $nord7  #8FBCBB
-    $nord8  #88C0D0
-    $nord9  #81A1C1
-    $nord10 #5E81AC
-    $nord11 #BF616A
-    $nord12 #D08770
-    $nord13 #EBCB8B
-    $nord14 #A3BE8C
-    $nord15 #B48EAD
+    $dark0      #2E3440
+    $dark1      #3B4252
+    $dark2      #434C5E
+    $dark3      #4C566A
+    $light0     #D8DEE9
+    $light1     #E5E9F0
+    $light2     #ECEFF4
+    $cyan       #8FBCBB
+    $turqoise   #88C0D0
+    $blue0      #81A1C1
+    $blue1      #5E81AC
+    $red        #BF616A
+    $orange     #D08770
+    $yellow     #EBCB8B
+    $green      #A3BE8C
+    $purple     #B48EAD
 }
 
 # Window colors set from the above color scheme
 set {
-    $bg0        $nord0
-    $bg1        $nord1
-    $bg2        $nord3
-    $text_light $nord4
-    $text_dark  $nord0
-    $accent     $nord15
-    $urgent     $nord11
+    $bg0        $dark0
+    $bg1        $dark1
+    $bg2        $dark3
+    $text_light $light0
+    $text_dark  $dark0
+    $accent     $purple
+    $urgent     $red
 }
 #-----------------------------------------------------------------------------#
 
@@ -108,20 +108,20 @@ set {
     $title <span rise='$titlebar_font_offset' \
                  size='$titlebar_font_size'> %title</span>
 
-    $sep <span color='$nord0'></span>$title
+    $sep <span color='$bg0'></span>$title
 
-    $title_firefox     <span background='$nord0' color='$nord12'></span>$sep
-    $title_private     <span background='$nord0' color='$nord15'>󰗹</span>$sep
-    $title_video       <span background='$nord0' color='$nord11'></span>$sep
-    $title_term        <span background='$nord0' color='$nord4' ></span>$sep
-    $title_thunar      <span background='$nord0' color='$nord13'></span>$sep
-    $title_libreoffice <span background='$nord0' color='$nord7' ></span>$sep
-    $title_pdf         <span background='$nord0' color='$nord14'></span>$sep
-    $title_ebook       <span background='$nord0' color='$nord8' >󱓷</span>$sep
-    $title_xournal     <span background='$nord0' color='$nord10'></span>$sep
-    $title_spotify     <span background='$nord0' color='$nord14'></span>$sep
-    $title_steam       <span background='$nord0' color='$nord5' ></span>$sep
-    $title_xwayland    <span background='$nord0' color='$nord4' >X</span>$sep
+    $title_firefox     <span background='$bg0' color='$orange'  ></span>$sep
+    $title_private     <span background='$bg0' color='$purple'  >󰗹</span>$sep
+    $title_video       <span background='$bg0' color='$red'     ></span>$sep
+    $title_term        <span background='$bg0' color='$light0'  ></span>$sep
+    $title_thunar      <span background='$bg0' color='$yellow'  ></span>$sep
+    $title_libreoffice <span background='$bg0' color='$turqoise'></span>$sep
+    $title_pdf         <span background='$bg0' color='$green'   ></span>$sep
+    $title_ebook       <span background='$bg0' color='$cyan'    >󱓷</span>$sep
+    $title_xournal     <span background='$bg0' color='$blue1'   ></span>$sep
+    $title_spotify     <span background='$bg0' color='$green'   ></span>$sep
+    $title_steam       <span background='$bg0' color='$light1'  ></span>$sep
+    $title_xwayland    <span background='$bg0' color='$light0'  >X</span>$sep
 }
 
 for_window {
