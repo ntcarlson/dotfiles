@@ -89,11 +89,11 @@ force_display_urgency_hint 1000ms
 
 # Titlebar appearance
 set {
-    $titlebar_icon_size 20
+    $titlebar_icon_size 16
     $titlebar_font_size 12pt
 
     # Offset is (titlebar_icon_size - titlebar_font_size) / 2
-    $titlebar_font_offset 4pt
+    $titlebar_font_offset 2pt
 }
 font pango:$font_family Bold $titlebar_icon_size
 title_align left
@@ -108,20 +108,20 @@ set {
     $title <span rise='$titlebar_font_offset' \
                  size='$titlebar_font_size'> %title</span>
 
-    $sep <span color='$bg0'></span>$title
+    $sep <span letter_spacing='-2000' color='$bg0'></span>$title
 
-    $title_firefox     <span background='$bg0' color='$orange'  ></span>$sep
-    $title_private     <span background='$bg0' color='$purple'  >󰗹</span>$sep
-    $title_video       <span background='$bg0' color='$red'     ></span>$sep
-    $title_term        <span background='$bg0' color='$light0'  ></span>$sep
-    $title_thunar      <span background='$bg0' color='$yellow'  ></span>$sep
-    $title_libreoffice <span background='$bg0' color='$turqoise'></span>$sep
-    $title_pdf         <span background='$bg0' color='$green'   ></span>$sep
-    $title_ebook       <span background='$bg0' color='$cyan'    >󱓷</span>$sep
-    $title_xournal     <span background='$bg0' color='$blue1'   ></span>$sep
-    $title_spotify     <span background='$bg0' color='$green'   ></span>$sep
-    $title_steam       <span background='$bg0' color='$light1'  ></span>$sep
-    $title_xwayland    <span background='$bg0' color='$light0'  >X</span>$sep
+    $title_firefox     <span background='$bg0' color='$orange'  > </span>$sep
+    $title_private     <span background='$bg0' color='$purple'  >󰗹 </span>$sep
+    $title_video       <span background='$bg0' color='$red'     > </span>$sep
+    $title_term        <span background='$bg0' color='$light0'  > </span>$sep
+    $title_thunar      <span background='$bg0' color='$yellow'  > </span>$sep
+    $title_libreoffice <span background='$bg0' color='$turqoise'> </span>$sep
+    $title_pdf         <span background='$bg0' color='$green'   > </span>$sep
+    $title_ebook       <span background='$bg0' color='$cyan'    >󱓷 </span>$sep
+    $title_xournal     <span background='$bg0' color='$blue1'   > </span>$sep
+    $title_spotify     <span background='$bg0' color='$green'   > </span>$sep
+    $title_steam       <span background='$bg0' color='$light1'  > </span>$sep
+    $title_xwayland    <span background='$bg0' color='$light0'  >X </span>$sep
 }
 
 for_window {
