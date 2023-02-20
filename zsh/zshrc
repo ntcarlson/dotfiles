@@ -54,10 +54,6 @@ export EDITOR=nvim
 export GIT_EDITOR=nvim
 alias vim=nvim
 
-# Set Firefox Wayland variables
-export MOZ_USE_XINPUT2=1
-export MOZ_ENABLE_WAYLAND=1
-
 alias cdrp='cd "$(realpath .)"'
 
 function zle-line-init zle-keymap-select {
