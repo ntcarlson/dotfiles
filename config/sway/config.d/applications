@@ -46,7 +46,8 @@ set {
 
 # Startup applications
 exec_always {
-    killall mako && $mako
+    killall mako
+    $mako
     nm-applet --indicator
 }
 #-----------------------------------------------------------------------------#

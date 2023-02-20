@@ -9,12 +9,15 @@ output "ICB DP Unknown" {
 gaps inner 32
 
 # Idle behavior
-exec_always killall swayidle; swayidle -w \
+exec_always {
+    killall swayidle
+    swayidle -w \
     timeout  600 $lock-slow \
     timeout 1200 'swaymsg "output * power off"' \
           resume 'swaymsg "output * power on"' \
     timeout 1800 'systemctl suspend' \
     before-sleep $lock
+}
 
 bindsym {
     $mod+g         exec $rofi games
