@@ -2,7 +2,6 @@
 
 # Applies Sway colors to an existing GTK theme
 
-echo $0 $* > ~/foobar
 if [ $# -ne 7 ]; then
     echo "Usage: $0 <bg0> <bg1> <bg2> <text_light> <text_dark> <accent> <urgent>"
     exit
