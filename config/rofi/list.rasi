@@ -52,7 +52,7 @@ inputbar {
 }
 
 textbox-prompt {
-    font:                           "Font Awesome 18";
+    font:                           "Symbols Nerd Font Mono 18";
     text-color:                     @background;
     padding:                        0px 4px 0px 2px;
     horizontal-align:               0.5;
