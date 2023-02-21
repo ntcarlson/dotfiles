@@ -2,7 +2,8 @@
 # Applications used by Sway
 set {
     # Notification daemon
-    $mako mako --font="$font_family 13" \
+    $mako killall mako; mako \
+               --font="$font_family 13" \
                --text-color="$text_light" \
                --background-color="$bg0" \
                --border-color="$accent" \
@@ -46,9 +47,7 @@ set {
 
 # Startup applications
 exec_always {
-    killall mako
     $mako
-    nm-applet --indicator
 }
 #-----------------------------------------------------------------------------#
 

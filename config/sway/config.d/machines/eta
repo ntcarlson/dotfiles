@@ -38,9 +38,7 @@ bindswitch tablet:off output eDP-1 transform normal;         \
                       input "type:keyboard" events enabled;
 
 # Idle behavior
-exec_always {
-    killall swayidle
-    swayidle -w \
+set $idle killall swayidle; swayidle -w \
     timeout  30 "$scripts/keyboard-backlight.sh dim" \
          resume "$scripts/keyboard-backlight.sh restore" \
     timeout  540 $lock-slow \
@@ -48,6 +46,11 @@ exec_always {
           resume 'swaymsg "output * power on"' \
     timeout 1200 'systemctl suspend' \
     before-sleep $lock
+
+# System specific startup applications
+exec_always {
+    $idle
+    nm-applet --indicator
 }
 
 bindsym {
