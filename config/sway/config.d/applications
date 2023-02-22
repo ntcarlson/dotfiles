@@ -11,9 +11,11 @@ set {
                --border-radius=12 \
                --anchor="bottom-right" \
                --width=400 \
+               --padding=12 \
                --default-timeout=8000 \
                --layer="overlay" \
-               --max-icon-size=128
+               --max-icon-size=128 \
+               --icon-path="/usr/share/icons/$icon_theme"
 
     # Launcher
     $rofi $HOME/.config/rofi/scripts/rofi-wrapper.sh \
