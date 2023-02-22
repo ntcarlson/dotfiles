@@ -79,6 +79,8 @@ for_window {
     [window_type="dialog"] floating enable
     [window_type="menu"] floating enable
 
+    [app_id="galculator"] floating enable
+
     [class="Spotify"] border none
 
     # All Steam windows except the main client are floating

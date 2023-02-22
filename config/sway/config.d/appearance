@@ -121,6 +121,7 @@ set {
     $title_pdf         <span background='$bg0' color='$green'   > </span>$sep
     $title_ebook       <span background='$bg0' color='$cyan'    >󱓷 </span>$sep
     $title_xournal     <span background='$bg0' color='$blue1'   > </span>$sep
+    $title_calculator  <span background='$bg0' color='$blue0'   > </span>$sep
     $title_spotify     <span background='$bg0' color='$green'   > </span>$sep
     $title_steam       <span background='$bg0' color='$light1'  > </span>$sep
     $title_xwayland    <span background='$bg0' color='$light0'  >X </span>$sep
@@ -140,6 +141,7 @@ for_window {
     [app_id="zathura"]            title_format $title_pdf
     [app_id="Foliate"]            title_format $title_ebook
     [app_id="xournalpp"]          title_format $title_xournal
+    [app_id="galculator"]         title_format $title_calculator
     [app_id="^$" title="Spotify"] title_format $title_spotify
     [class="Steam"]               title_format $title_steam
 }
