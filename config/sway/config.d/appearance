@@ -35,7 +35,8 @@ set {
 
 #------------------------------ Desktop appearance ---------------------------#
 # Set walllpaper
-output * bg ~/.config/sway/wallpapers/current/* fill
+set $wallpapers ~/.config/sway/wallpapers/current/*
+output * bg "$(ls $wallpapers | sort -R | head -n 1)" fill
 
 # Set GTK theme
 set $gnome-schema org.gnome.desktop.interface
